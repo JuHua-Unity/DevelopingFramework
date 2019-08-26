@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Model
 {
     /// <summary>
     /// 支持序列化接口

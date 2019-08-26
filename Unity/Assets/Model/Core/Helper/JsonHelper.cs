@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Model
 {
     /// <summary>
     /// Json辅助器

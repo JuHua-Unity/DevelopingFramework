@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Model
 {
     /// <summary>
     /// 释放接口

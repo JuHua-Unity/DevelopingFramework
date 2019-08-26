@@ -60,6 +60,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Model\Core\Attribute\BaseAttribute.cs" />
+    <Compile Include="Assets\Model\Core\Attribute\ComponentSystemAttribute.cs" />
+    <Compile Include="Assets\Model\Core\Attribute\EventAttribute.cs" />
+    <Compile Include="Assets\Model\Core\Component\Component.cs" />
+    <Compile Include="Assets\Model\Core\Component\ComponentFactory.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\EventSystem.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\IAwakeSystem.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\IDestroySystem.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\IEvent.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\ILateUpdateSystem.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\IStartSystem.cs" />
+    <Compile Include="Assets\Model\Core\EventSystem\IUpdateSystem.cs" />
+    <Compile Include="Assets\Model\Core\Game.cs" />
     <Compile Include="Assets\Model\Core\Helper\JsonHelper.cs" />
     <Compile Include="Assets\Model\Core\Log\Log.cs" />
     <Compile Include="Assets\Model\Core\Object\IDisposable.cs" />

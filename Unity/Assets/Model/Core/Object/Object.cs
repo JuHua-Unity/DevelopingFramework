@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Model
 {
     /// <summary>
     /// 万物皆对象

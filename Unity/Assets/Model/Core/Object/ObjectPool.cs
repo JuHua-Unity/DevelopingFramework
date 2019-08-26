@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Game
+namespace Model
 {
     /// <summary>
     /// 对象池
     /// </summary>
-    internal class ObjectPool : Object
+    internal sealed class ObjectPool : Object
     {
         private readonly Dictionary<Type, Queue<Object>> dictionary = new Dictionary<Type, Queue<Object>>();
 

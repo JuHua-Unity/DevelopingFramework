@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace Model
 {
     /// <summary>
     /// 日志类
@@ -12,25 +12,25 @@
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
-        public static void LogAssertion(object message)
+        public static void Assertion(object message)
         {
             UnityEngine.Debug.LogAssertion(JsonHelper.ToJson(message));
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
-        public static void LogError(object message)
+        public static void Error(object message)
         {
             UnityEngine.Debug.LogError(JsonHelper.ToJson(message));
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
-        public static void LogException(System.Exception exception)
+        public static void Exception(System.Exception exception)
         {
             UnityEngine.Debug.LogException(exception);
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
-        public static void LogWarning(object message)
+        public static void Warning(object message)
         {
             UnityEngine.Debug.LogWarning(JsonHelper.ToJson(message));
         }
