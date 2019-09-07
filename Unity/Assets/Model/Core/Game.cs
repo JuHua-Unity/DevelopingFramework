@@ -4,31 +4,30 @@
     /// GameCore
     /// 框架核心
     /// </summary>
-    internal static class Game
+    public static class Game
     {
-        private static ObjectPool objectPool;
-        private static EventSystem eventSystem;
+        private static Hotfix hotfix;
+        private static Timer timer;
 
-        /// <summary>
-        /// 对象池
-        /// </summary>
-        public static ObjectPool ObjectPool
+        public static Hotfix Hotfix
         {
             get
             {
-                return objectPool ?? (objectPool = new ObjectPool());
+                return hotfix ?? (hotfix = new Hotfix());
             }
         }
 
-        /// <summary>
-        /// 事件系统
-        /// </summary>
-        public static EventSystem EventSystem
+        public static Timer Timer
         {
             get
             {
-                return eventSystem ?? (eventSystem = new EventSystem());
+                return timer ?? (timer = new Timer());
             }
+        }
+
+        public static void Close()
+        {
+
         }
     }
 }

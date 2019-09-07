@@ -8,19 +8,19 @@
         [System.Diagnostics.Conditional("MODELLOG")]
         public static void Debug(object message)
         {
-            UnityEngine.Debug.Log(JsonHelper.ToJson(message));
+            UnityEngine.Debug.Log(LitJson.JsonMapper.ToJson(message));
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
         public static void Assertion(object message)
         {
-            UnityEngine.Debug.LogAssertion(JsonHelper.ToJson(message));
+            UnityEngine.Debug.LogAssertion(LitJson.JsonMapper.ToJson(message));
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
         public static void Error(object message)
         {
-            UnityEngine.Debug.LogError(JsonHelper.ToJson(message));
+            UnityEngine.Debug.LogError(LitJson.JsonMapper.ToJson(message));
         }
 
         [System.Diagnostics.Conditional("MODELLOG")]
@@ -32,7 +32,7 @@
         [System.Diagnostics.Conditional("MODELLOG")]
         public static void Warning(object message)
         {
-            UnityEngine.Debug.LogWarning(JsonHelper.ToJson(message));
+            UnityEngine.Debug.LogWarning(LitJson.JsonMapper.ToJson(message));
         }
     }
 }

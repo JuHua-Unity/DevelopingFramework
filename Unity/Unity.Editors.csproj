@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1066F652-6A89-D1C4-9881-1A19DF7AB80E}</ProjectGuid>
+    <ProjectGuid>{973883F1-D01B-D5BF-592E-229731BDE983}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Unity.Hotfix</AssemblyName>
+    <AssemblyName>Unity.Editors</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2018.3.13f1</UnityVersion>
   </PropertyGroup>
@@ -60,22 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Hotfix\Core\Component\Component.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\ComponentFactory.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\ComponentSystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\Interface\IAwakeSystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\Interface\IDestroySystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\Interface\ILateUpdateSystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\Interface\IStartSystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\Interface\IUpdateSystem.cs" />
-    <Compile Include="Assets\Hotfix\Core\Game.cs" />
-    <Compile Include="Assets\Hotfix\Core\Helper\JsonHelper.cs" />
-    <Compile Include="Assets\Hotfix\Core\Log\Log.cs" />
-    <Compile Include="Assets\Hotfix\Core\Object\IDisposable.cs" />
-    <Compile Include="Assets\Hotfix\Core\Object\ISupportInitialize.cs" />
-    <Compile Include="Assets\Hotfix\Core\Object\Object.cs" />
-    <Compile Include="Assets\Hotfix\Core\Object\ObjectPool.cs" />
-    <Compile Include="Assets\Hotfix\Init.cs" />
+    <Compile Include="Assets\Editor\Core\ReferenceCollector\ReferenceCollectorEditor.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -694,6 +679,10 @@
     <ProjectReference Include="Unity.ThirdParty.csproj">
       <Project>{E15BADD2-3A26-309A-AB0F-DC5B08044350}</Project>
       <Name>Unity.ThirdParty</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Hotfix.csproj">
+      <Project>{1066F652-6A89-D1C4-9881-1A19DF7AB80E}</Project>
+      <Name>Unity.Hotfix</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
