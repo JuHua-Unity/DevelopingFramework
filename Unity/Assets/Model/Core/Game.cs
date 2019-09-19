@@ -8,6 +8,8 @@
     {
         private static Hotfix hotfix;
         private static Timer timer;
+        private static Resources resources;
+        private static Pool pool;
 
         public static Hotfix Hotfix
         {
@@ -25,8 +27,25 @@
             }
         }
 
+        public static Resources Resources
+        {
+            get
+            {
+                return resources ?? (resources = new Resources());
+            }
+        }
+
+        public static Pool Pool
+        {
+            get
+            {
+                return pool ?? (pool = new Pool());
+            }
+        }
+
         public static void Close()
         {
+            Hotfix.OnApplicationQuit?.Invoke();
 
         }
     }

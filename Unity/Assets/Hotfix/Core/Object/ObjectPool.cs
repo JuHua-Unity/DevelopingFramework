@@ -21,20 +21,11 @@ namespace Hotfix
             Object obj = null;
             if (dictionary.TryGetValue(type, out Queue<Object> queue) && queue.Count > 0)
             {
+                obj = queue.Dequeue();
                 if (queue.Count == 0)
                 {
-                    obj = (Object)Activator.CreateInstance(type);
                     RecycleObjectQueue(queue);
                     dictionary.Remove(type);
-                }
-                else
-                {
-                    obj = queue.Dequeue();
-                    if (queue.Count == 0)
-                    {
-                        RecycleObjectQueue(queue);
-                        dictionary.Remove(type);
-                    }
                 }
             }
             else

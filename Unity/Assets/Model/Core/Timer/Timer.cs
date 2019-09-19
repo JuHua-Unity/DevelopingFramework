@@ -33,6 +33,7 @@ namespace Model
                     minTime = k;
                     break;
                 }
+
                 timeOutTime.Enqueue(k);
             }
 
@@ -43,7 +44,8 @@ namespace Model
                 {
                     timeOutTimerIds.Enqueue(timerId);
                 }
-                RecycleLongQueue(timeId[time]);
+
+                Game.Pool.Recycle_Queue_long(timeId[time]);
                 timeId.Remove(time);
             }
 
@@ -54,9 +56,9 @@ namespace Model
                 {
                     continue;
                 }
+
                 Remove(timerId);
                 timer.Tcs?.SetResult();
-                timer.Tcs_T?.SetResult(timer.CancellationTokenSource);
                 RecycleOTimer(timer);
             }
         }
@@ -66,50 +68,27 @@ namespace Model
             timers.Remove(id);
         }
 
-        public Task WaitTillAsync(long tillTime, CancellationTokenSource cancellationTokenSource)
+        public Task WaitTillAsync(long tillTime, CancellationToken cancellationToken)
         {
             TaskCompletionSource tcs = new TaskCompletionSource();
             OTimer timer = GetOTimer();
             timer.Id = GenerateId();
             timer.Time = tillTime;
             timer.Tcs = tcs;
-            timer.CancellationTokenSource = cancellationTokenSource;
 
             timers[timer.Id] = timer;
             if (!timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, GetLongQueue());
+                timeId.Add(timer.Time, Game.Pool.Fetch_Queue_long());
             }
+
             timeId[timer.Time].Enqueue(timer.Id);
             if (timer.Time < minTime)
             {
                 minTime = timer.Time;
             }
-            timer.CancellationTokenSource.Token.Register(() => { Remove(timer.Id); });
-            return tcs.Task;
-        }
 
-        public Task<CancellationTokenSource> WaitTillAsyncWithCancel(long tillTime)
-        {
-            TaskCompletionSource<CancellationTokenSource> tcs = new TaskCompletionSource<CancellationTokenSource>();
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            OTimer timer = GetOTimer();
-            timer.Id = GenerateId();
-            timer.Time = tillTime;
-            timer.Tcs_T = tcs;
-            timer.CancellationTokenSource = cancellationTokenSource;
-
-            timers[timer.Id] = timer;
-            if (!timeId.ContainsKey(timer.Time))
-            {
-                timeId.Add(timer.Time, GetLongQueue());
-            }
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
-            {
-                minTime = timer.Time;
-            }
-            timer.CancellationTokenSource.Token.Register(() => { Remove(timer.Id); });
+            cancellationToken.Register(() => { Remove(timer.Id); });
             return tcs.Task;
         }
 
@@ -124,60 +103,39 @@ namespace Model
             timers[timer.Id] = timer;
             if (!timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, GetLongQueue());
+                timeId.Add(timer.Time, Game.Pool.Fetch_Queue_long());
             }
+
             timeId[timer.Time].Enqueue(timer.Id);
             if (timer.Time < minTime)
             {
                 minTime = timer.Time;
             }
+
             return tcs.Task;
         }
 
-        public Task WaitAsync(long time, CancellationTokenSource cancellationTokenSource)
+        public Task WaitAsync(long time, CancellationToken cancellationToken)
         {
             TaskCompletionSource tcs = new TaskCompletionSource();
             OTimer timer = GetOTimer();
             timer.Id = GenerateId();
             timer.Time = TimeHelper.Now + time;
             timer.Tcs = tcs;
-            timer.CancellationTokenSource = cancellationTokenSource;
 
             timers[timer.Id] = timer;
             if (!timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, GetLongQueue());
+                timeId.Add(timer.Time, Game.Pool.Fetch_Queue_long());
             }
+
             timeId[timer.Time].Enqueue(timer.Id);
             if (timer.Time < minTime)
             {
                 minTime = timer.Time;
             }
-            timer.CancellationTokenSource.Token.Register(() => { Remove(timer.Id); });
-            return tcs.Task;
-        }
 
-        public Task<CancellationTokenSource> WaitAsyncWithCancel(long time)
-        {
-            TaskCompletionSource<CancellationTokenSource> tcs = new TaskCompletionSource<CancellationTokenSource>();
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            OTimer timer = GetOTimer();
-            timer.Id = GenerateId();
-            timer.Time = TimeHelper.Now + time;
-            timer.Tcs_T = tcs;
-            timer.CancellationTokenSource = cancellationTokenSource;
-            timers[timer.Id] = timer;
-
-            if (!timeId.ContainsKey(timer.Time))
-            {
-                timeId.Add(timer.Time, GetLongQueue());
-            }
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
-            {
-                minTime = timer.Time;
-            }
-            timer.CancellationTokenSource.Token.Register(() => { Remove(timer.Id); });
+            cancellationToken.Register(() => { Remove(timer.Id); });
             return tcs.Task;
         }
 
@@ -192,28 +150,23 @@ namespace Model
             timers[timer.Id] = timer;
             if (!timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, GetLongQueue());
+                timeId.Add(timer.Time, Game.Pool.Fetch_Queue_long());
             }
+
             timeId[timer.Time].Enqueue(timer.Id);
             if (timer.Time < minTime)
             {
                 minTime = timer.Time;
             }
+
             return tcs.Task;
         }
 
         #region OTimer
 
-        private static readonly Queue<OTimer> oTimers = new Queue<OTimer>();
-
         private OTimer GetOTimer()
         {
-            if (oTimers.Count > 0)
-            {
-                return oTimers.Dequeue();
-            }
-
-            return new OTimer();
+            return Game.Pool.Fetch<OTimer>();
         }
 
         private void RecycleOTimer(OTimer timer)
@@ -221,11 +174,8 @@ namespace Model
             timer.Id = 0;
             timer.Time = 0;
             timer.Tcs = null;
-            timer.Tcs_T = null;
-            timer.CancellationTokenSource?.Cancel();
-            timer.CancellationTokenSource = null;
 
-            oTimers.Enqueue(timer);
+            Game.Pool.Recycle(timer);
         }
 
         #region 生成ID
@@ -244,29 +194,6 @@ namespace Model
             public long Id { get; set; }
             public long Time { get; set; }
             public TaskCompletionSource Tcs { get; set; }
-            public TaskCompletionSource<CancellationTokenSource> Tcs_T { get; set; }
-            public CancellationTokenSource CancellationTokenSource { get; set; }
-        }
-
-        #endregion
-
-        #region LongQueue
-
-        private readonly Queue<Queue<long>> longQueues = new Queue<Queue<long>>();
-
-        private Queue<long> GetLongQueue()
-        {
-            if (longQueues.Count > 0)
-            {
-                return longQueues.Dequeue();
-            }
-            return new Queue<long>();
-        }
-
-        private void RecycleLongQueue(Queue<long> longQueue)
-        {
-            longQueue.Clear();
-            longQueues.Enqueue(longQueue);
         }
 
         #endregion

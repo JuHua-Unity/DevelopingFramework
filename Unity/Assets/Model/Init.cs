@@ -4,11 +4,22 @@ namespace Model
 {
     internal class Init : MonoBehaviour
     {
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+        }
+
         private void Start()
         {
             Log.Debug("启动游戏...");
 
-            DontDestroyOnLoad(this);
+            GameStart().Coroutine();
+        }
+
+        private async Void GameStart()
+        {
+            GameStart g = new GameStart();
+            await g.GameStartAsync(gameObject.Get<TextAsset>("LaunchOptions"));
         }
 
         private void Update()
@@ -23,7 +34,7 @@ namespace Model
 
         private void OnApplicationQuit()
         {
-            Game.Hotfix.OnApplicationQuit?.Invoke();
+            Game.Close();
         }
 
         private void OnApplicationFocus(bool focus)

@@ -15,17 +15,17 @@
 
         private static void Update()
         {
-
+            Game.ComponentSystem.Update();
         }
 
         private static void LateUpdate()
         {
-
+            Game.ComponentSystem.LateUpdate();
         }
 
         private static void OnApplicationQuit()
         {
-
+            Game.Close();
         }
 
         private static void OnApplicationFocus(bool focus)
