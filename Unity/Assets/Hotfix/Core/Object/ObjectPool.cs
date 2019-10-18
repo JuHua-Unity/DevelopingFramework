@@ -67,6 +67,11 @@ namespace Hotfix
 
         public override void Dispose()
         {
+            if (IsDisposed)
+            {
+                return;
+            }
+
             base.Dispose();
 
             foreach (var kv in dictionary)
@@ -100,6 +105,28 @@ namespace Hotfix
         {
             objQueue.Clear();
             objQueues.Enqueue(objQueue);
+        }
+
+        #endregion
+
+        #region Queue<Queue<long>>
+
+        private readonly Queue<Queue<long>> longQueues = new Queue<Queue<long>>();
+
+        public Queue<long> Fetch_Queue_long()
+        {
+            if (longQueues.Count > 0)
+            {
+                return longQueues.Dequeue();
+            }
+
+            return new Queue<long>();
+        }
+
+        public void Recycle_Queue_long(Queue<long> longQueue)
+        {
+            longQueue.Clear();
+            longQueues.Enqueue(longQueue);
         }
 
         #endregion

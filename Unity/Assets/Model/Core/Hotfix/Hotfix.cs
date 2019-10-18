@@ -37,8 +37,12 @@ namespace Model
             Log.Debug($"当前使用的是ILRuntime模式");
             appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
             var dllStream = new MemoryStream(assBytes);
+#if ILRuntime_Pdb
             var pdbStream = new MemoryStream(pdbBytes);
             appDomain.LoadAssembly(dllStream, pdbStream, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+#else
+            appDomain.LoadAssembly(dllStream);
+#endif
             start = new ILStaticMethod(appDomain, "Hotfix.Init", "Start", 0);
 #else
             Log.Debug($"当前使用的是Mono模式");

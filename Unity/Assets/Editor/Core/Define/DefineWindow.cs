@@ -9,8 +9,7 @@ namespace Editors
     /// </summary>
     internal class DefineWindow : EditorWindow
     {
-        [MenuItem("菜单栏/宏定义/[Setting]")]
-        private static void Open()
+        public static void Open()
         {
             GetWindow<DefineWindow>().Show();
         }
@@ -23,9 +22,12 @@ namespace Editors
         {
             defaultDefines.Clear();
 
-            defaultDefines.Add(new DefineInfo() { Define = "DEFINE_SHOWLOG", Description = "显示Log，打包时会影响初始场景的选择，有log会使用init_debug场景否则init场景", NeedBuild = true });
+            defaultDefines.Add(new DefineInfo() { Define = "DEFINE_SHOWLOG", Description = "打包时会影响初始场景的选择，有log会使用init_debug场景否则init场景", NeedBuild = true });
+            defaultDefines.Add(new DefineInfo() { Define = "DEFINE_MODELLOG", Description = "Model层的Log显示 有则显示", NeedBuild = true });
+            defaultDefines.Add(new DefineInfo() { Define = "DEFINE_HOTFIXLOG", Description = "Hotfix层的Log显示 有则显示", NeedBuild = false });
             defaultDefines.Add(new DefineInfo() { Define = "DEFINE_LOCALRES", Description = "资源模式 有则是本地资源模式 不需要打包AB", NeedBuild = true });
             defaultDefines.Add(new DefineInfo() { Define = "ILRuntime", Description = "热更新模式 打包必须勾选", NeedBuild = true });
+            defaultDefines.Add(new DefineInfo() { Define = "ILRuntime_Pdb", Description = "热更新模式下 有则加载pdb 内存会更大 正式包是不需要这个的", NeedBuild = true });
 
             SetList();
         }

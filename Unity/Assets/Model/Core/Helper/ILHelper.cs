@@ -21,7 +21,7 @@ namespace Model
 
             #region appdomain.DelegateManager.RegisterMethodDelegate
 
-
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
 
             #endregion
 

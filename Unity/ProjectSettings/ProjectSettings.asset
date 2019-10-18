@@ -497,7 +497,7 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   scriptingDefineSymbols:
-    1: ILRuntime;DEFINE_LOCALRES
+    1: ILRuntime;ILRuntime_Pdb;DEFINE_MODELLOG;DEFINE_HOTFIXLOG;DEFINE_LOCALRES
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

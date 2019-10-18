@@ -4,13 +4,15 @@
     {
         public static void Start()
         {
-            Log.Debug("启动热更...");
+            Log.Debug("热更启动完成！");
 
             Model.Game.Hotfix.Update = () => { Update(); };
             Model.Game.Hotfix.LateUpdate = () => { LateUpdate(); };
             Model.Game.Hotfix.OnApplicationQuit = () => { OnApplicationQuit(); };
             Model.Game.Hotfix.OnApplicationFocus = (focus) => { OnApplicationFocus(focus); };
             Model.Game.Hotfix.OnApplicationPause = (pause) => { OnApplicationPause(pause); };
+
+            GameStart.Start();
         }
 
         private static void Update()

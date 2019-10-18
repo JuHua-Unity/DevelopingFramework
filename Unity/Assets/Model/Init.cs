@@ -11,24 +11,28 @@ namespace Model
 
         private void Start()
         {
-            Log.Debug("启动游戏...");
+            Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}");
 
-            GameStart().Coroutine();
-        }
-
-        private async Void GameStart()
-        {
-            GameStart g = new GameStart();
-            await g.GameStartAsync(gameObject.Get<TextAsset>("LaunchOptions"));
+            new GameStart().Start(gameObject.Get<TextAsset>("LaunchOptions"));
         }
 
         private void Update()
         {
+            if (Game.Hotfix == null)
+            {
+                return;
+            }
+
             Game.Hotfix.Update?.Invoke();
         }
 
         private void LateUpdate()
         {
+            if (Game.Hotfix == null)
+            {
+                return;
+            }
+
             Game.Hotfix.LateUpdate?.Invoke();
         }
 
@@ -39,11 +43,21 @@ namespace Model
 
         private void OnApplicationFocus(bool focus)
         {
+            if (Game.Hotfix == null)
+            {
+                return;
+            }
+
             Game.Hotfix.OnApplicationFocus?.Invoke(focus);
         }
 
         private void OnApplicationPause(bool pause)
         {
+            if (Game.Hotfix == null)
+            {
+                return;
+            }
+
             Game.Hotfix.OnApplicationPause?.Invoke(pause);
         }
     }

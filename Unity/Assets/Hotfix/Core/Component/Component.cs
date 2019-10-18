@@ -40,7 +40,7 @@ namespace Hotfix
                 throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.CreateWithParent<K>(this, IsFromPool);
+            K component = ComponentFactory.Create<K>(this, IsFromPool);
             components.Add(type, component);
             return component;
         }
@@ -53,7 +53,7 @@ namespace Hotfix
                 throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.CreateWithParent<K, P1>(this, p1, IsFromPool);
+            K component = ComponentFactory.Create<K, P1>(this, p1, IsFromPool);
             components.Add(type, component);
             return component;
         }
@@ -66,7 +66,7 @@ namespace Hotfix
                 throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.CreateWithParent<K, P1, P2>(this, p1, p2, IsFromPool);
+            K component = ComponentFactory.Create<K, P1, P2>(this, p1, p2, IsFromPool);
             components.Add(type, component);
             return component;
         }
@@ -79,7 +79,7 @@ namespace Hotfix
                 throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.CreateWithParent<K, P1, P2, P3>(this, p1, p2, p3, IsFromPool);
+            K component = ComponentFactory.Create<K, P1, P2, P3>(this, p1, p2, p3, IsFromPool);
             components.Add(type, component);
             return component;
         }
@@ -150,6 +150,26 @@ namespace Hotfix
 
             base.Dispose();
 
+            //先释放所有挂在自己身上的Component
+            foreach (var item in components)
+            {
+#if UNITY_EDITOR
+                item.Value.Dispose();
+#else
+                try
+                {
+                    item.Value.Dispose();
+                }
+                catch (Exception e)
+                {
+                    Log.Exception(e);
+                }
+#endif
+            }
+
+            components.Clear();
+
+            //释放自己
             Game.ComponentSystem.Destroy(this);
             Game.ComponentSystem.Remove(ObjId);
             if (IsFromPool)
