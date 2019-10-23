@@ -105,7 +105,7 @@
         /// <returns>ID</returns>
         private static long GenerateId()
         {
-            return id++;
+            return ++id;
         }
     }
 }

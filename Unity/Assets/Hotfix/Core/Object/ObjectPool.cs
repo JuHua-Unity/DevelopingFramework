@@ -86,6 +86,8 @@ namespace Hotfix
             }
 
             dictionary.Clear();
+            objQueues.Clear();
+            longQueues.Clear();
         }
 
         #region ObjectQueue

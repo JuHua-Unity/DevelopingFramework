@@ -7,6 +7,23 @@ namespace Hotfix
     /// </summary>
     internal static class ComponentFactory
     {
+        private static ComponentPool pool = null;
+        private static ComponentPool Pool
+        {
+            get
+            {
+                if (pool == null)
+                {
+                    pool = new ComponentPool
+                    {
+                        Parent = Game.ComponentRoot
+                    };
+                }
+
+                return pool;
+            }
+        }
+
         public static T Create<T>(Component parent, bool fromPool = true) where T : Component
         {
             CreateComponent(out T component, fromPool);
@@ -39,10 +56,15 @@ namespace Hotfix
             return component;
         }
 
+        public static void Delete(Component component)
+        {
+            Pool.Recycle(component);
+        }
+
         private static void CreateComponent<T>(out T component, bool fromPool = true) where T : Component
         {
             component = fromPool
-                ? Game.ObjectPool.Fetch<T>()
+                ? Pool.Fetch<T>()
                 : (T)Activator.CreateInstance(typeof(T));
             Game.ComponentSystem.Add(component);
         }

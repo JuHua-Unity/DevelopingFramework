@@ -22,19 +22,17 @@ namespace Hotfix
 
             allComponents.Add(component.ObjId, component);
 
-            Type type = component.GetType();
-
-            if (type is IUpdateSystem)
+            if (component is IUpdateSystem)
             {
                 updates.Enqueue(component.ObjId);
             }
 
-            if (type is IStartSystem)
+            if (component is IStartSystem)
             {
                 starts.Enqueue(component.ObjId);
             }
 
-            if (type is ILateUpdateSystem)
+            if (component is ILateUpdateSystem)
             {
                 lateUpdates.Enqueue(component.ObjId);
             }

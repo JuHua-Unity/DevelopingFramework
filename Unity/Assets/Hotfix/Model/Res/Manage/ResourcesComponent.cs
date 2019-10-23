@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Hotfix
 {
-    internal sealed class ResourcesComponent : Component, IDestroySystem
+    internal sealed class ResourcesComponent : Component, IDestroySystem, IAwakeSystem
     {
 #if DEFINE_LOCALRES && UNITY_EDITOR
 #else
@@ -251,7 +251,17 @@ namespace Hotfix
             }
         }
 
-        #region Destroy
+        #region interface
+
+        public void Awake()
+        {
+#if DEFINE_LOCALRES && UNITY_EDITOR
+#else
+            LoadMainAB();
+            assetBundleManifest = (AssetBundleManifest)GetAsset(Define.ABsPathParent, "AssetBundleManifest");
+            UnloadMainAB();
+#endif
+        }
 
         public void Destroy()
         {

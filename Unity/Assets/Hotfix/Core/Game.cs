@@ -8,6 +8,7 @@
     {
         private static ObjectPool objectPool;
         private static ComponentSystem componentSystem;
+        private static ComponentRoot componentRoot;
 
         /// <summary>
         /// 对象池
@@ -28,6 +29,17 @@
             get
             {
                 return componentSystem ?? (componentSystem = new ComponentSystem());
+            }
+        }
+
+        /// <summary>
+        /// 组件的根
+        /// </summary>
+        public static ComponentRoot ComponentRoot
+        {
+            get
+            {
+                return componentRoot ?? (componentRoot = new ComponentRoot());
             }
         }
 

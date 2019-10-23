@@ -119,9 +119,10 @@ namespace Editors
 
         private void ShowBuildInfos()
         {
-            buildsInfo = EditorGUILayout.ToggleLeft("选择或创建打包配置", buildsInfo);
+            buildsInfo = EditorGUILayout.BeginToggleGroup("选择或创建打包配置", buildsInfo);
             if (!buildsInfo)
             {
+                EditorGUILayout.EndToggleGroup();
                 return;
             }
 
@@ -217,6 +218,7 @@ namespace Editors
 
             EditorGUILayout.EndHorizontal();
 
+            EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button("Build"))
             {
@@ -225,6 +227,8 @@ namespace Editors
 
             build_SelectIndex = EditorGUILayout.Popup(build_SelectIndex, build_CopyToLocalType, GUILayout.Width(200));
             EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndToggleGroup();
         }
 
         private void Build()
@@ -348,11 +352,14 @@ namespace Editors
                 var p2 = Path.Combine(toPath, files[i]);
                 File.Copy(p1, p2);
             }
+
+            Debug.Log($"复制{fromPath}到{toPath}完成!");
         }
 
         private void GenerateVersion(ResVersion resVersion, string path)
         {
             IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(resVersion), path);
+            Debug.Log($"生成{path}完成!");
         }
 
         private void Tab(int num = 1)
@@ -399,6 +406,7 @@ namespace Editors
         {
             IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(abs), absConfigPath);
             AssetDatabase.Refresh();
+            Debug.Log($"保存{absConfigPath}完成!");
         }
 
         private void ReadBuildInfo()
@@ -427,6 +435,7 @@ namespace Editors
         {
             IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(builds), buildsConfigPath);
             AssetDatabase.Refresh();
+            Debug.Log($"保存{buildsConfigPath}完成!");
         }
 
         private class BuildInfo
@@ -434,7 +443,11 @@ namespace Editors
             public string OutPath { get; set; }
             public string CopyToLocalPath { get; set; }
             public string CopyToServerPath { get; set; }
-            public BuildAssetBundleOptions Options { get; set; }
+#if UNITY_STANDALONE
+            public BuildAssetBundleOptions Options { get; set; } = BuildAssetBundleOptions.DeterministicAssetBundle;
+#else
+            public BuildAssetBundleOptions Options { get; set; } = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression;
+#endif
             public BuildTarget Target { get; set; }
 
             public string ShowName

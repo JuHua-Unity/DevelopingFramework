@@ -1,5 +1,4 @@
-﻿using Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -47,7 +46,7 @@ namespace Editors
                 string str = EditorUtility.OpenFolderPanel("保存路径：", "../Release/", "");
                 if (!string.IsNullOrEmpty(str))
                 {
-                    string name = "";
+                    string name = "Build";
                     switch (build.Target)
                     {
                         case BuildTarget.StandaloneWindows:
@@ -139,6 +138,8 @@ namespace Editors
             }
 
             BuildPipeline.BuildPlayer(levels, build.OutPath, build.Target, options);
+            AssetDatabase.Refresh();
+            Debug.Log($"打包完成！");
         }
 
         private void ReadInfos()
