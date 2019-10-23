@@ -47,11 +47,7 @@ namespace Editors
 
             if (GUILayout.Button("Save"))
             {
-                using (var sw = new StreamWriter(path))
-                {
-                    sw.Write(LitJson.JsonMapper.ToJson(launchOptions));
-                }
-
+                IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(launchOptions), path);
                 AssetDatabase.Refresh();
             }
         }

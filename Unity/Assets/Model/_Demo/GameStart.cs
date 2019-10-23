@@ -25,7 +25,7 @@ namespace Model
         {
             GameObject go = null;
 
-#if DEFINE_LOCALRES
+#if DEFINE_LOCALRES && UNITY_EDITOR
 
             string[] paths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(fileName);
             if (paths == null || paths.Length < 1)
