@@ -10,7 +10,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, string name, object value, bool changeable, bool staticField, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!changeable);
-            value = EditorGUILayout.IntField(name, (int)value);
+            value = EditorGUILayout.DelayedIntField(name, (int)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -27,7 +27,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, string name, object value, bool changeable, bool staticField, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!changeable);
-            value = EditorGUILayout.FloatField(name, (float)value);
+            value = EditorGUILayout.DelayedFloatField(name, (float)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -78,7 +78,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, string name, object value, bool changeable, bool staticField, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!changeable);
-            value = EditorGUILayout.DoubleField(name, (double)value);
+            value = EditorGUILayout.DelayedDoubleField(name, (double)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }

@@ -1,11 +1,12 @@
-﻿namespace Hotfix
+﻿using System.Collections.Generic;
+
+namespace Hotfix
 {
     internal class TestScene : Component
     {
-        protected bool Test1;
-        public bool Test2;
-        private bool Test3;
-        public static bool Test4;
-        public static char Test5;
+        public int[] array = new int[1] { 1 };
+        public List<int> list = new List<int>() { 1, 1, 1, 1, 1, 2 };
+        public UnityEngine.AnimationCurve animationCurve;
+        public UnityEngine.GameObject GameObject1 = GameRoot;
     }
 }

@@ -15,13 +15,13 @@ namespace Hotfix
             if (GameObject == null)
             {
                 GameObject = new GameObject(ObjName);
-                GameObject.transform.SetParent(Global.transform, false);
+                GameObject.transform.SetParent(GameRoot.transform, false);
                 GameObject.AddComponent<Model.ComponentView>().Component = this;
             }
         }
 #endif
 
-        public static GameObject Global { get; } = GameObject.Find("/GameRoot");
+        public static GameObject GameRoot { get; } = GameObject.Find("/GameRoot");
 #if UNITY_EDITOR
         public GameObject GameObject { get; private set; } = null;
 #endif
@@ -39,7 +39,7 @@ namespace Hotfix
 #if UNITY_EDITOR
                 if (parent == null)
                 {
-                    GameObject.transform.SetParent(Global.transform, false);
+                    GameObject.transform.SetParent(GameRoot.transform, false);
                 }
                 else
                 {

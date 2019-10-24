@@ -78,5 +78,10 @@ namespace Editors
 
             return value;
         }
+
+        public static void NullShow(string name)
+        {
+            EditorGUILayout.LabelField(name, "null");
+        }
     }
 }

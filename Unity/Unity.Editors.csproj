@@ -69,7 +69,9 @@
     <Compile Include="Assets\Editor\ComponentView\ComponentViewDrawerAttribute.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewEditor.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewHelper.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\EnumDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\StringDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\UnityEngineDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\ValueTypeDrawers.cs" />
     <Compile Include="Assets\Editor\ComponentView\IComponentViewDrawer.cs" />
     <Compile Include="Assets\Editor\Define\DefineWindow.cs" />
