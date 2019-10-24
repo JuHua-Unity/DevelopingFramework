@@ -1,5 +1,5 @@
-﻿#if UNITY_EDITOR
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -8,8 +8,31 @@ namespace Editors
 {
     internal static class ComponentViewHelper
     {
+        private static readonly List<IComponentViewDrawer> drawers = null;
+
+        static ComponentViewHelper()
+        {
+            drawers = new List<IComponentViewDrawer>();
+            Assembly assembly = typeof(ComponentViewHelper).Assembly;
+            foreach (Type type in assembly.GetTypes())
+            {
+                if (!type.IsDefined(typeof(ComponentViewDrawerAttribute)))
+                {
+                    continue;
+                }
+
+                IComponentViewDrawer drawer = (IComponentViewDrawer)Activator.CreateInstance(type);
+                drawers.Add(drawer);
+            }
+        }
+
         public static void Draw(object obj)
         {
+            if (drawers == null || drawers.Count < 1)
+            {
+                return;
+            }
+
             EditorGUILayout.BeginVertical();
 
             FieldInfo[] filedInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
@@ -27,14 +50,14 @@ namespace Editors
                 }
 
                 object value = field.GetValue(obj);
-                value = GetNewValue(type, field, value);
+                value = DrawAndGetNewValue(type, field, value);
                 field.SetValue(obj, value);
             }
 
             EditorGUILayout.EndVertical();
         }
 
-        private static object GetNewValue(Type type, FieldInfo field, object value)
+        private static object DrawAndGetNewValue(Type type, FieldInfo field, object value)
         {
             bool changeable = field.IsPublic;
             bool staticField = field.IsStatic;
@@ -44,116 +67,16 @@ namespace Editors
                 name = $"Static:{name}";
             }
 
-            EditorGUI.BeginDisabledGroup(!changeable);
-            if (type == typeof(int))
+            for (int i = 0; i < drawers.Count; i++)
             {
-                var v = (int)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                int.TryParse(str, out v);
-                value = v;
+                if (drawers[i].TypeEquals(type))
+                {
+                    value = drawers[i].DrawAndGetNewValue(type, name, value, changeable, staticField, field);
+                    return value;
+                }
             }
 
-            if (type == typeof(float))
-            {
-                var v = (float)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                float.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(bool))
-            {
-                value = EditorGUILayout.Toggle(name, (bool)value);
-            }
-
-            if (type == typeof(long))
-            {
-                var v = (long)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                long.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(double))
-            {
-                var v = (double)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                double.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(byte))
-            {
-                var v = (byte)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                byte.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(char))
-            {
-                var v = (char)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                char.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(decimal))
-            {
-                var v = (decimal)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                decimal.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(sbyte))
-            {
-                var v = (sbyte)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                sbyte.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(short))
-            {
-                var v = (short)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                short.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(uint))
-            {
-                var v = (uint)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                uint.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(ulong))
-            {
-                var v = (ulong)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                ulong.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(ushort))
-            {
-                var v = (ushort)value;
-                string str = EditorGUILayout.TextField(name, v.ToString());
-                ushort.TryParse(str, out v);
-                value = v;
-            }
-
-            if (type == typeof(string))
-            {
-                value = EditorGUILayout.TextField(name, (string)value);
-            }
-
-            EditorGUI.EndDisabledGroup();
             return value;
         }
     }
 }
-#endif

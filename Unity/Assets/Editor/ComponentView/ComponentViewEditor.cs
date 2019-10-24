@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using ILRuntime.Runtime.Intepreter;
+﻿using ILRuntime.Runtime.Intepreter;
 using Model;
 using UnityEditor;
 
@@ -21,4 +20,3 @@ namespace Editors
         }
     }
 }
-#endif
