@@ -12,11 +12,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.DelayedIntField(draw.FieldName, (int)value);
+                value = EditorGUILayout.DelayedIntField(draw.ShowName, (int)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.DelayedIntField((int)value);
             }
@@ -24,7 +24,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.DelayedIntField((int)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -47,11 +47,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.DelayedFloatField(draw.FieldName, (float)value);
+                value = EditorGUILayout.DelayedFloatField(draw.ShowName, (float)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.DelayedFloatField((float)value);
             }
@@ -59,7 +59,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.DelayedFloatField((float)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -82,11 +82,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.Toggle(draw.FieldName, (bool)value);
+                value = EditorGUILayout.Toggle(draw.ShowName, (bool)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.Toggle((bool)value);
             }
@@ -94,7 +94,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.Toggle((bool)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -117,11 +117,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.LongField(draw.FieldName, (long)value);
+                value = EditorGUILayout.LongField(draw.ShowName, (long)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.LongField((long)value);
             }
@@ -129,7 +129,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.LongField((long)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -152,11 +152,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.DelayedDoubleField(draw.FieldName, (double)value);
+                value = EditorGUILayout.DelayedDoubleField(draw.ShowName, (double)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.DelayedDoubleField((double)value);
             }
@@ -164,7 +164,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.DelayedDoubleField((double)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -189,11 +189,11 @@ namespace Editors
 
             var v = (byte)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -201,7 +201,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -228,11 +228,11 @@ namespace Editors
 
             var v = (char)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -240,7 +240,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -267,11 +267,11 @@ namespace Editors
 
             var v = (decimal)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -279,7 +279,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -306,11 +306,11 @@ namespace Editors
 
             var v = (sbyte)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -318,7 +318,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -345,11 +345,11 @@ namespace Editors
 
             var v = (short)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -357,7 +357,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -384,11 +384,11 @@ namespace Editors
 
             var v = (uint)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -396,7 +396,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -423,11 +423,11 @@ namespace Editors
 
             var v = (ulong)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -435,7 +435,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();
@@ -462,11 +462,11 @@ namespace Editors
 
             var v = (ushort)value;
             string str = v.ToString();
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                str = EditorGUILayout.DelayedTextField(draw.FieldName, str);
+                str = EditorGUILayout.DelayedTextField(draw.ShowName, str);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 str = EditorGUILayout.DelayedTextField(str);
             }
@@ -474,7 +474,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 str = EditorGUILayout.DelayedTextField(str);
 
                 EditorGUILayout.EndHorizontal();

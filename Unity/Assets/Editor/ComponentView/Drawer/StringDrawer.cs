@@ -12,11 +12,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.DelayedTextField(draw.FieldName, (string)value);
+                value = EditorGUILayout.DelayedTextField(draw.ShowName, (string)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.DelayedTextField((string)value);
             }
@@ -24,7 +24,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.DelayedTextField((string)value);
 
                 EditorGUILayout.EndHorizontal();

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Editors
 {
     [ComponentViewDrawer]
-    internal class EnumerableDrawer : IComponentViewDrawer
+    internal class IListDrawer : IComponentViewDrawer
     {
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
@@ -15,14 +15,14 @@ namespace Editors
 
             if (value == null)
             {
-                ComponentViewHelper.ShowNull(draw.FieldName);
+                ComponentViewHelper.ShowNull(draw.ShowName);
             }
             else
             {
                 var v = (IList)value;
-                bool fold = ComponentViewHelper.GetAndAddFieldShow_Fold(field);
-                fold = EditorGUILayout.Foldout(fold, draw.FieldName);
-                ComponentViewHelper.SetAndAddFieldShow_Fold(field, fold);
+                bool fold = ComponentViewHelper.GetAndAddFieldShow_Fold(draw.FieldName);
+                fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
+                ComponentViewHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
                 if (fold)
                 {
                     int count = v.Count;
@@ -50,22 +50,11 @@ namespace Editors
                         {
                             if (count_T > 0)
                             {
-                                Debug.Log($"Add:{v[count_T - 1]}");
                                 v.Add(v[count_T - 1]);
                             }
                             else
                             {
-                                try
-                                {
-                                    Type t = (v.GetType().GetMember("Item")[0] as PropertyInfo).PropertyType;
-                                    object o = t.IsValueType ? Activator.CreateInstance(t) : null;
-                                    Debug.Log($"Add:{o}");
-                                    v.Add(o);
-                                }
-                                catch (Exception e)
-                                {
-                                    Debug.LogException(e);
-                                }
+                                AddOne(ref v);
                             }
                         }
 
@@ -80,7 +69,11 @@ namespace Editors
                         EditorGUILayout.BeginHorizontal();
                         ComponentViewHelper.Tab();
                         EditorGUILayout.LabelField("Element:", GUILayout.Width(60));
-                        v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo() { Changeable = true, FieldName = $"{i}", FieldNameWidth = len * 10, IsStatic = false }, field);
+
+                        EditorGUILayout.BeginVertical();
+                        v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo() { Changeable = true, ShowName = $"{i}", ShowNameWidth = len * 10, IsStatic = false, FieldName = field.Name + $"_{i}" }, field);
+                        EditorGUILayout.EndVertical();
+
                         if (!v.IsFixedSize)
                         {
                             if (GUILayout.Button("x", GUILayout.Width(20)))
@@ -106,7 +99,7 @@ namespace Editors
                             }
                             else
                             {
-                                v.Add(v.GetEnumerator().Current);
+                                AddOne(ref v);
                             }
                         }
                         EditorGUILayout.EndHorizontal();
@@ -120,6 +113,29 @@ namespace Editors
 
             EditorGUI.EndDisabledGroup();
             return value;
+        }
+
+        private void AddOne(ref IList v)
+        {
+            try
+            {
+                Type t = (v.GetType().GetMember("Item")[0] as PropertyInfo).PropertyType;
+                object o = null;
+                if (t == typeof(string))
+                {
+                    o = string.Empty;
+                }
+                else
+                {
+                    o = Activator.CreateInstance(t);
+                }
+
+                v.Add(o);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         public bool TypeEquals(Type type)

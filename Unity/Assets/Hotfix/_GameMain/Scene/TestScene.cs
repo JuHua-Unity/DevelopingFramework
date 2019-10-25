@@ -85,11 +85,48 @@ namespace Hotfix
         private static TestStruct field16_3;
         public static TestStruct field16_4;
 
+        private TestClass field17_1;
+        public TestClass field17_2;
+        private static TestClass field17_3;
+        public static TestClass field17_4;
 
-        public int[] array = new int[1] { 1 };
-        public List<int> list = new List<int>() { 1, 2, 3, 4, 5, 6 };
-        public UnityEngine.AnimationCurve animationCurve;
-        public UnityEngine.GameObject GameObject1 = GameRoot;
+        private TestClass field18_1 = new TestClass();
+        public TestClass field18_2 = new TestClass();
+        private static TestClass field18_3 = new TestClass();
+        public static TestClass field18_4 = new TestClass();
+
+        private ITestInterface field19_1;
+        public ITestInterface field19_2;
+        private static ITestInterface field19_3;
+        public static ITestInterface field19_4;
+
+        private ITestInterface field20_1 = new TestInterface1();
+        public ITestInterface field20_2 = new TestInterface1();
+        private static ITestInterface field20_3 = new TestInterface1();
+        public static ITestInterface field20_4 = new TestInterface1();
+
+        private Testdelegate field21_1 = new Testdelegate(TestdelegateMethod);
+        public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
+        private static Testdelegate field21_3 = new Testdelegate(TestdelegateMethod);
+        public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
+        private static void TestdelegateMethod() { }
+
+        private List<int> field22_5;
+
+        private List<int> field22_1 = new List<int>();
+        public List<int> field22_2 = new List<int>();
+        private static List<int> field22_3 = new List<int>();
+        public static List<int> field22_4 = new List<int>();
+
+        private List<string> field23_1 = new List<string>();
+        public List<string> field23_2 = new List<string>();
+        private static List<string> field23_3 = new List<string>();
+        public static List<string> field23_4 = new List<string>();
+
+        private List<TestClass> field24_1 = new List<TestClass>();
+        public List<TestClass> field24_2 = new List<TestClass>();
+        private static List<TestClass> field24_3 = new List<TestClass>();
+        public static List<TestClass> field24_4 = new List<TestClass>();
     }
 
     public enum TestEnum1
@@ -112,4 +149,46 @@ namespace Hotfix
         public int Field1;
         public string Field2;
     }
+
+    public class TestClass
+    {
+        public int Field1;
+        public string Field2;
+        public int Field3 { get; set; }
+        public string Field4 { get; set; }
+    }
+
+    public interface ITestInterface
+    {
+        int Field1 { get; }
+        string Field2 { get; }
+        void Method1();
+        int Method2();
+        string Method3();
+    }
+
+    public class TestInterface1 : ITestInterface
+    {
+        public int Field;
+
+        public int Field1 => 10;
+
+        public string Field2 => "10";
+
+        public void Method1()
+        {
+        }
+
+        public int Method2()
+        {
+            return 0;
+        }
+
+        public string Method3()
+        {
+            return "";
+        }
+    }
+
+    public delegate void Testdelegate();
 }

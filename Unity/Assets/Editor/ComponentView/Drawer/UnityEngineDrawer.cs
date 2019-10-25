@@ -12,11 +12,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.ObjectField(draw.FieldName, (UnityEngine.Object)value, type, true);
+                value = EditorGUILayout.ObjectField(draw.ShowName, (UnityEngine.Object)value, type, true);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.ObjectField((UnityEngine.Object)value, type, true);
             }
@@ -24,7 +24,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.ObjectField((UnityEngine.Object)value, type, true);
 
                 EditorGUILayout.EndHorizontal();
@@ -56,7 +56,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector2Field(draw.FieldName, (Vector2)value);
+            value = EditorGUILayout.Vector2Field(draw.ShowName, (Vector2)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -73,7 +73,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector3Field(draw.FieldName, (Vector3)value);
+            value = EditorGUILayout.Vector3Field(draw.ShowName, (Vector3)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -90,7 +90,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector4Field(draw.FieldName, (Vector4)value);
+            value = EditorGUILayout.Vector4Field(draw.ShowName, (Vector4)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -107,7 +107,7 @@ namespace Editors
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.RectField(draw.FieldName, (Rect)value);
+            value = EditorGUILayout.RectField(draw.ShowName, (Rect)value);
             EditorGUI.EndDisabledGroup();
             return value;
         }
@@ -125,11 +125,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.BoundsField(draw.FieldName, (Bounds)value);
+                value = EditorGUILayout.BoundsField(draw.ShowName, (Bounds)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.BoundsField((Bounds)value);
             }
@@ -137,7 +137,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.BoundsField((Bounds)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -160,11 +160,11 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
-                value = EditorGUILayout.ColorField(draw.FieldName, (Color)value);
+                value = EditorGUILayout.ColorField(draw.ShowName, (Color)value);
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 value = EditorGUILayout.ColorField((Color)value);
             }
@@ -172,7 +172,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 value = EditorGUILayout.ColorField((Color)value);
 
                 EditorGUILayout.EndHorizontal();
@@ -195,22 +195,22 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {
-                    value = EditorGUILayout.CurveField(draw.FieldName, (AnimationCurve)value);
+                    value = EditorGUILayout.CurveField(draw.ShowName, (AnimationCurve)value);
                 }
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {
@@ -221,10 +221,10 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {
@@ -251,22 +251,22 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {
-                    value = EditorGUILayout.GradientField(draw.FieldName, (Gradient)value);
+                    value = EditorGUILayout.GradientField(draw.ShowName, (Gradient)value);
                 }
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {
@@ -277,10 +277,10 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.FieldName);
+                    ComponentViewHelper.ShowNull(draw.ShowName);
                 }
                 else
                 {

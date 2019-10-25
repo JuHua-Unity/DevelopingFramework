@@ -12,18 +12,18 @@ namespace Editors
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
 
-            if (draw.FieldNameWidth < 0)
+            if (draw.ShowNameWidth < 0)
             {
                 if (type.IsDefined(typeof(FlagsAttribute), false))
                 {
-                    value = EditorGUILayout.EnumFlagsField(draw.FieldName, (Enum)value);
+                    value = EditorGUILayout.EnumFlagsField(draw.ShowName, (Enum)value);
                 }
                 else
                 {
-                    value = EditorGUILayout.EnumPopup(draw.FieldName, (Enum)value);
+                    value = EditorGUILayout.EnumPopup(draw.ShowName, (Enum)value);
                 }
             }
-            else if (draw.FieldNameWidth == 0)
+            else if (draw.ShowNameWidth == 0)
             {
                 if (type.IsDefined(typeof(FlagsAttribute), false))
                 {
@@ -38,7 +38,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
 
-                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (type.IsDefined(typeof(FlagsAttribute), false))
                 {
                     value = EditorGUILayout.EnumFlagsField((Enum)value);

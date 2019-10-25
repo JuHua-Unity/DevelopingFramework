@@ -33,28 +33,31 @@ namespace Editors
                 return;
             }
 
-            EditorGUILayout.BeginVertical();
-
             FieldInfo[] filedInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            foreach (FieldInfo field in filedInfos)
+            if (filedInfos.Length > 0)
             {
-                Type type = field.FieldType;
-                if (type.IsDefined(typeof(HideInInspector), false))
+                EditorGUILayout.BeginVertical();
+
+                foreach (FieldInfo field in filedInfos)
                 {
-                    continue;
+                    Type type = field.FieldType;
+                    if (type.IsDefined(typeof(HideInInspector), false))
+                    {
+                        continue;
+                    }
+
+                    if (field.IsDefined(typeof(HideInInspector), false))
+                    {
+                        continue;
+                    }
+
+                    object value = field.GetValue(obj);
+                    value = DrawAndGetNewValue(type, field, value);
+                    field.SetValue(obj, value);
                 }
 
-                if (field.IsDefined(typeof(HideInInspector), false))
-                {
-                    continue;
-                }
-
-                object value = field.GetValue(obj);
-                value = DrawAndGetNewValue(type, field, value);
-                field.SetValue(obj, value);
+                EditorGUILayout.EndVertical();
             }
-
-            EditorGUILayout.EndVertical();
         }
 
         private static object DrawAndGetNewValue(Type type, FieldInfo field, object value)
@@ -67,11 +70,14 @@ namespace Editors
                 name = $"Static:{name}";
             }
 
+            //属性会带这个字符
+            name = name.Replace("k__BackingField", "");
+
             for (int i = 0; i < drawers.Count; i++)
             {
                 if (drawers[i].TypeEquals(type))
                 {
-                    value = drawers[i].DrawAndGetNewValue(type, value, new DrawInfo() { Changeable = changeable, FieldName = name, FieldNameWidth = -1, IsStatic = staticField }, field);
+                    value = drawers[i].DrawAndGetNewValue(type, value, new DrawInfo() { Changeable = changeable, ShowName = name, ShowNameWidth = -1, IsStatic = staticField, FieldName = field.Name }, field);
                     return value;
                 }
             }
@@ -93,7 +99,7 @@ namespace Editors
                 }
             }
 
-            ShowUnrecognized(draw.FieldName);
+            ShowUnrecognized(draw.ShowName);
             return value;
         }
 
@@ -114,26 +120,26 @@ namespace Editors
 
         #region FieldShow
 
-        private static readonly Dictionary<FieldInfo, FieldShow> fieldShows = new Dictionary<FieldInfo, FieldShow>();
+        private static readonly Dictionary<string, FieldShow> fieldShows = new Dictionary<string, FieldShow>();
 
-        public static bool GetAndAddFieldShow_Fold(FieldInfo field)
+        public static bool GetAndAddFieldShow_Fold(string fieldName)
         {
-            if (!fieldShows.ContainsKey(field))
+            if (!fieldShows.ContainsKey(fieldName))
             {
-                fieldShows.Add(field, new FieldShow() { Fold = false });
+                fieldShows.Add(fieldName, new FieldShow() { Fold = false });
             }
 
-            return fieldShows[field].Fold;
+            return fieldShows[fieldName].Fold;
         }
 
-        public static void SetAndAddFieldShow_Fold(FieldInfo field, bool fold)
+        public static void SetAndAddFieldShow_Fold(string fieldName, bool fold)
         {
-            if (!fieldShows.ContainsKey(field))
+            if (!fieldShows.ContainsKey(fieldName))
             {
-                fieldShows.Add(field, new FieldShow() { Fold = false });
+                fieldShows.Add(fieldName, new FieldShow() { Fold = false });
             }
 
-            fieldShows[field] = new FieldShow() { Fold = fold };
+            fieldShows[fieldName] = new FieldShow() { Fold = fold };
         }
 
         private struct FieldShow
@@ -152,6 +158,11 @@ namespace Editors
         /// <summary>
         /// 字段显示名字
         /// </summary>
+        public string ShowName;
+
+        /// <summary>
+        /// 字段名字
+        /// </summary>
         public string FieldName;
 
         /// <summary>
@@ -160,7 +171,7 @@ namespace Editors
         /// 0 不显示
         /// >0 按宽度显示
         /// </summary>
-        public int FieldNameWidth;
+        public int ShowNameWidth;
 
         /// <summary>
         /// 是否可以修改
