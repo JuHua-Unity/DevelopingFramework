@@ -9,6 +9,7 @@ namespace Editors
     internal static class ComponentViewHelper
     {
         private static readonly List<IComponentViewDrawer> drawers = null;
+        private static ObjectDrawer objectDrawer = null;
 
         static ComponentViewHelper()
         {
@@ -24,6 +25,8 @@ namespace Editors
                 IComponentViewDrawer drawer = (IComponentViewDrawer)Activator.CreateInstance(type);
                 drawers.Add(drawer);
             }
+
+            objectDrawer = new ObjectDrawer();
         }
 
         public static void Draw(object obj)
@@ -116,13 +119,27 @@ namespace Editors
             //属性会带这个字符
             name = name.Replace("k__BackingField", "");
 
+            var draw = new DrawInfo()
+            {
+                Changeable = changeable,
+                ShowName = name,
+                ShowNameWidth = -1,
+                IsStatic = staticField,
+                FieldName = field.Name
+            };
             for (int i = 0; i < drawers.Count; i++)
             {
                 if (drawers[i].TypeEquals(type))
                 {
-                    value = drawers[i].DrawAndGetNewValue(type, value, new DrawInfo() { Changeable = changeable, ShowName = name, ShowNameWidth = -1, IsStatic = staticField, FieldName = field.Name }, field);
+                    value = drawers[i].DrawAndGetNewValue(type, value, draw, field);
                     return value;
                 }
+            }
+
+            if (objectDrawer.TypeEquals(type))
+            {
+                value = objectDrawer.DrawAndGetNewValue(type, value, draw, field);
+                return value;
             }
 
             ShowUnrecognized(name);
@@ -140,6 +157,12 @@ namespace Editors
                     value = drawers[i].DrawAndGetNewValue(type, value, draw, field);
                     return value;
                 }
+            }
+
+            if (objectDrawer.TypeEquals(type))
+            {
+                value = objectDrawer.DrawAndGetNewValue(type, value, draw, field);
+                return value;
             }
 
             ShowUnrecognized(draw.ShowName);

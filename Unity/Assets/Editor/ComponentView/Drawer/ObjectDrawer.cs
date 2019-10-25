@@ -4,7 +4,8 @@ using UnityEditor;
 
 namespace Editors
 {
-    [ComponentViewDrawer]
+    //ObjectDrawer必须最后调用    由ComponentViewHelper管理
+    //[ComponentViewDrawer]
     internal class ObjectDrawer : IComponentViewDrawer
     {
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
