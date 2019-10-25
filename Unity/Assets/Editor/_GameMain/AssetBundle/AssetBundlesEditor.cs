@@ -119,10 +119,9 @@ namespace Editors
 
         private void ShowBuildInfos()
         {
-            buildsInfo = EditorGUILayout.BeginToggleGroup("选择或创建打包配置", buildsInfo);
+            buildsInfo = EditorGUILayout.ToggleLeft("选择或创建打包配置", buildsInfo);
             if (!buildsInfo)
             {
-                EditorGUILayout.EndToggleGroup();
                 return;
             }
 
@@ -227,8 +226,6 @@ namespace Editors
 
             build_SelectIndex = EditorGUILayout.Popup(build_SelectIndex, build_CopyToLocalType, GUILayout.Width(200));
             EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.EndToggleGroup();
         }
 
         private void Build()

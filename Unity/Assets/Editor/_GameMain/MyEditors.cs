@@ -51,5 +51,11 @@ namespace Editors
         {
             TestEditors.Path();
         }
+
+        [MenuItem("菜单栏/测试窗口")]
+        private static void Func_TestWindows()
+        {
+            TestEditorWindows.Open();
+        }
     }
 }

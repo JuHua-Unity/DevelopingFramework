@@ -66,10 +66,12 @@
     <Compile Include="Assets\Editor\_GameMain\LaunchOptionsEditor.cs" />
     <Compile Include="Assets\Editor\_GameMain\MyEditors.cs" />
     <Compile Include="Assets\Editor\_GameMain\Test\TestEditors.cs" />
+    <Compile Include="Assets\Editor\_GameMain\Test\TestEditorWindows.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewDrawerAttribute.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewEditor.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewHelper.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\EnumDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\EnumerableDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\StringDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\UnityEngineDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\ValueTypeDrawers.cs" />

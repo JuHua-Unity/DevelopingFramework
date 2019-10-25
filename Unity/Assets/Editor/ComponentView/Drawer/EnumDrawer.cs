@@ -1,23 +1,56 @@
 ﻿using System;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
 namespace Editors
 {
     [ComponentViewDrawer]
     internal class EnumDrawer : IComponentViewDrawer
     {
-        public object DrawAndGetNewValue(Type type, string name, object value, bool changeable, bool staticField, FieldInfo field)
+        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
-            EditorGUI.BeginDisabledGroup(!changeable);
-            if (type.IsDefined(typeof(FlagsAttribute), false))
+            EditorGUI.BeginDisabledGroup(!draw.Changeable);
+
+            if (draw.FieldNameWidth < 0)
             {
-                value = EditorGUILayout.EnumFlagsField(name, (Enum)value);
+                if (type.IsDefined(typeof(FlagsAttribute), false))
+                {
+                    value = EditorGUILayout.EnumFlagsField(draw.FieldName, (Enum)value);
+                }
+                else
+                {
+                    value = EditorGUILayout.EnumPopup(draw.FieldName, (Enum)value);
+                }
+            }
+            else if (draw.FieldNameWidth == 0)
+            {
+                if (type.IsDefined(typeof(FlagsAttribute), false))
+                {
+                    value = EditorGUILayout.EnumFlagsField((Enum)value);
+                }
+                else
+                {
+                    value = EditorGUILayout.EnumPopup((Enum)value);
+                }
             }
             else
             {
-                value = EditorGUILayout.EnumPopup(name, (Enum)value);
+                EditorGUILayout.BeginHorizontal();
+
+                EditorGUILayout.LabelField(draw.FieldName, GUILayout.Width(draw.FieldNameWidth));
+                if (type.IsDefined(typeof(FlagsAttribute), false))
+                {
+                    value = EditorGUILayout.EnumFlagsField((Enum)value);
+                }
+                else
+                {
+                    value = EditorGUILayout.EnumPopup((Enum)value);
+                }
+
+                EditorGUILayout.EndHorizontal();
             }
+
             EditorGUI.EndDisabledGroup();
             return value;
         }
