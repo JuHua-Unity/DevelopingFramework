@@ -33,31 +33,74 @@ namespace Editors
                 return;
             }
 
-            FieldInfo[] filedInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            if (filedInfos.Length > 0)
+            FieldInfo[] fieldInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            if (fieldInfos.Length > 0)
             {
                 EditorGUILayout.BeginVertical();
-
-                foreach (FieldInfo field in filedInfos)
-                {
-                    Type type = field.FieldType;
-                    if (type.IsDefined(typeof(HideInInspector), false))
-                    {
-                        continue;
-                    }
-
-                    if (field.IsDefined(typeof(HideInInspector), false))
-                    {
-                        continue;
-                    }
-
-                    object value = field.GetValue(obj);
-                    value = DrawAndGetNewValue(type, field, value);
-                    field.SetValue(obj, value);
-                }
-
+                DrawObj(obj, Filter(fieldInfos));
                 EditorGUILayout.EndVertical();
             }
+        }
+
+        #region Filter
+
+        private static string filterStr = string.Empty;
+        private static readonly List<FieldInfo> filterFieldInfos = new List<FieldInfo>();
+
+        private static FieldInfo[] Filter(FieldInfo[] fieldInfos)
+        {
+            filterFieldInfos.Clear();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("搜索：", GUILayout.Width(100));
+            filterStr = EditorGUILayout.TextField(filterStr).ToLower();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+            for (int i = 0; i < fieldInfos.Length; i++)
+            {
+                string name = fieldInfos[i].Name;
+                if (fieldInfos[i].IsStatic)
+                {
+                    name = $"Static:{name}";
+                }
+                name = name.ToLower();
+                if (name.Contains(filterStr))
+                {
+                    filterFieldInfos.Add(fieldInfos[i]);
+                }
+            }
+            return filterFieldInfos.ToArray();
+        }
+
+        #endregion
+
+        public static void DrawObj(object obj, FieldInfo[] fieldInfos = null)
+        {
+            if (fieldInfos == null)
+            {
+                fieldInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            }
+
+            EditorGUILayout.BeginVertical();
+
+            foreach (FieldInfo field in fieldInfos)
+            {
+                Type type = field.FieldType;
+                if (type.IsDefined(typeof(HideInInspector), false))
+                {
+                    continue;
+                }
+
+                if (field.IsDefined(typeof(HideInInspector), false))
+                {
+                    continue;
+                }
+
+                object value = field.GetValue(obj);
+                value = DrawAndGetNewValue(type, field, value);
+                field.SetValue(obj, value);
+            }
+
+            EditorGUILayout.EndVertical();
         }
 
         private static object DrawAndGetNewValue(Type type, FieldInfo field, object value)

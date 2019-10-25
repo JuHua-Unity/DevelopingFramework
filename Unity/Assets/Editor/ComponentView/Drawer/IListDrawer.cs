@@ -71,7 +71,15 @@ namespace Editors
                         EditorGUILayout.LabelField("Element:", GUILayout.Width(60));
 
                         EditorGUILayout.BeginVertical();
-                        v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo() { Changeable = true, ShowName = $"{i}", ShowNameWidth = len * 10, IsStatic = false, FieldName = field.Name + $"_{i}" }, field);
+                        string showName = $"{i}";
+                        if (v[i] == null)
+                        {
+                            ComponentViewHelper.ShowNull(showName);
+                        }
+                        else
+                        {
+                            v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo() { Changeable = true, ShowName = showName, ShowNameWidth = len * 10, IsStatic = false, FieldName = field.Name + $"_{i}" }, field);
+                        }
                         EditorGUILayout.EndVertical();
 
                         if (!v.IsFixedSize)

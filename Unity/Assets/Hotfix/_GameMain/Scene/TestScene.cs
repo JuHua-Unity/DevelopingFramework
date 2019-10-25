@@ -5,111 +5,111 @@ namespace Hotfix
 {
     internal class TestScene : Component
     {
-        private sbyte field1_1;
-        public sbyte field1_2;
-        private static sbyte field1_3;
-        public static sbyte field1_4;
+        //private sbyte field1_1;
+        //public sbyte field1_2;
+        //private static sbyte field1_3;
+        //public static sbyte field1_4;
 
-        private short field2_1;
-        public short field2_2;
-        private static short field2_3;
-        public static short field2_4;
+        //private short field2_1;
+        //public short field2_2;
+        //private static short field2_3;
+        //public static short field2_4;
 
-        private int field3_1;
-        public int field3_2;
-        private static int field3_3;
-        public static int field3_4;
+        //private int field3_1;
+        //public int field3_2;
+        //private static int field3_3;
+        //public static int field3_4;
 
-        private long field4_1;
-        public long field4_2;
-        private static long field4_3;
-        public static long field4_4;
+        //private long field4_1;
+        //public long field4_2;
+        //private static long field4_3;
+        //public static long field4_4;
 
-        private byte field5_1;
-        public byte field5_2;
-        private static byte field5_3;
-        public static byte field5_4;
+        //private byte field5_1;
+        //public byte field5_2;
+        //private static byte field5_3;
+        //public static byte field5_4;
 
-        private ushort field6_1;
-        public ushort field6_2;
-        private static ushort field6_3;
-        public static ushort field6_4;
+        //private ushort field6_1;
+        //public ushort field6_2;
+        //private static ushort field6_3;
+        //public static ushort field6_4;
 
-        private uint field7_1;
-        public uint field7_2;
-        private static uint field7_3;
-        public static uint field7_4;
+        //private uint field7_1;
+        //public uint field7_2;
+        //private static uint field7_3;
+        //public static uint field7_4;
 
-        private ulong field8_1;
-        public ulong field8_2;
-        private static ulong field8_3;
-        public static ulong field8_4;
+        //private ulong field8_1;
+        //public ulong field8_2;
+        //private static ulong field8_3;
+        //public static ulong field8_4;
 
-        private char field9_1;
-        public char field9_2;
-        private static char field9_3;
-        public static char field9_4;
+        //private char field9_1;
+        //public char field9_2;
+        //private static char field9_3;
+        //public static char field9_4;
 
-        private float field10_1;
-        public float field10_2;
-        private static float field10_3;
-        public static float field10_4;
+        //private float field10_1;
+        //public float field10_2;
+        //private static float field10_3;
+        //public static float field10_4;
 
-        private double field11_1;
-        public double field11_2;
-        private static double field11_3;
-        public static double field11_4;
+        //private double field11_1;
+        //public double field11_2;
+        //private static double field11_3;
+        //public static double field11_4;
 
-        private decimal field12_1;
-        public decimal field12_2;
-        private static decimal field12_3;
-        public static decimal field12_4;
+        //private decimal field12_1;
+        //public decimal field12_2;
+        //private static decimal field12_3;
+        //public static decimal field12_4;
 
-        private bool field13_1;
-        public bool field13_2;
-        private static bool field13_3;
-        public static bool field13_4;
+        //private bool field13_1;
+        //public bool field13_2;
+        //private static bool field13_3;
+        //public static bool field13_4;
 
-        private TestEnum1 field14_1;
-        public TestEnum1 field14_2;
-        private static TestEnum1 field14_3;
-        public static TestEnum1 field14_4;
+        //private TestEnum1 field14_1;
+        //public TestEnum1 field14_2;
+        //private static TestEnum1 field14_3;
+        //public static TestEnum1 field14_4;
 
-        private TestEnum2 field15_1;
-        public TestEnum2 field15_2;
-        private static TestEnum2 field15_3;
-        public static TestEnum2 field15_4;
+        //private TestEnum2 field15_1;
+        //public TestEnum2 field15_2;
+        //private static TestEnum2 field15_3;
+        //public static TestEnum2 field15_4;
 
-        private TestStruct field16_1;
-        public TestStruct field16_2;
-        private static TestStruct field16_3;
-        public static TestStruct field16_4;
+        //private TestStruct field16_1;
+        //public TestStruct field16_2;
+        //private static TestStruct field16_3;
+        //public static TestStruct field16_4;
 
-        private TestClass field17_1;
-        public TestClass field17_2;
-        private static TestClass field17_3;
-        public static TestClass field17_4;
+        //private TestClass field17_1;
+        //public TestClass field17_2;
+        //private static TestClass field17_3;
+        //public static TestClass field17_4;
 
-        private TestClass field18_1 = new TestClass();
-        public TestClass field18_2 = new TestClass();
-        private static TestClass field18_3 = new TestClass();
-        public static TestClass field18_4 = new TestClass();
+        //private TestClass field18_1 = new TestClass();
+        //public TestClass field18_2 = new TestClass();
+        //private static TestClass field18_3 = new TestClass();
+        //public static TestClass field18_4 = new TestClass();
 
-        private ITestInterface field19_1;
-        public ITestInterface field19_2;
-        private static ITestInterface field19_3;
-        public static ITestInterface field19_4;
+        //private ITestInterface field19_1;
+        //public ITestInterface field19_2;
+        //private static ITestInterface field19_3;
+        //public static ITestInterface field19_4;
 
-        private ITestInterface field20_1 = new TestInterface1();
-        public ITestInterface field20_2 = new TestInterface1();
-        private static ITestInterface field20_3 = new TestInterface1();
-        public static ITestInterface field20_4 = new TestInterface1();
+        //private ITestInterface field20_1 = new TestInterface1();
+        //public ITestInterface field20_2 = new TestInterface1();
+        //private static ITestInterface field20_3 = new TestInterface1();
+        //public static ITestInterface field20_4 = new TestInterface1();
 
-        private Testdelegate field21_1 = new Testdelegate(TestdelegateMethod);
-        public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
-        private static Testdelegate field21_3 = new Testdelegate(TestdelegateMethod);
-        public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
-        private static void TestdelegateMethod() { }
+        //private Testdelegate field21_1 = new Testdelegate(TestdelegateMethod);
+        //public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
+        //private static Testdelegate field21_3 = new Testdelegate(TestdelegateMethod);
+        //public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
+        //private static void TestdelegateMethod() { }
 
         private List<int> field22_5;
 
@@ -127,6 +127,16 @@ namespace Hotfix
         public List<TestClass> field24_2 = new List<TestClass>();
         private static List<TestClass> field24_3 = new List<TestClass>();
         public static List<TestClass> field24_4 = new List<TestClass>();
+
+        private TestClass[] field25_1 = new TestClass[0];
+        public TestClass[] field25_2 = new TestClass[0];
+        private static TestClass[] field25_3 = new TestClass[0];
+        public static TestClass[] field25_4 = new TestClass[0];
+
+        private TestClass[] field26_1 = new TestClass[1];
+        public TestClass[] field26_2 = new TestClass[1];
+        private static TestClass[] field26_3 = new TestClass[1];
+        public static TestClass[] field26_4 = new TestClass[1];
     }
 
     public enum TestEnum1

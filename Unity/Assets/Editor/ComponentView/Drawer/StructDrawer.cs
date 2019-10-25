@@ -19,7 +19,7 @@ namespace Editors
             {
                 EditorGUILayout.BeginHorizontal();
                 ComponentViewHelper.Tab();
-                ComponentViewHelper.Draw(value);
+                ComponentViewHelper.DrawObj(value);
                 EditorGUILayout.EndHorizontal();
             }
 
