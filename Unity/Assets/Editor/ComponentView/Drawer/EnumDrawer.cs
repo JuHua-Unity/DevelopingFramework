@@ -8,6 +8,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class EnumDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Enum;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);

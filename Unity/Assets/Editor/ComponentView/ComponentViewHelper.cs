@@ -9,11 +9,10 @@ namespace Editors
     internal static class ComponentViewHelper
     {
         private static readonly List<IComponentViewDrawer> drawers = null;
-        private static ObjectDrawer objectDrawer = null;
 
         static ComponentViewHelper()
         {
-            drawers = new List<IComponentViewDrawer>();
+            List<IComponentViewDrawer> list = new List<IComponentViewDrawer>();
             Assembly assembly = typeof(ComponentViewHelper).Assembly;
             foreach (Type type in assembly.GetTypes())
             {
@@ -23,10 +22,35 @@ namespace Editors
                 }
 
                 IComponentViewDrawer drawer = (IComponentViewDrawer)Activator.CreateInstance(type);
-                drawers.Add(drawer);
+                list.Add(drawer);
             }
 
-            objectDrawer = new ObjectDrawer();
+            if (list.Count > 2)
+            {
+                drawers = new List<IComponentViewDrawer>() { list[0] };
+                for (int i = 1; i < list.Count; i++)
+                {
+                    var p = list[i].Priority;
+                    bool inserted = false;
+                    for (int j = 0; j < drawers.Count; j++)
+                    {
+                        if (p <= drawers[j].Priority)
+                        {
+                            drawers.Insert(j, list[i]);
+                            inserted = true;
+                            break;
+                        }
+                    }
+                    if (!inserted)
+                    {
+                        drawers.Add(list[i]);
+                    }
+                }
+            }
+            else
+            {
+                drawers = new List<IComponentViewDrawer>(list);
+            }
         }
 
         public static void Draw(object obj)
@@ -117,7 +141,10 @@ namespace Editors
             }
 
             //属性会带这个字符
-            name = name.Replace("k__BackingField", "");
+            if (name.Contains("k__BackingField"))
+            {
+                name = "P:" + name.Replace("k__BackingField", "").Trim().TrimStart('<').TrimEnd('>').Trim();
+            }
 
             var draw = new DrawInfo()
             {
@@ -136,12 +163,6 @@ namespace Editors
                 }
             }
 
-            if (objectDrawer.TypeEquals(type))
-            {
-                value = objectDrawer.DrawAndGetNewValue(type, value, draw, field);
-                return value;
-            }
-
             ShowUnrecognized(name);
             return value;
         }
@@ -157,12 +178,6 @@ namespace Editors
                     value = drawers[i].DrawAndGetNewValue(type, value, draw, field);
                     return value;
                 }
-            }
-
-            if (objectDrawer.TypeEquals(type))
-            {
-                value = objectDrawer.DrawAndGetNewValue(type, value, draw, field);
-                return value;
             }
 
             ShowUnrecognized(draw.ShowName);

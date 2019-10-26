@@ -8,6 +8,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class IntDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -43,6 +45,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class FloatDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -78,6 +82,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class BoolDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -113,6 +119,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class LongDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -148,6 +156,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class DoubleDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -183,6 +193,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class ByteDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -222,6 +234,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class CharDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -261,6 +275,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class DecimalDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -300,6 +316,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class SbyteDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -339,6 +357,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class ShortDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -378,6 +398,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class UintDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -417,6 +439,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class UlongDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -456,6 +480,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class UshortDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Zero;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);

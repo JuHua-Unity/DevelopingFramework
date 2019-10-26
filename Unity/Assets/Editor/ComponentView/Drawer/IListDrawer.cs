@@ -9,6 +9,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class IListDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.List;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
@@ -48,14 +50,7 @@ namespace Editors
 
                         for (int i = v.Count; i < count; i++)
                         {
-                            if (count_T > 0)
-                            {
-                                v.Add(v[count_T - 1]);
-                            }
-                            else
-                            {
-                                AddOne(ref v);
-                            }
+                            AddOne(ref v);
                         }
 
                         for (int i = count; i < count_T; i++)
@@ -78,7 +73,14 @@ namespace Editors
                         }
                         else
                         {
-                            v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo() { Changeable = true, ShowName = showName, ShowNameWidth = len * 10, IsStatic = false, FieldName = field.Name + $"_{i}" }, field);
+                            v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo()
+                            {
+                                Changeable = true,
+                                ShowName = showName,
+                                ShowNameWidth = len * 5 + 15,
+                                IsStatic = false,
+                                FieldName = field.Name + $"_{i}"
+                            }, field);
                         }
                         EditorGUILayout.EndVertical();
 
@@ -101,14 +103,7 @@ namespace Editors
                         EditorGUILayout.LabelField("");
                         if (GUILayout.Button("+", GUILayout.Width(20)))
                         {
-                            if (v.Count > 0)
-                            {
-                                v.Add(v[v.Count - 1]);
-                            }
-                            else
-                            {
-                                AddOne(ref v);
-                            }
+                            AddOne(ref v);
                         }
                         EditorGUILayout.EndHorizontal();
                     }
@@ -127,23 +122,47 @@ namespace Editors
         {
             try
             {
-                Type t = (v.GetType().GetMember("Item")[0] as PropertyInfo).PropertyType;
-                object o = null;
-                if (t == typeof(string))
+                Type type = v.GetType();
+                if (type.IsGenericType)
                 {
-                    o = string.Empty;
+                    Type[] types = type.GetGenericArguments();
+                    if (types.Length < 1)
+                    {
+                        Debug.Log("泛型类型，但没有参数");
+                    }
+                    else if (types.Length == 1)
+                    {
+                        v.Add(GetNewElementInstance(types[0]));
+                    }
+                    else
+                    {
+                        v.Add(GetNewElementInstance(types[types.Length - 1]));
+                    }
                 }
                 else
                 {
-                    o = Activator.CreateInstance(t);
+                    Debug.Log("不是泛型类型");
                 }
-
-                v.Add(o);
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
             }
+        }
+
+        private static object GetNewElementInstance(Type type)
+        {
+            object o = null;
+            if (type == typeof(string))
+            {
+                o = string.Empty;
+            }
+            else
+            {
+                o = Activator.CreateInstance(type);
+            }
+
+            return o;
         }
 
         public bool TypeEquals(Type type)

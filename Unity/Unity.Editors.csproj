@@ -70,7 +70,9 @@
     <Compile Include="Assets\Editor\ComponentView\ComponentViewDrawerAttribute.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewEditor.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewHelper.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\DrawerPriority.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\EnumDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\IDictionaryDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\IListDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\ObjectDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\StringDrawer.cs" />

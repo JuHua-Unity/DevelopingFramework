@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Hotfix
@@ -111,32 +112,61 @@ namespace Hotfix
         //public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
         //private static void TestdelegateMethod() { }
 
-        private List<int> field22_5;
+        //private List<int> field22_5;
 
-        private List<int> field22_1 = new List<int>();
-        public List<int> field22_2 = new List<int>();
-        private static List<int> field22_3 = new List<int>();
-        public static List<int> field22_4 = new List<int>();
+        //private List<int> field22_1 = new List<int>();
+        //public List<int> field22_2 = new List<int>();
+        //private static List<int> field22_3 = new List<int>();
+        //public static List<int> field22_4 = new List<int>();
 
-        private List<string> field23_1 = new List<string>();
-        public List<string> field23_2 = new List<string>();
-        private static List<string> field23_3 = new List<string>();
-        public static List<string> field23_4 = new List<string>();
+        //private List<string> field23_1 = new List<string>();
+        //public List<string> field23_2 = new List<string>();
+        //private static List<string> field23_3 = new List<string>();
+        //public static List<string> field23_4 = new List<string>();
 
-        private List<TestClass> field24_1 = new List<TestClass>();
-        public List<TestClass> field24_2 = new List<TestClass>();
-        private static List<TestClass> field24_3 = new List<TestClass>();
-        public static List<TestClass> field24_4 = new List<TestClass>();
+        //private List<TestClass> field24_1 = new List<TestClass>();
+        //public List<TestClass> field24_2 = new List<TestClass>();
+        //private static List<TestClass> field24_3 = new List<TestClass>();
+        //public static List<TestClass> field24_4 = new List<TestClass>();
 
-        private TestClass[] field25_1 = new TestClass[0];
-        public TestClass[] field25_2 = new TestClass[0];
-        private static TestClass[] field25_3 = new TestClass[0];
-        public static TestClass[] field25_4 = new TestClass[0];
+        //private TestClass[] field25_1 = new TestClass[0];
+        //public TestClass[] field25_2 = new TestClass[0];
+        //private static TestClass[] field25_3 = new TestClass[0];
+        //public static TestClass[] field25_4 = new TestClass[0];
 
-        private TestClass[] field26_1 = new TestClass[1];
-        public TestClass[] field26_2 = new TestClass[1];
-        private static TestClass[] field26_3 = new TestClass[1];
-        public static TestClass[] field26_4 = new TestClass[1];
+        //private TestClass[] field26_1 = new TestClass[1];
+        //public TestClass[] field26_2 = new TestClass[1];
+        //private static TestClass[] field26_3 = new TestClass[1];
+        //public static TestClass[] field26_4 = new TestClass[1];
+
+        //private Dictionary<int, string> field27_1 = new Dictionary<int, string>();
+        //public Dictionary<int, string> field27_2 = new Dictionary<int, string>();
+        //private static Dictionary<int, string> field27_3 = new Dictionary<int, string>();
+        //public static Dictionary<int, string> field27_4 = new Dictionary<int, string>();
+
+        //public Dictionary<int, string> field28_1 = new Dictionary<int, string>()
+        //{
+        //    {1,"1"},
+        //    {2,"2"}
+        //};
+        //public Dictionary<TestClass, TestClass> field28_2 = new Dictionary<TestClass, TestClass>()
+        //{
+        //    {new TestClass(),new TestClass()},
+        //    {new TestClass(),new TestClass()},
+        //};
+
+        //public Hashtable field29_1 = new Hashtable()
+        //{
+        //    {"1","1"},
+        //    {1,1},
+        //    {"2",2},
+        //    {2,"2"},
+        //    {new TestClass(),"TestClass"},
+        //};
+
+        public TestClass[] field30_1 = new TestClass[10];
+        public Array field30_2 = Array.CreateInstance(typeof(TestClass), 10);
+        public List<TestClass> field30_3 = new List<TestClass>();
     }
 
     public enum TestEnum1

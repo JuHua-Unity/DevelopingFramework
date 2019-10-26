@@ -4,10 +4,11 @@ using UnityEditor;
 
 namespace Editors
 {
-    //ObjectDrawer必须最后调用    由ComponentViewHelper管理
-    //[ComponentViewDrawer]
+    [ComponentViewDrawer]
     internal class ObjectDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Object;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);

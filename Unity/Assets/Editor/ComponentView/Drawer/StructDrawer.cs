@@ -8,6 +8,8 @@ namespace Editors
     [ComponentViewDrawer]
     internal class StructDrawer : IComponentViewDrawer
     {
+        public int Priority => DrawerPriority.Struct;
+
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
             EditorGUI.BeginDisabledGroup(!draw.Changeable);
