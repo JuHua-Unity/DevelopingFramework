@@ -132,7 +132,7 @@ namespace Editors
 
         private static object DrawAndGetNewValue(Type type, FieldInfo field, object value)
         {
-            bool changeable = field.IsPublic;
+            bool changeable = true;
             bool staticField = field.IsStatic;
             string name = field.Name;
             if (staticField)
@@ -143,6 +143,7 @@ namespace Editors
             //属性会带这个字符
             if (name.Contains("k__BackingField"))
             {
+                changeable = false;
                 name = "P:" + name.Replace("k__BackingField", "").Trim().TrimStart('<').TrimEnd('>').Trim();
             }
 
@@ -167,10 +168,8 @@ namespace Editors
             return value;
         }
 
-        public static object DrawAndGetNewValue(object value, DrawInfo draw, FieldInfo field)
+        public static object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {
-            Type type = value.GetType();
-
             for (int i = 0; i < drawers.Count; i++)
             {
                 if (drawers[i].TypeEquals(type))
@@ -184,9 +183,43 @@ namespace Editors
             return value;
         }
 
-        public static void ShowNull(string name)
+        public static object CreateInstance(Type type)
         {
+            object o = null;
+
+            try
+            {
+                if (type == typeof(string))
+                {
+                    o = string.Empty;
+                }
+                else
+                {
+                    o = Activator.CreateInstance(type);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            return o;
+        }
+
+        public static void ShowNull(string name, Type type, ref object value)
+        {
+            EditorGUILayout.BeginHorizontal();
+
             EditorGUILayout.LabelField(name, "null");
+            if (type != null)
+            {
+                if (GUILayout.Button("new", GUILayout.Width(40)))
+                {
+                    value = CreateInstance(type);
+                }
+            }
+
+            EditorGUILayout.EndHorizontal();
         }
 
         public static void Tab()

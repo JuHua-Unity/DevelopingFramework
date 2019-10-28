@@ -215,7 +215,7 @@ namespace Editors
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {
@@ -226,7 +226,7 @@ namespace Editors
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {
@@ -240,7 +240,7 @@ namespace Editors
                 EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {
@@ -273,7 +273,7 @@ namespace Editors
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {
@@ -284,7 +284,7 @@ namespace Editors
             {
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {
@@ -298,7 +298,7 @@ namespace Editors
                 EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (value == null)
                 {
-                    ComponentViewHelper.ShowNull(draw.ShowName);
+                    ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
                 }
                 else
                 {

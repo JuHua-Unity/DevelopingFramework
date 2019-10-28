@@ -21,20 +21,18 @@ namespace Editors
 
             if (value == null)
             {
-                ComponentViewHelper.ShowNull(draw.ShowName);
+                ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
             }
             else
             {
                 var v = (IDictionary)value;
+                Type[] elementTypes = GetElementTypes(v);
                 bool fold = ComponentViewHelper.GetAndAddFieldShow_Fold(draw.FieldName);
                 fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
                 ComponentViewHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
                 if (fold)
                 {
                     int count = v.Count;
-
-                    EditorGUI.BeginDisabledGroup(v.IsReadOnly);
-
                     int len = count / 10 + 1;
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField("数量：", GUILayout.Width(60));
@@ -62,39 +60,25 @@ namespace Editors
                         EditorGUILayout.LabelField(showName, GUILayout.Width(len * 5 + 15));
 
                         EditorGUILayout.BeginVertical();
-                        if (keys[i] == null)
+                        keys[i] = ComponentViewHelper.DrawAndGetNewValue(elementTypes[0], keys[i], new DrawInfo()
                         {
-                            ComponentViewHelper.ShowNull("Key:");
-                        }
-                        else
-                        {
-                            keys[i] = ComponentViewHelper.DrawAndGetNewValue(keys[i], new DrawInfo()
-                            {
-                                Changeable = true,
-                                ShowName = "Key:",
-                                ShowNameWidth = 30,
-                                IsStatic = false,
-                                FieldName = field.Name + $"_{i}_Key"
-                            }, field);
-                        }
+                            Changeable = draw.Changeable,
+                            ShowName = "Key:",
+                            ShowNameWidth = 30,
+                            IsStatic = false,
+                            FieldName = field.Name + $"_{i}_Key"
+                        }, field);
                         EditorGUILayout.EndVertical();
 
                         EditorGUILayout.BeginVertical();
-                        if (values[i] == null)
+                        values[i] = ComponentViewHelper.DrawAndGetNewValue(elementTypes[1], values[i], new DrawInfo()
                         {
-                            ComponentViewHelper.ShowNull("Value:");
-                        }
-                        else
-                        {
-                            values[i] = ComponentViewHelper.DrawAndGetNewValue(values[i], new DrawInfo()
-                            {
-                                Changeable = true,
-                                ShowName = "Value:",
-                                ShowNameWidth = 40,
-                                IsStatic = false,
-                                FieldName = field.Name + $"_{i}_Value"
-                            }, field);
-                        }
+                            Changeable = draw.Changeable,
+                            ShowName = "Value:",
+                            ShowNameWidth = 40,
+                            IsStatic = false,
+                            FieldName = field.Name + $"_{i}_Value"
+                        }, field);
                         EditorGUILayout.EndVertical();
 
                         if (!v.IsFixedSize)
@@ -127,8 +111,6 @@ namespace Editors
                         }
                         EditorGUILayout.EndHorizontal();
                     }
-
-                    EditorGUI.EndDisabledGroup();
                 }
 
                 value = v;
@@ -138,37 +120,58 @@ namespace Editors
             return value;
         }
 
+        private Type[] GetElementTypes(IDictionary v)
+        {
+            Type[] ts = new Type[2];
+            try
+            {
+                Type type = v.GetType();
+                if (type.IsGenericType)
+                {
+                    Type[] types = type.GetGenericArguments();
+                    if (types.Length != 2)
+                    {
+                        Debug.Log($"{type}参数不是2个:{string.Join<Type>(";", types)}");
+                    }
+                    else
+                    {
+                        ts[0] = types[0];
+                        ts[1] = types[1];
+                    }
+                }
+                else
+                {
+                    Debug.Log($"{type}不是泛型类型");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+
+            return ts;
+        }
+
         private void AddOne(ref IDictionary v)
         {
             try
             {
-                var types = v.GetType().GetGenericArguments();
-                if (types != null)
+                Type type = v.GetType();
+                if (type.IsGenericType)
                 {
-                    if (types.Length == 2)
+                    Type[] types = type.GetGenericArguments();
+                    if (types.Length != 2)
                     {
-                        object o1 = null;
-                        if (types[0] == typeof(string))
-                        {
-                            o1 = string.Empty;
-                        }
-                        else
-                        {
-                            o1 = Activator.CreateInstance(types[0]);
-                        }
-
-                        object o2 = null;
-                        if (types[1] == typeof(string))
-                        {
-                            o2 = string.Empty;
-                        }
-                        else
-                        {
-                            o2 = Activator.CreateInstance(types[1]);
-                        }
-
-                        v.Add(o1, o2);
+                        Debug.Log($"{type}参数不是2个:{string.Join<Type>(";", types)}");
                     }
+                    else
+                    {
+                        v.Add(ComponentViewHelper.CreateInstance(types[0]), ComponentViewHelper.CreateInstance(types[1]));
+                    }
+                }
+                else
+                {
+                    Debug.Log($"{type}不是泛型类型");
                 }
             }
             catch (Exception e)

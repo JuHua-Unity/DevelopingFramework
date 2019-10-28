@@ -15,7 +15,7 @@ namespace Editors
 
             if (value == null)
             {
-                ComponentViewHelper.ShowNull(draw.ShowName);
+                ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
             }
             else
             {

@@ -164,9 +164,15 @@ namespace Hotfix
         //    {new TestClass(),"TestClass"},
         //};
 
-        public TestClass[] field30_1 = new TestClass[10];
-        public Array field30_2 = Array.CreateInstance(typeof(TestClass), 10);
-        public List<TestClass> field30_3 = new List<TestClass>();
+        //public TestClass[] field30_1 = new TestClass[10];
+        //public Array field30_2 = Array.CreateInstance(typeof(TestClass), 10);
+        //public readonly List<TestClass> field30_3 = new List<TestClass>();
+        //public UnityEngine.GameObject[] field30_4 = new UnityEngine.GameObject[10];
+
+        public UnityEngine.GameObject[] field31_1 = new UnityEngine.GameObject[1];
+        public TestClass[] field31_2 = new TestClass[1];
+        public int[] field31_3 = new int[1];
+        public string[] field31_4 = new string[1];
     }
 
     public enum TestEnum1

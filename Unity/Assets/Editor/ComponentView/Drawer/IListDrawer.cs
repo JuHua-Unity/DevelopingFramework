@@ -17,20 +17,18 @@ namespace Editors
 
             if (value == null)
             {
-                ComponentViewHelper.ShowNull(draw.ShowName);
+                ComponentViewHelper.ShowNull(draw.ShowName, type, ref value);
             }
             else
             {
                 var v = (IList)value;
+                Type elementType = GetElementType(v);
                 bool fold = ComponentViewHelper.GetAndAddFieldShow_Fold(draw.FieldName);
                 fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
                 ComponentViewHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
                 if (fold)
                 {
                     int count = v.Count;
-
-                    EditorGUI.BeginDisabledGroup(v.IsReadOnly);
-
                     int len = count / 10 + 1;
                     int count_T = v.Count;
                     if (v.IsFixedSize)
@@ -50,7 +48,7 @@ namespace Editors
 
                         for (int i = v.Count; i < count; i++)
                         {
-                            AddOne(ref v);
+                            AddOne(elementType, ref v);
                         }
 
                         for (int i = count; i < count_T; i++)
@@ -67,21 +65,14 @@ namespace Editors
 
                         EditorGUILayout.BeginVertical();
                         string showName = $"{i}";
-                        if (v[i] == null)
+                        v[i] = ComponentViewHelper.DrawAndGetNewValue(elementType, v[i], new DrawInfo()
                         {
-                            ComponentViewHelper.ShowNull(showName);
-                        }
-                        else
-                        {
-                            v[i] = ComponentViewHelper.DrawAndGetNewValue(v[i], new DrawInfo()
-                            {
-                                Changeable = true,
-                                ShowName = showName,
-                                ShowNameWidth = len * 5 + 15,
-                                IsStatic = false,
-                                FieldName = field.Name + $"_{i}"
-                            }, field);
-                        }
+                            Changeable = draw.Changeable,
+                            ShowName = showName,
+                            ShowNameWidth = len * 5 + 15,
+                            IsStatic = false,
+                            FieldName = field.Name + $"_{i}"
+                        }, field);
                         EditorGUILayout.EndVertical();
 
                         if (!v.IsFixedSize)
@@ -103,12 +94,10 @@ namespace Editors
                         EditorGUILayout.LabelField("");
                         if (GUILayout.Button("+", GUILayout.Width(20)))
                         {
-                            AddOne(ref v);
+                            AddOne(elementType, ref v);
                         }
                         EditorGUILayout.EndHorizontal();
                     }
-
-                    EditorGUI.EndDisabledGroup();
                 }
 
                 value = v;
@@ -118,8 +107,9 @@ namespace Editors
             return value;
         }
 
-        private void AddOne(ref IList v)
+        private Type GetElementType(IList v)
         {
+            Type t = null;
             try
             {
                 Type type = v.GetType();
@@ -128,41 +118,52 @@ namespace Editors
                     Type[] types = type.GetGenericArguments();
                     if (types.Length < 1)
                     {
-                        Debug.Log("泛型类型，但没有参数");
+                        Debug.Log($"{type}是泛型类型，但没有参数");
                     }
                     else if (types.Length == 1)
                     {
-                        v.Add(GetNewElementInstance(types[0]));
+                        t = types[0];
                     }
                     else
                     {
-                        v.Add(GetNewElementInstance(types[types.Length - 1]));
+                        Debug.Log($"{type}是泛型类型，但有{types.Length}个参数：{string.Join<Type>(";", types)}");
+                        t = types[types.Length - 1];
                     }
                 }
                 else
                 {
-                    Debug.Log("不是泛型类型");
+                    string name = type.Name;
+                    if (name.EndsWith("[]"))
+                    {
+                        t = Type.GetType(name.Substring(0, name.Length - 2));
+                    }
+                    else
+                    {
+                        Debug.Log($"{type}不是泛型类型，但却不是数组");
+                    }
                 }
             }
             catch (Exception e)
             {
                 Debug.LogException(e);
             }
+
+            return t;
         }
 
-        private static object GetNewElementInstance(Type type)
+        private void AddOne(Type type, ref IList v)
         {
-            object o = null;
-            if (type == typeof(string))
+            try
             {
-                o = string.Empty;
+                if (type != null)
+                {
+                    v.Add(ComponentViewHelper.CreateInstance(type));
+                }
             }
-            else
+            catch (Exception e)
             {
-                o = Activator.CreateInstance(type);
+                Debug.LogException(e);
             }
-
-            return o;
         }
 
         public bool TypeEquals(Type type)
