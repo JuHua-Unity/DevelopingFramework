@@ -37,11 +37,14 @@
             {
                 ComponentFactory.Delete(this);
             }
-#if UNITY_EDITOR
+
+#if UNITY_EDITOR && ComponentView
+
             else
             {
                 UnityEngine.Object.Destroy(GameObject);
             }
+
 #endif
         }
     }

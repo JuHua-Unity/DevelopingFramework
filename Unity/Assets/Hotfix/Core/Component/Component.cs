@@ -8,7 +8,8 @@ namespace Hotfix
     /// </summary>
     internal abstract partial class Component : Object
     {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ComponentView
+
         public Component()
         {
             ObjName = GetType().Name;
@@ -19,12 +20,17 @@ namespace Hotfix
                 GameObject.AddComponent<Model.ComponentView>().Component = this;
             }
         }
+
 #endif
 
         public static GameObject GameRoot { get; } = GameObject.Find("/GameRoot");
-#if UNITY_EDITOR
+
+#if UNITY_EDITOR && ComponentView
+
         public GameObject GameObject { get; private set; } = null;
+
 #endif
+
         private Component parent;
 
         public Component Parent
@@ -36,7 +42,9 @@ namespace Hotfix
             set
             {
                 parent = value;
-#if UNITY_EDITOR
+
+#if UNITY_EDITOR && ComponentView
+
                 if (parent == null)
                 {
                     GameObject.transform.SetParent(GameRoot.transform, false);
@@ -45,6 +53,7 @@ namespace Hotfix
                 {
                     GameObject.transform.SetParent(parent.GameObject.transform, false);
                 }
+
 #endif
             }
         }
