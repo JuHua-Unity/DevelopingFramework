@@ -26,7 +26,6 @@ namespace Editors
             else
             {
                 var v = (IDictionary)value;
-                Type[] elementTypes = GetElementTypes(v);
                 bool fold = ComponentViewHelper.GetAndAddFieldShow_Fold(draw.FieldName);
                 fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
                 ComponentViewHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
@@ -60,7 +59,7 @@ namespace Editors
                         EditorGUILayout.LabelField(showName, GUILayout.Width(len * 5 + 15));
 
                         EditorGUILayout.BeginVertical();
-                        keys[i] = ComponentViewHelper.DrawAndGetNewValue(elementTypes[0], keys[i], new DrawInfo()
+                        keys[i] = ComponentViewHelper.DrawAndGetNewValue(keys[i].GetType(), keys[i], new DrawInfo()
                         {
                             Changeable = draw.Changeable,
                             ShowName = "Key:",
@@ -71,7 +70,7 @@ namespace Editors
                         EditorGUILayout.EndVertical();
 
                         EditorGUILayout.BeginVertical();
-                        values[i] = ComponentViewHelper.DrawAndGetNewValue(elementTypes[1], values[i], new DrawInfo()
+                        values[i] = ComponentViewHelper.DrawAndGetNewValue(values[i].GetType(), values[i], new DrawInfo()
                         {
                             Changeable = draw.Changeable,
                             ShowName = "Value:",
@@ -120,38 +119,6 @@ namespace Editors
             return value;
         }
 
-        private Type[] GetElementTypes(IDictionary v)
-        {
-            Type[] ts = new Type[2];
-            try
-            {
-                Type type = v.GetType();
-                if (type.IsGenericType)
-                {
-                    Type[] types = type.GetGenericArguments();
-                    if (types.Length != 2)
-                    {
-                        Debug.Log($"{type}参数不是2个:{string.Join<Type>(";", types)}");
-                    }
-                    else
-                    {
-                        ts[0] = types[0];
-                        ts[1] = types[1];
-                    }
-                }
-                else
-                {
-                    Debug.Log($"{type}不是泛型类型");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-
-            return ts;
-        }
-
         private void AddOne(ref IDictionary v)
         {
             try
@@ -171,7 +138,7 @@ namespace Editors
                 }
                 else
                 {
-                    Debug.Log($"{type}不是泛型类型");
+                    Debug.Log($"{type}没有明确的类型表示");
                 }
             }
             catch (Exception e)

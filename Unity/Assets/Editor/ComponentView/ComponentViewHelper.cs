@@ -8,6 +8,8 @@ namespace Editors
 {
     internal static class ComponentViewHelper
     {
+        private static readonly BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.FlattenHierarchy;
+
         private static readonly List<IComponentViewDrawer> drawers = null;
 
         static ComponentViewHelper()
@@ -55,18 +57,31 @@ namespace Editors
 
         public static void Draw(object obj)
         {
+            Switch();
+
+            if (!show)
+            {
+                return;
+            }
+
             if (drawers == null || drawers.Count < 1)
             {
                 return;
             }
 
-            FieldInfo[] fieldInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+            FieldInfo[] fieldInfos = obj.GetType().GetFields(bindingFlags);
+            fieldInfos = Filter(fieldInfos);
+
+            EditorGUI.BeginDisabledGroup(!enable);
+
             if (fieldInfos.Length > 0)
             {
                 EditorGUILayout.BeginVertical();
-                DrawObj(obj, Filter(fieldInfos));
+                DrawObj(obj, fieldInfos);
                 EditorGUILayout.EndVertical();
             }
+
+            EditorGUI.EndDisabledGroup();
         }
 
         #region Filter
@@ -100,11 +115,29 @@ namespace Editors
 
         #endregion
 
+        #region Switch
+
+        private static bool show = true;
+        private static bool enable = false;
+
+        private static void Switch()
+        {
+            EditorGUILayout.BeginHorizontal();
+
+            show = EditorGUILayout.ToggleLeft("Visible", show);
+            enable = EditorGUILayout.ToggleLeft("Enable", enable);
+
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.Space();
+        }
+
+        #endregion
+
         public static void DrawObj(object obj, FieldInfo[] fieldInfos = null)
         {
             if (fieldInfos == null)
             {
-                fieldInfos = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+                fieldInfos = obj.GetType().GetFields(bindingFlags);
             }
 
             EditorGUILayout.BeginVertical();

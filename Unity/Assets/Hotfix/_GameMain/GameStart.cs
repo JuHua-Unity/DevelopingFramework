@@ -8,8 +8,9 @@ namespace Hotfix
         {
             Log.Debug($"进入游戏主逻辑...");
 
-            TimerComponent timer = Game.ComponentRoot.AddComponent<TimerComponent>();
-            Game.ComponentRoot.AddComponent<TestScene>().AddComponent<TestScene>(false);
+            Game.ComponentRoot.AddComponent<ComponentViewTest>();
+            //TimerComponent timer = Game.ComponentRoot.AddComponent<TimerComponent>();
+            //Game.ComponentRoot.AddComponent<TestScene>().AddComponent<TestScene>(false);
             //Process(timer).Coroutine();
         }
 

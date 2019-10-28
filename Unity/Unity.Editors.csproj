@@ -71,6 +71,7 @@
     <Compile Include="Assets\Editor\ComponentView\ComponentViewEditor.cs" />
     <Compile Include="Assets\Editor\ComponentView\ComponentViewHelper.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\ArrayDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\DelegateDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\DrawerPriority.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\EnumDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\IDictionaryDrawer.cs" />

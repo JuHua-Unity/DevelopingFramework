@@ -63,6 +63,7 @@
     <Compile Include="Assets\Hotfix\_GameMain\GameStart.cs" />
     <Compile Include="Assets\Hotfix\_GameMain\Scene\ComponentRoot.cs" />
     <Compile Include="Assets\Hotfix\_GameMain\Scene\TestScene.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Test\ComponentViewTest.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.Dispose.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.System.cs" />

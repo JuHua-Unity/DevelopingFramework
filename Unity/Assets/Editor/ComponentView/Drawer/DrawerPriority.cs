@@ -9,6 +9,7 @@
         public const int Array = 3;
         public const int List = 4;
         public const int Dictionary = 5;
+        public const int Delegate = 6;
         public const int Object = int.MaxValue;
     }
 }

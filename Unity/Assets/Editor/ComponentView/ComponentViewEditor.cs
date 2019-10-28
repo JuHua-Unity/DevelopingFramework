@@ -11,7 +11,7 @@ namespace Editors
         {
             ComponentView componentView = (ComponentView)target;
             object component = componentView.Component;
-            if (component.GetType() == typeof(ILTypeInstance))
+            if (component == null || component.GetType() == typeof(ILTypeInstance))
             {
                 return;
             }
