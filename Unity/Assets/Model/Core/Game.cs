@@ -6,16 +6,25 @@
     /// </summary>
     public static class Game
     {
+        /// <summary>
+        /// 启动流程
+        /// 3:需要关闭 -> 2
+        /// 2:需要GC -> 1
+        /// 1:启动 -> 0
+        /// 0:空闲
+        /// </summary>
+        internal static int StartProcess { get; set; } = 0;
+
         public static Hotfix Hotfix { get; private set; } = null;
 
-        public static void Start(byte[] assBytes, byte[] pdbBytes)
+        internal static void Start(byte[] assBytes, byte[] pdbBytes)
         {
             Hotfix = new Hotfix();
             Hotfix.InitHotfixAssembly(assBytes, pdbBytes);
             Hotfix.GotoHotfix();
         }
 
-        public static void Close()
+        internal static void Close()
         {
             if (Hotfix == null)
             {
@@ -23,16 +32,12 @@
             }
 
             Hotfix.OnApplicationQuit?.Invoke();
+            Hotfix = null;
         }
 
-        public static void ReStart(byte[] assBytes, byte[] pdbBytes)
+        public static void ReStart()
         {
-            //关闭热更层
-            Close();
-            //GC回收
-            System.GC.Collect();
-            //重新启动热更层
-            Start(assBytes, pdbBytes);
+            StartProcess = 3;
         }
     }
 }

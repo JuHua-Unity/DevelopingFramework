@@ -1,5 +1,8 @@
-﻿using ILRuntime.Runtime.Generated;
+﻿using ILRuntime.Runtime.Enviorment;
+using ILRuntime.Runtime.Generated;
 using ILRuntime.Runtime.Intepreter;
+using System;
+using System.Reflection;
 
 namespace Model
 {
@@ -22,7 +25,7 @@ namespace Model
             #region appdomain.DelegateManager.RegisterMethodDelegate
 
             appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
-
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32, System.Object>();
             #endregion
 
             appdomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();
@@ -31,7 +34,23 @@ namespace Model
 
             #region appdomain.RegisterCrossBindingAdaptor
 
+            Assembly assembly = typeof(Init).Assembly;
+            foreach (Type type in assembly.GetTypes())
+            {
+                object[] attrs = type.GetCustomAttributes(typeof(AdaptorAttribute), false);
+                if (attrs.Length == 0)
+                {
+                    continue;
+                }
 
+                object obj = Activator.CreateInstance(type);
+                if (!(obj is CrossBindingAdaptor adaptor))
+                {
+                    continue;
+                }
+
+                appdomain.RegisterCrossBindingAdaptor(adaptor);
+            }
 
             #endregion
 

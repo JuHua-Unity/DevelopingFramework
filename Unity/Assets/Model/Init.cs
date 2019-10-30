@@ -13,11 +13,35 @@ namespace Model
         {
             Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}");
 
-            new GameStart().Start(gameObject.Get<TextAsset>("LaunchOptions"));
+            Game.StartProcess = 1;
         }
 
         private void Update()
         {
+            if (Game.StartProcess == 1)
+            {
+                //启动
+                new GameStart().Start(gameObject.Get<TextAsset>("LaunchOptions"));
+                Game.StartProcess = 0;
+                return;
+            }
+
+            if (Game.StartProcess == 2)
+            {
+                //GC回收
+                System.GC.Collect();
+                Game.StartProcess = 1;
+                return;
+            }
+
+            if (Game.StartProcess == 3)
+            {
+                //关闭热更层
+                Game.Close();
+                Game.StartProcess = 2;
+                return;
+            }
+
             if (Game.Hotfix == null)
             {
                 return;

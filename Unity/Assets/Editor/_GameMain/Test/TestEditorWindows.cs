@@ -24,6 +24,7 @@ namespace Editors
             {
                 EditorGUILayout.LabelField("aaaaaaaaaaaaaaa");
             }
+            EditorGUILayout.TextField("1", "2");
         }
     }
 }

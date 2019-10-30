@@ -62,10 +62,17 @@ namespace Hotfix
 
             base.Dispose();
 
+            if (asyncOperation != null && !asyncOperation.isDone)
+            {
+                request.Abort();
+            }
+
             asyncOperation.completed -= OnComplete;
             asyncOperation = null;
-            request?.Dispose();
+
+            request.Dispose();
             request = null;
+
             tcs = null;
         }
 

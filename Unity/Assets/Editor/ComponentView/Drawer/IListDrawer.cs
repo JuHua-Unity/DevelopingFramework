@@ -168,7 +168,7 @@ namespace Editors
 
         public bool TypeEquals(Type type)
         {
-            return typeof(IList).IsAssignableFrom(type);
+            return type.IsGenericType && typeof(IList).IsAssignableFrom(type);
         }
     }
 }

@@ -35,10 +35,11 @@
             Game.ComponentSystem.Remove(ObjId);
             if (IsFromPool)
             {
-                ComponentFactory.Delete(this);
+                Parent = null;
+                Game.ObjectPool.Recycle(this);
             }
 
-#if UNITY_EDITOR && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ComponentView
 
             else
             {

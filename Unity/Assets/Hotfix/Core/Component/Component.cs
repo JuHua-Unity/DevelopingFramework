@@ -8,7 +8,7 @@ namespace Hotfix
     /// </summary>
     internal abstract partial class Component : Object
     {
-#if UNITY_EDITOR && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ComponentView
 
         public Component()
         {
@@ -23,11 +23,13 @@ namespace Hotfix
 
 #endif
 
-        public static GameObject GameRoot { get; } = GameObject.Find("/GameRoot");
+        public static GameObject GameRoot { get; set; } = null;
 
-#if UNITY_EDITOR && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ComponentView
 
         public GameObject GameObject { get; private set; } = null;
+
+        public static GameObject ParentNullRoot { get; set; } = null;
 
 #endif
 
@@ -43,11 +45,11 @@ namespace Hotfix
             {
                 parent = value;
 
-#if UNITY_EDITOR && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ComponentView
 
                 if (parent == null)
                 {
-                    GameObject.transform.SetParent(GameRoot.transform, false);
+                    GameObject.transform.SetParent(ParentNullRoot.transform, false);
                 }
                 else
                 {

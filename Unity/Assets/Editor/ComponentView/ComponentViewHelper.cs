@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,9 @@ namespace Editors
         private static readonly BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.FlattenHierarchy;
 
         private static readonly List<IComponentViewDrawer> drawers = null;
+
+        private static readonly List<Type> selectTypes = null;
+        public static readonly string[] SelectTypeNames = null;
 
         static ComponentViewHelper()
         {
@@ -53,6 +57,37 @@ namespace Editors
             {
                 drawers = new List<IComponentViewDrawer>(list);
             }
+
+            var types = CollectTypes();
+            selectTypes = new List<Type>
+            {
+                typeof(string),
+                typeof(int),
+                typeof(float),
+                typeof(bool),
+                typeof(long),
+                typeof(double),
+                typeof(byte),
+                typeof(char),
+                typeof(decimal),
+                typeof(sbyte),
+                typeof(short),
+                typeof(uint),
+                typeof(ulong),
+                typeof(ushort)
+            };
+            for (int i = 0; i < types.Length; i++)
+            {
+                if (!selectTypes.Contains(types[i]))
+                {
+                    selectTypes.Add(types[i]);
+                }
+            }
+            SelectTypeNames = new string[selectTypes.Count];
+            for (int i = 0; i < selectTypes.Count; i++)
+            {
+                SelectTypeNames[i] = selectTypes[i].Name;
+            }
         }
 
         public static void Draw(object obj)
@@ -69,8 +104,19 @@ namespace Editors
                 return;
             }
 
-            FieldInfo[] fieldInfos = obj.GetType().GetFields(bindingFlags);
-            fieldInfos = Filter(fieldInfos);
+            Type type = obj.GetType();
+            FieldInfo[] fieldInfos = type.GetFields(bindingFlags);
+            List<FieldInfo> fs = new List<FieldInfo>();
+            for (int i = 0; i < fieldInfos.Length; i++)
+            {
+                var f = fieldInfos[i];
+                if (f.FieldType != type && !type.IsSubclassOf(f.FieldType) && !f.FieldType.IsSubclassOf(type))
+                {
+                    fs.Add(f);
+                }
+            }
+
+            fieldInfos = Filter(fs.ToArray());
 
             EditorGUI.BeginDisabledGroup(!enable);
 
@@ -168,16 +214,17 @@ namespace Editors
             bool changeable = true;
             bool staticField = field.IsStatic;
             string name = field.Name;
-            if (staticField)
-            {
-                name = $"Static:{name}";
-            }
 
             //属性会带这个字符
             if (name.Contains("k__BackingField"))
             {
                 changeable = false;
                 name = "P:" + name.Replace("k__BackingField", "").Trim().TrimStart('<').TrimEnd('>').Trim();
+            }
+
+            if (staticField)
+            {
+                name = $"Static:{name}";
             }
 
             var draw = new DrawInfo()
@@ -214,6 +261,17 @@ namespace Editors
 
             ShowUnrecognized(draw.ShowName);
             return value;
+        }
+
+        public static object CreateInstance(int index)
+        {
+            if (index >= 0 && index < selectTypes.Count)
+            {
+                return CreateInstance(selectTypes[index]);
+            }
+
+            Debug.LogError($"selectTypes.Count={selectTypes.Count};index={index}");
+            return null;
         }
 
         public static object CreateInstance(Type type)
@@ -292,6 +350,34 @@ namespace Editors
         private struct FieldShow
         {
             public bool Fold;
+        }
+
+        #endregion
+
+        #region 收集所有类型
+
+        private static Type[] CollectTypes()
+        {
+            var h = typeof(Hotfix.Init).Assembly;
+            var m = typeof(Model.Game).Assembly;
+            var t = typeof(ILRuntime.Runtime.Enviorment.AppDomain).Assembly;
+            var u = typeof(GameObject).Assembly;
+
+            List<Type> types = new List<Type>();
+            types.AddRange(AssemblyTypes(h));
+            types.AddRange(AssemblyTypes(m));
+            types.AddRange(AssemblyTypes(t));
+            types.AddRange(AssemblyTypes(u));
+
+            return types.ToArray();
+        }
+
+        private static Type[] AssemblyTypes(Assembly assembly)
+        {
+            return assembly.GetTypes().Where((t) =>
+            {
+                return t.IsDefined(typeof(Model.NewObjectForComponentViewAttribute), false) && !t.IsValueType && !t.IsInterface;
+            }).ToArray();
         }
 
         #endregion

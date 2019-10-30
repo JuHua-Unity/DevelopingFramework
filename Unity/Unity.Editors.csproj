@@ -74,9 +74,14 @@
     <Compile Include="Assets\Editor\ComponentView\Drawer\DelegateDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\DrawerPriority.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\EnumDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\GenericQueueDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\GenericStackDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\ICollectionDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\IDictionaryDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\IListDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\ObjectDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\QueueDrawer.cs" />
+    <Compile Include="Assets\Editor\ComponentView\Drawer\StackDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\StringDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\StructDrawer.cs" />
     <Compile Include="Assets\Editor\ComponentView\Drawer\UnityEngineDrawer.cs" />

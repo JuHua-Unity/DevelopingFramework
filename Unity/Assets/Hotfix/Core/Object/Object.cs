@@ -19,7 +19,7 @@
         /// </summary>
         public long ObjId { get; private set; } = 0;
 
-#if UNITY_EDITOR && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ComponentView
 
         /// <summary>
         /// 对象名字

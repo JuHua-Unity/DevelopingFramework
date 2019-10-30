@@ -60,7 +60,7 @@ namespace Hotfix
 
                 Remove(timerId);
                 timer.Tcs?.SetResult();
-                RecycleOTimer(timer);
+                RecycleTimer(timer);
             }
         }
 
@@ -167,14 +167,21 @@ namespace Hotfix
 
         public void Destroy()
         {
-            timeId.Clear();
-            timeOutTimerIds.Clear();
-            timeOutTime.Clear();
-            timers.Clear();
             for (int i = 0; i < timeId.Count; i++)
             {
                 Game.ObjectPool.Recycle_Queue_long(timeId[i]);
             }
+
+            timeId.Clear();
+            timeOutTimerIds.Clear();
+            timeOutTime.Clear();
+
+            foreach (var timer in timers)
+            {
+                timer.Value.Dispose();
+            }
+
+            timers.Clear();
         }
 
         #endregion
@@ -186,7 +193,7 @@ namespace Hotfix
             return ComponentFactory.Create<Timer>(this);
         }
 
-        private void RecycleOTimer(Timer timer)
+        private void RecycleTimer(Timer timer)
         {
             timer.Dispose();
         }

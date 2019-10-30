@@ -149,7 +149,7 @@ namespace Editors
 
         public bool TypeEquals(Type type)
         {
-            return typeof(IDictionary).IsAssignableFrom(type);
+            return type.IsGenericType && typeof(IDictionary).IsAssignableFrom(type);
         }
     }
 }

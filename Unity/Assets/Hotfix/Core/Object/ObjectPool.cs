@@ -74,17 +74,6 @@ namespace Hotfix
 
             base.Dispose();
 
-            foreach (var kv in dictionary)
-            {
-                foreach (var v in kv.Value)
-                {
-                    v.IsFromPool = false;
-                    v.Dispose();
-                }
-
-                RecycleObjectQueue(kv.Value);
-            }
-
             dictionary.Clear();
             objQueues.Clear();
             longQueues.Clear();

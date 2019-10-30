@@ -72,6 +72,7 @@
     <Compile Include="Assets\Model\Core\Async\TaskFactory.cs" />
     <Compile Include="Assets\Model\Core\Async\Void.cs" />
     <Compile Include="Assets\Model\Core\ComponentView\ComponentView.cs" />
+    <Compile Include="Assets\Model\Core\ComponentView\NewObjectForComponentViewAttribute.cs" />
     <Compile Include="Assets\Model\Core\Game.cs" />
     <Compile Include="Assets\Model\Core\Helper\Define.cs" />
     <Compile Include="Assets\Model\Core\Helper\ILHelper.cs" />
@@ -80,6 +81,9 @@
     <Compile Include="Assets\Model\Core\Hotfix\IInstanceMethod.cs" />
     <Compile Include="Assets\Model\Core\Hotfix\ILStaticMethod.cs" />
     <Compile Include="Assets\Model\Core\Hotfix\MonoStaticMethod.cs" />
+    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\_DemoAdaptor.cs" />
+    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\AdaptorAttribute.cs" />
+    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\IAsyncStateMachineAdaptor.cs" />
     <Compile Include="Assets\Model\Core\ILRuntime\ILBinding\CLRBindings.cs" />
     <Compile Include="Assets\Model\Core\Log\Log.cs" />
     <Compile Include="Assets\Model\Core\ReferenceCollector\ReferenceCollector.cs" />

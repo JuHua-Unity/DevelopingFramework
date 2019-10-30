@@ -39,16 +39,45 @@
         {
             get
             {
-                return componentRoot ?? (componentRoot = new ComponentRoot());
+                if (componentRoot == null)
+                {
+                    Component.GameRoot = UnityEngine.GameObject.Find("/GameRoot");
+
+#if UNITY_EDITOR && !ILRuntime && ComponentView
+
+                    Component.ParentNullRoot = new UnityEngine.GameObject("DisposedComponentRoot");
+                    Component.ParentNullRoot.transform.SetParent(Component.GameRoot.transform, false);
+                    Component.ParentNullRoot.SetActive(false);
+
+#endif
+
+                    componentRoot = new ComponentRoot();
+                }
+
+                return componentRoot;
             }
         }
 
         public static void Close()
         {
-            objectPool?.Dispose();
-            objectPool = null;
+            componentRoot?.Dispose();
+            componentRoot = null;
+
             componentSystem?.Dispose();
             componentSystem = null;
+
+            objectPool?.Dispose();
+            objectPool = null;
+
+            //最后执行
+
+#if UNITY_EDITOR && !ILRuntime && ComponentView
+
+            UnityEngine.Object.DestroyImmediate(Component.ParentNullRoot);
+            Component.ParentNullRoot = null;
+#endif
+
+            Component.GameRoot = null;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Editors
     [ComponentViewDrawer]
     internal class DelegateDrawer : IComponentViewDrawer
     {
-        public int Priority => DrawerPriority.Array;
+        public int Priority => DrawerPriority.Delegate;
 
         public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
         {

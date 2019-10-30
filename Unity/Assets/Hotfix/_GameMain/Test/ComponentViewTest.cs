@@ -6,6 +6,33 @@ namespace Hotfix
 {
     internal class ComponentViewTest : Component
     {
+        #region 界面开关
+
+        private static Component ParentComponent;
+
+        public static void Open(Component parent = null)
+        {
+            if (parent == null)
+            {
+                ParentComponent = Game.ComponentRoot;
+                Game.ComponentRoot.AddComponent<ComponentViewTest>();
+            }
+            else
+            {
+                ParentComponent = parent;
+                parent.AddComponent<ComponentViewTest>();
+            }
+        }
+
+        public static void Close()
+        {
+            ParentComponent.RemoveComponent<ComponentViewTest>();
+            ParentComponent = null;
+        }
+
+        #endregion
+
+
         //private sbyte field1_1;
         //public sbyte field1_2;
         //private static sbyte field1_3;
@@ -106,11 +133,11 @@ namespace Hotfix
         //private static ITestInterface field20_3 = new TestInterface1();
         //public static ITestInterface field20_4 = new TestInterface1();
 
-        private Testdelegate field21_1 = new Testdelegate(TestdelegateMethod);
-        public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
+        //private Testdelegate field21_1 = new Testdelegate(TestdelegateMethod);
+        //public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
         //private static Testdelegate field21_3 = new Testdelegate(TestdelegateMethod);
         //public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
-        private static void TestdelegateMethod() { Log.Debug("测试委托！"); }
+        //private static void TestdelegateMethod() { Log.Debug("测试委托！"); }
 
         //private List<int> field22_5;
 
@@ -173,6 +200,21 @@ namespace Hotfix
         //public TestClass[] field31_2 = new TestClass[1];
         //public int[] field31_3 = new int[1];
         //public string[] field31_4 = new string[1];
+
+        //public Queue field32_1 = null;
+        //public Queue field32_2 = new Queue();
+        //public Queue field32_3 = new Queue(new List<object>() { "1", new TestClass() });
+
+        //public Stack field33_1 = null;
+        //public Stack field33_2 = new Stack();
+        //public Stack field33_3 = new Stack(new List<object>() { "1", new TestClass(), "2", new TestClass(), 1 });
+
+        //public Stack<int> field34_1 = null;
+        //public Stack<int> field34_2 = new Stack<int>();
+        //public Stack<int> field34_3 = new Stack<int>(new List<int>() { 1, 2, 3 });
+
+        //public Stack<TestClass> field35_1 = null;
+        //public Queue<TestClass> field36_2 = null;
     }
 
     public enum TestEnum1
@@ -190,12 +232,14 @@ namespace Hotfix
         Enum4 = 8
     }
 
+    [Model.NewObjectForComponentView]
     public struct TestStruct
     {
         public int Field1;
         public string Field2;
     }
 
+    [Model.NewObjectForComponentView]
     public class TestClass
     {
         public int Field1;

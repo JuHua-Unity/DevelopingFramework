@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Model
+namespace Hotfix
 {
     public static class MD5Helper
     {

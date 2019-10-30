@@ -30,9 +30,7 @@ namespace Editors
         private bool builds_ShowNewBtn = false;
 
         private Vector2 scrollPosition;
-        private bool absGroup = false;
-        private bool absCopyToLocal = false;
-        private bool buildsInfo = false;
+        private readonly List<bool> foldouts = new List<bool>() { false, false, false, false };
 
         private void Awake()
         {
@@ -52,17 +50,17 @@ namespace Editors
 
         private void ShowABInfos()
         {
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("配置AssetBundle：", GUILayout.Width(120));
-            if (GUILayout.Button("保存配置", GUILayout.Width(60)))
+            foldouts[0] = EditorGUILayout.Foldout(foldouts[0], "配置AssetBundle", true);
+            if (foldouts[0])
             {
-                SaveABInfo();
+                ShowABInfos_Group();
+                ShowABInfos_CopyToLocal();
+
+                if (GUILayout.Button("保存配置", GUILayout.Width(60)))
+                {
+                    SaveABInfo();
+                }
             }
-
-            EditorGUILayout.EndHorizontal();
-
-            ShowABInfos_Group();
-            ShowABInfos_CopyToLocal();
         }
 
         private void ShowABInfos_Group()
@@ -70,25 +68,26 @@ namespace Editors
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             Tab();
-            absGroup = EditorGUILayout.ToggleLeft("配置AssetBundle所属分组", absGroup);
+            EditorGUILayout.BeginVertical();
+            foldouts[1] = EditorGUILayout.Foldout(foldouts[1], "配置AssetBundle所属分组", true);
+            if (foldouts[1])
+            {
+                for (int i = 0; i < abs.Count; i++)
+                {
+                    EditorGUILayout.BeginHorizontal();
+
+                    Tab();
+                    EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
+                    EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
+                    EditorGUILayout.LabelField("所属分组：", GUILayout.Width(60));
+                    abs[i].Group = EditorGUILayout.TextField(abs[i].Group);
+
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+            EditorGUILayout.EndVertical();
+
             EditorGUILayout.EndHorizontal();
-            if (!absGroup)
-            {
-                return;
-            }
-
-            for (int i = 0; i < abs.Count; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
-
-                Tab();
-                EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
-                EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
-                EditorGUILayout.LabelField("所属分组：", GUILayout.Width(60));
-                abs[i].Group = EditorGUILayout.TextField(abs[i].Group);
-
-                EditorGUILayout.EndHorizontal();
-            }
         }
 
         private void ShowABInfos_CopyToLocal()
@@ -96,136 +95,136 @@ namespace Editors
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             Tab();
-            absCopyToLocal = EditorGUILayout.ToggleLeft("配置AssetBundle在打包的时候是否复制到本地", absCopyToLocal);
+
+            EditorGUILayout.BeginVertical();
+            foldouts[2] = EditorGUILayout.Foldout(foldouts[2], "配置AssetBundle在打包的时候是否复制到本地", true);
+            if (foldouts[2])
+            {
+                for (int i = 0; i < abs.Count; i++)
+                {
+                    EditorGUILayout.BeginHorizontal();
+
+                    Tab();
+                    EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
+                    EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
+                    EditorGUILayout.LabelField("复制到本地：", GUILayout.Width(70));
+                    abs[i].CopyToLocal = EditorGUILayout.Toggle(abs[i].CopyToLocal);
+
+                    EditorGUILayout.EndHorizontal();
+                }
+            }
+            EditorGUILayout.EndVertical();
+
             EditorGUILayout.EndHorizontal();
-            if (!absCopyToLocal)
-            {
-                return;
-            }
-
-            for (int i = 0; i < abs.Count; i++)
-            {
-                EditorGUILayout.BeginHorizontal();
-
-                Tab();
-                EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
-                EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
-                EditorGUILayout.LabelField("复制到本地：", GUILayout.Width(70));
-                abs[i].CopyToLocal = EditorGUILayout.Toggle(abs[i].CopyToLocal);
-
-                EditorGUILayout.EndHorizontal();
-            }
         }
 
         private void ShowBuildInfos()
         {
-            buildsInfo = EditorGUILayout.ToggleLeft("选择或创建打包配置", buildsInfo);
-            if (!buildsInfo)
+            foldouts[3] = EditorGUILayout.Foldout(foldouts[3], "选择或创建打包配置", true);
+            if (foldouts[3])
             {
-                return;
-            }
-
-            builds_SelectIndex = EditorGUILayout.Popup("已有配置：", builds_SelectIndex, builds_ShowName.ToArray());
-            if (builds_SelectIndex < builds.Count)
-            {
-                if (builds_SelectIndex_T != builds_SelectIndex)
+                builds_SelectIndex = EditorGUILayout.Popup("已有配置：", builds_SelectIndex, builds_ShowName.ToArray());
+                if (builds_SelectIndex < builds.Count)
                 {
-                    builds_SelectIndex_T = builds_SelectIndex;
-                    build.Clone(builds[builds_SelectIndex]);
-                }
-            }
-
-            EditorGUILayout.Space();
-
-            EditorGUILayout.BeginHorizontal();
-            build.OutPath = EditorGUILayout.TextField("OutPath:", build.OutPath);
-            if (GUILayout.Button("Browser", GUILayout.Width(80)))
-            {
-                string str = OpenFloder("../Release/");
-                if (!string.IsNullOrEmpty(str))
-                {
-                    str = Path.Combine(str, Define.ABsPathParent);
+                    if (builds_SelectIndex_T != builds_SelectIndex)
+                    {
+                        builds_SelectIndex_T = builds_SelectIndex;
+                        build.Clone(builds[builds_SelectIndex]);
+                    }
                 }
 
-                build.OutPath = str;
-            }
+                EditorGUILayout.Space();
 
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            build.CopyToLocalPath = EditorGUILayout.TextField("CopyToLocalPath:", build.CopyToLocalPath);
-            if (GUILayout.Button("Browser", GUILayout.Width(80)))
-            {
-                build.CopyToLocalPath = OpenFloder("Assets/StreamingAssets/AssetBundles/");
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.BeginHorizontal();
-            build.CopyToServerPath = EditorGUILayout.TextField("CopyToServerPath:", build.CopyToServerPath);
-            if (GUILayout.Button("Browser", GUILayout.Width(80)))
-            {
-                build.CopyToServerPath = OpenFloder("../Release/");
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            build.Options = (BuildAssetBundleOptions)EditorGUILayout.EnumFlagsField("Options:", build.Options);
-            build.Target = (BuildTarget)EditorGUILayout.EnumPopup("Target:", build.Target);
-
-            EditorGUILayout.BeginHorizontal();
-            if (builds_SelectIndex < builds.Count)
-            {
-                if (GUILayout.Button("保存至当前选择的配置"))
+                EditorGUILayout.BeginHorizontal();
+                build.OutPath = EditorGUILayout.TextField("OutPath:", build.OutPath);
+                if (GUILayout.Button("Browser", GUILayout.Width(80)))
                 {
-                    builds[builds_SelectIndex].Clone(build);
-                    builds_ShowName[builds_SelectIndex] = build.ShowName;
+                    string str = OpenFloder("../Release/");
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        str = Path.Combine(str, Define.ABsPathParent);
+                    }
+
+                    build.OutPath = str;
                 }
 
-                if (GUILayout.Button("删除当前选择的配置"))
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                build.CopyToLocalPath = EditorGUILayout.TextField("CopyToLocalPath:", build.CopyToLocalPath);
+                if (GUILayout.Button("Browser", GUILayout.Width(80)))
                 {
-                    builds.RemoveAt(builds_SelectIndex);
-                    builds_ShowName.RemoveAt(builds_SelectIndex);
+                    build.CopyToLocalPath = OpenFloder("Assets/StreamingAssets/AssetBundles/");
                 }
-            }
 
-            builds_ShowNewBtn = true;
-            for (int i = 0; i < builds.Count; i++)
-            {
-                if (builds[i].Target == build.Target)
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
+                build.CopyToServerPath = EditorGUILayout.TextField("CopyToServerPath:", build.CopyToServerPath);
+                if (GUILayout.Button("Browser", GUILayout.Width(80)))
                 {
-                    builds_ShowNewBtn = false;
+                    build.CopyToServerPath = OpenFloder("../Release/");
                 }
-            }
 
-            if (builds_ShowNewBtn)
-            {
-                if (GUILayout.Button("另存为一个新的配置"))
+                EditorGUILayout.EndHorizontal();
+
+                build.Options = (BuildAssetBundleOptions)EditorGUILayout.EnumFlagsField("Options:", build.Options);
+                build.Target = (BuildTarget)EditorGUILayout.EnumPopup("Target:", build.Target);
+
+                EditorGUILayout.BeginHorizontal();
+                if (builds_SelectIndex < builds.Count)
                 {
-                    BuildInfo a = new BuildInfo();
-                    a.Clone(build);
-                    builds.Add(a);
-                    builds_ShowName.Add(a.ShowName);
-                    builds_SelectIndex = builds.Count - 1;
+                    if (GUILayout.Button("保存至当前选择的配置"))
+                    {
+                        builds[builds_SelectIndex].Clone(build);
+                        builds_ShowName[builds_SelectIndex] = build.ShowName;
+                    }
+
+                    if (GUILayout.Button("删除当前选择的配置"))
+                    {
+                        builds.RemoveAt(builds_SelectIndex);
+                        builds_ShowName.RemoveAt(builds_SelectIndex);
+                    }
                 }
+
+                builds_ShowNewBtn = true;
+                for (int i = 0; i < builds.Count; i++)
+                {
+                    if (builds[i].Target == build.Target)
+                    {
+                        builds_ShowNewBtn = false;
+                    }
+                }
+
+                if (builds_ShowNewBtn)
+                {
+                    if (GUILayout.Button("另存为一个新的配置"))
+                    {
+                        BuildInfo a = new BuildInfo();
+                        a.Clone(build);
+                        builds.Add(a);
+                        builds_ShowName.Add(a.ShowName);
+                        builds_SelectIndex = builds.Count - 1;
+                    }
+                }
+
+                if (GUILayout.Button("保存所有配置至本地"))
+                {
+                    SaveBuildInfo();
+                }
+
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.Space();
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Build"))
+                {
+                    Build();
+                }
+
+                build_SelectIndex = EditorGUILayout.Popup(build_SelectIndex, build_CopyToLocalType, GUILayout.Width(200));
+                EditorGUILayout.EndHorizontal();
             }
-
-            if (GUILayout.Button("保存所有配置至本地"))
-            {
-                SaveBuildInfo();
-            }
-
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUILayout.Space();
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("Build"))
-            {
-                Build();
-            }
-
-            build_SelectIndex = EditorGUILayout.Popup(build_SelectIndex, build_CopyToLocalType, GUILayout.Width(200));
-            EditorGUILayout.EndHorizontal();
         }
 
         private void Build()

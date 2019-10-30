@@ -23,6 +23,8 @@ namespace Model
         public Action<bool> OnApplicationFocus;
         public Action<bool> OnApplicationPause;
 
+        public Action<int, object> OnMessage;
+
         public void GotoHotfix()
         {
 #if ILRuntime

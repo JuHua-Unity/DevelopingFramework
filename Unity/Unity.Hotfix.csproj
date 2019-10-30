@@ -61,14 +61,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Hotfix\_GameMain\GameStart.cs" />
-    <Compile Include="Assets\Hotfix\_GameMain\Scene\ComponentRoot.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Scene\InitScene.cs" />
     <Compile Include="Assets\Hotfix\_GameMain\Scene\TestScene.cs" />
     <Compile Include="Assets\Hotfix\_GameMain\Test\ComponentViewTest.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.Dispose.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Component.System.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\ComponentFactory.cs" />
-    <Compile Include="Assets\Hotfix\Core\Component\ComponentPool.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\ComponentRoot.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\ComponentSystem.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Interface\IAwakeSystem.cs" />
     <Compile Include="Assets\Hotfix\Core\Component\Interface\IDestroySystem.cs" />
@@ -77,11 +77,13 @@
     <Compile Include="Assets\Hotfix\Core\Component\Interface\IUpdateSystem.cs" />
     <Compile Include="Assets\Hotfix\Core\Game.cs" />
     <Compile Include="Assets\Hotfix\Core\Helper\JsonHelper.cs" />
+    <Compile Include="Assets\Hotfix\Core\Helper\TimeHelper.cs" />
     <Compile Include="Assets\Hotfix\Core\Log\Log.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\IDisposable.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\ISupportInitialize.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\Object.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\ObjectPool.cs" />
+    <Compile Include="Assets\Hotfix\Core\Timer\TimerComponent.cs" />
     <Compile Include="Assets\Hotfix\Init.cs" />
     <Compile Include="Assets\Hotfix\Model\Download\UnityWebRequestAsync.cs" />
     <Compile Include="Assets\Hotfix\Model\Res\Manage\AssetsBundleLoaderAsync.cs" />
@@ -90,9 +92,7 @@
     <Compile Include="Assets\Hotfix\Model\Res\Other\MD5Helper.cs" />
     <Compile Include="Assets\Hotfix\Model\Res\Other\PathHelper.cs" />
     <Compile Include="Assets\Hotfix\Model\Res\Other\ResVersion.cs" />
-    <Compile Include="Assets\Hotfix\Model\Res\Update\ResUpdate.cs" />
-    <Compile Include="Assets\Hotfix\Model\Timer\TimeHelper.cs" />
-    <Compile Include="Assets\Hotfix\Model\Timer\TimerComponent.cs" />
+    <Compile Include="Assets\Hotfix\Model\Res\Update\ResUpdateComponent.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
