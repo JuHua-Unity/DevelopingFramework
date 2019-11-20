@@ -2,6 +2,7 @@
 
 namespace Model
 {
+    public delegate void DD(string name);
     internal class Init : MonoBehaviour
     {
         private void Awake()

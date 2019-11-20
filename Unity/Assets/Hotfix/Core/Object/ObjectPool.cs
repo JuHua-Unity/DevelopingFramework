@@ -77,6 +77,7 @@ namespace Hotfix
             dictionary.Clear();
             objQueues.Clear();
             longQueues.Clear();
+            componentLists.Clear();
         }
 
         #region ObjectQueue
@@ -118,6 +119,28 @@ namespace Hotfix
         {
             longQueue.Clear();
             longQueues.Enqueue(longQueue);
+        }
+
+        #endregion
+
+        #region Queue<List<Component>>
+
+        private readonly Queue<List<Component>> componentLists = new Queue<List<Component>>();
+
+        public List<Component> Fetch_List_Component()
+        {
+            if (componentLists.Count > 0)
+            {
+                return componentLists.Dequeue();
+            }
+
+            return new List<Component>();
+        }
+
+        public void Recycle_List_Component(List<Component> componentList)
+        {
+            componentList.Clear();
+            componentLists.Enqueue(componentList);
         }
 
         #endregion

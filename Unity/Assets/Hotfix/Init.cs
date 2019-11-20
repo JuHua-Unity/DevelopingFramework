@@ -1,4 +1,6 @@
-﻿namespace Hotfix
+﻿using System;
+
+namespace Hotfix
 {
     public static class Init
     {

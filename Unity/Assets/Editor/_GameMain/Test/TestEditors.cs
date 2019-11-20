@@ -1,11 +1,17 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor;
 using UnityEngine;
+using ILRuntime.CLR.Utils;
+using System.IO;
+using System.Text;
 
 namespace Editors
 {
     public class TestEditors : Editor
     {
-        public static void Path()
+        public static void ShowPath()
         {
             var obj = Selection.activeObject;
             if (obj != null)

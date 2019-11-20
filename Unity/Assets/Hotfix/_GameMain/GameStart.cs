@@ -8,7 +8,10 @@
 
             InitScene.Open();
 
-            Game.ComponentRoot.AddComponent<ComponentViewTest>();
+            LoadingScene.Open();
+
+            ComponentViewTest.Open();
+            Game.ComponentRoot.AddComponent<CollectDelegate>();
         }
     }
 }

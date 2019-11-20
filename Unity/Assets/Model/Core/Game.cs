@@ -6,6 +6,7 @@
     /// </summary>
     public static class Game
     {
+        public static DD DD;
         /// <summary>
         /// 启动流程
         /// 3:需要关闭 -> 2

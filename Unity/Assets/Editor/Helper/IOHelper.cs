@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using UnityEditor;
 
 namespace Editors
 {
@@ -11,6 +13,50 @@ namespace Editors
             {
                 sw.Write(data);
             }
+
+            AssetDatabase.Refresh();
+        }
+
+        public static T StreamReader<T>(string path)
+        {
+            if (File.Exists(path))
+            {
+                string str = "";
+                using (StreamReader sb = new StreamReader(path))
+                {
+                    str = sb.ReadToEnd();
+                }
+
+                return LitJson.JsonMapper.ToObject<T>(str);
+            }
+            else
+            {
+                var t = typeof(T);
+                if (t == typeof(string))
+                {
+                    throw new Exception($"直接获取字符串类型的话请使用非泛型方法");
+                }
+
+                return (T)Activator.CreateInstance(t);
+            }
+        }
+
+        public static string StreamReader(string path)
+        {
+            if (File.Exists(path))
+            {
+                string str = "";
+                using (StreamReader sb = new StreamReader(path))
+                {
+                    str = sb.ReadToEnd();
+                }
+
+                return str;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -18,7 +64,7 @@ namespace Editors
         /// 如果文件存在则先删除再创建
         /// </summary>
         /// <param name="path">文件路径</param>
-        public static void CreateFile(string path)
+        private static void CreateFile(string path)
         {
             if (File.Exists(path))
             {

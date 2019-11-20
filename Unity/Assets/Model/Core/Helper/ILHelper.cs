@@ -25,7 +25,8 @@ namespace Model
             #region appdomain.DelegateManager.RegisterMethodDelegate
 
             appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32, System.Object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32, System.Object>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>();
             #endregion
 
             appdomain.DelegateManager.RegisterMethodDelegate<ILTypeInstance>();

@@ -49,7 +49,13 @@ namespace Editors
         [MenuItem("Assets/菜单栏/路径")]
         private static void Func_Test()
         {
-            TestEditors.Path();
+            TestEditors.ShowPath();
+        }
+
+        [MenuItem("菜单栏/查找委托")]
+        private static void Func_FindDelegate()
+        {
+            CollectDelegate.FindDelegate();
         }
 
         [MenuItem("菜单栏/测试窗口")]

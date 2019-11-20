@@ -25,6 +25,52 @@ namespace Model
         {
             GameObject go = null;
 
+            if (!EditorGetCodeGo(fileName, ref go))
+            {
+                string path = null;
+                if (Application.isMobilePlatform)
+                {
+                    path = $"{Application.persistentDataPath}/{Application.productName}/{Define.ABsPathParent}/{fileName}";
+                    if (!System.IO.File.Exists(path))
+                    {
+                        Log.Debug($"热更路径[{path}]下没有该文件！");
+                        path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
+                    }
+
+                    if (!System.IO.File.Exists(path))
+                    {
+                        throw new Exception($"本地路径[{path}]下没有该文件！");
+                    }
+                }
+                else
+                {
+                    path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
+                    if (!System.IO.File.Exists(path))
+                    {
+                        throw new Exception($"本地路径[{path}]下没有该文件！");
+                    }
+                }
+
+                Log.Debug($"Path：{path}");
+                AssetBundle ab = AssetBundle.LoadFromFile(path);
+                if (ab == null)
+                {
+                    throw new Exception($"{fileName}加载失败！");
+                }
+
+                go = ab.LoadAsset<GameObject>("Code");
+            }
+
+            if (go == null)
+            {
+                throw new Exception($"{fileName}加载失败！");
+            }
+
+            return go;
+        }
+
+        private bool EditorGetCodeGo(string fileName, ref GameObject go)
+        {
 #if DEFINE_LOCALRES && UNITY_EDITOR
 
             string[] paths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(fileName);
@@ -40,49 +86,12 @@ namespace Model
 
             go = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(paths[0]);
 
+            return true;
 #else
 
-            string path = null;
-            if (Application.isMobilePlatform)
-            {
-                path = $"{Application.persistentDataPath}/{Application.productName}/{Define.ABsPathParent}/{fileName}";
-                if (!System.IO.File.Exists(path))
-                {
-                    Log.Debug($"热更路径[{path}]下没有该文件！");
-                    path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
-                }
-
-                if (!System.IO.File.Exists(path))
-                {
-                    throw new Exception($"本地路径[{path}]下没有该文件！");
-                }
-            }
-            else
-            {
-                path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
-                if (!System.IO.File.Exists(path))
-                {
-                    throw new Exception($"本地路径[{path}]下没有该文件！");
-                }
-            }
-
-            Log.Debug($"Path：{path}");
-            AssetBundle ab = AssetBundle.LoadFromFile(path);
-            if (ab == null)
-            {
-                throw new Exception($"{fileName}加载失败！");
-            }
-
-            go = ab.LoadAsset<GameObject>("Code");
+            return false;
 
 #endif
-
-            if (go == null)
-            {
-                throw new Exception($"{fileName}加载失败！");
-            }
-
-            return go;
         }
     }
 }

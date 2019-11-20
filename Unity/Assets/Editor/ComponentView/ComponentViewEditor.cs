@@ -16,7 +16,7 @@ namespace Editors
                 return;
             }
 
-            ComponentViewHelper.Draw(component);
+            ObjectDrawerHelper.Draw(component, true);
         }
     }
 }

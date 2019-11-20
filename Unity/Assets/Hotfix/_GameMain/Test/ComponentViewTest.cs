@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Hotfix
 {
-    internal class ComponentViewTest : Component
+    internal class ComponentViewTest : Component, IAwakeSystem
     {
         #region 界面开关
 
@@ -28,6 +28,19 @@ namespace Hotfix
         {
             ParentComponent.RemoveComponent<ComponentViewTest>();
             ParentComponent = null;
+        }
+
+        public void Awake()
+        {
+            TestClass testClass = new TestClass();
+            var a = JsonHelper.ToJson(testClass);
+            Log.Debug(a);
+            var b = JsonHelper.FromJson<TestClass>(a);
+
+            //TestEnum1 testEnum1 = TestEnum1.Enum1;
+            //var aa = JsonHelper.ToJson(testEnum1);
+            //Log.Debug(aa);
+            //var bb = JsonHelper.FromJson<TestEnum1>(aa);
         }
 
         #endregion
@@ -214,7 +227,12 @@ namespace Hotfix
         //public Stack<int> field34_3 = new Stack<int>(new List<int>() { 1, 2, 3 });
 
         //public Stack<TestClass> field35_1 = null;
-        //public Queue<TestClass> field36_2 = null;
+        //public Queue<TestClass> field35_2 = null;
+
+        //public int[] field36_1 = new int[0];
+        //public Array field36_2 = Array.CreateInstance(typeof(int), 0);
+        //public List<int> field36_3 = new List<int>();
+        public ArrayList field36_4 = new ArrayList();
     }
 
     public enum TestEnum1
@@ -244,6 +262,7 @@ namespace Hotfix
     {
         public int Field1;
         public string Field2;
+        public TestEnum1 TestEnum1;
         public int Field3 { get; set; }
         public string Field4 { get; set; }
     }

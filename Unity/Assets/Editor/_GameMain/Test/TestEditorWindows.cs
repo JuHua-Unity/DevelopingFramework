@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using Model;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace Editors
@@ -11,10 +13,12 @@ namespace Editors
         }
 
         private bool fold = false;
+        private const string path = "Assets/_GameMain/Res/Configs/LaunchOptions.json";
+        private LaunchOptions launchOptions;
 
         private void Awake()
         {
-
+            launchOptions = IOHelper.StreamReader<LaunchOptions>(path);
         }
 
         private void OnGUI()
@@ -25,6 +29,13 @@ namespace Editors
                 EditorGUILayout.LabelField("aaaaaaaaaaaaaaa");
             }
             EditorGUILayout.TextField("1", "2");
+
+            ObjectDrawerHelper.Draw(launchOptions, false);
+
+            if (GUILayout.Button("Save"))
+            {
+                IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(launchOptions), path);
+            }
         }
     }
 }
