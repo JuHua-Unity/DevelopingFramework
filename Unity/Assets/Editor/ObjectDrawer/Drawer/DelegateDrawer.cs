@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -9,48 +8,48 @@ namespace Editors
     [ObjectDrawer]
     internal class DelegateDrawer : IObjectDrawer
     {
+        private Type type;
+        private string name;
+        private bool fold;
+        private int len;
+        private Delegate v;
+        private Delegate d;
+
         public int Priority => DrawerPriority.Delegate;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (value == null)
+            type = value.GetType();
+            if (field == null)
             {
-                ObjectDrawerHelper.ShowNull(draw.ShowName, null, ref value);
+                name = type.Name;
             }
             else
             {
-                var v = (Delegate)value;
-                bool fold = ObjectDrawerHelper.GetAndAddFieldShow_Fold(draw.FieldName);
-                fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
-                ObjectDrawerHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
-                if (fold)
-                {
-                    Delegate[] ds = v.GetInvocationList();
-                    int len = ds.Length / 10 + 1;
-                    for (int i = 0; i < ds.Length; i++)
-                    {
-                        var d = ds[i];
-                        EditorGUILayout.BeginHorizontal();
-                        ObjectDrawerHelper.Tab();
-                        EditorGUILayout.LabelField("Delegate:", GUILayout.Width(60));
-                        EditorGUILayout.LabelField($"{i}", GUILayout.Width(len * 5 + 15));
-                        EditorGUILayout.LabelField($"{d.Method.ReflectedType}.{d.Method.Name}");
-                        EditorGUILayout.EndHorizontal();
-                    }
-
-                    if (GUILayout.Button("测试运行(如果该委托无参的话)"))
-                    {
-                        v.DynamicInvoke();
-                    }
-                }
-
-                value = v;
+                name = field.Name;
             }
 
-            EditorGUI.EndDisabledGroup();
-            return value;
+            v = (Delegate)value;
+            fold = ObjectDrawerHelper.GetAndAddFold(name);
+            fold = EditorGUILayout.Foldout(fold, name, true);
+            ObjectDrawerHelper.SetAndAddFold(name, fold);
+            if (!fold)
+            {
+                return;
+            }
+
+            Delegate[] ds = v.GetInvocationList();
+            len = ds.Length / 10 + 1;
+            for (int i = 0; i < ds.Length; i++)
+            {
+                d = ds[i];
+                EditorGUILayout.BeginHorizontal();
+                ObjectDrawerHelper.Tab();
+                EditorGUILayout.LabelField("Delegate:", GUILayout.Width(60));
+                EditorGUILayout.LabelField($"{i}", GUILayout.Width(len * 5 + 15));
+                EditorGUILayout.LabelField($"{d.Method.ReflectedType}.{d.Method.Name}");
+                EditorGUILayout.EndHorizontal();
+            }
         }
 
         public bool TypeEquals(Type type)

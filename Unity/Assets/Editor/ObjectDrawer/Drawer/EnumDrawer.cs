@@ -1,60 +1,43 @@
 ﻿using System;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 
 namespace Editors
 {
     [ObjectDrawer]
     internal class EnumDrawer : IObjectDrawer
     {
+        private Type type;
+        private Enum v;
+
         public int Priority => DrawerPriority.Enum;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            type = value.GetType();
+            v = (Enum)value;
+            if (field == null)
             {
                 if (type.IsDefined(typeof(FlagsAttribute), false))
                 {
-                    value = EditorGUILayout.EnumFlagsField(draw.ShowName, (Enum)value);
+                    EditorGUILayout.EnumFlagsField(v);
                 }
                 else
                 {
-                    value = EditorGUILayout.EnumPopup(draw.ShowName, (Enum)value);
-                }
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                if (type.IsDefined(typeof(FlagsAttribute), false))
-                {
-                    value = EditorGUILayout.EnumFlagsField((Enum)value);
-                }
-                else
-                {
-                    value = EditorGUILayout.EnumPopup((Enum)value);
+                    EditorGUILayout.EnumPopup(v);
                 }
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
                 if (type.IsDefined(typeof(FlagsAttribute), false))
                 {
-                    value = EditorGUILayout.EnumFlagsField((Enum)value);
+                    EditorGUILayout.EnumFlagsField(field.Name, v);
                 }
                 else
                 {
-                    value = EditorGUILayout.EnumPopup((Enum)value);
+                    EditorGUILayout.EnumPopup(field.Name, v);
                 }
-
-                EditorGUILayout.EndHorizontal();
             }
-
-            EditorGUI.EndDisabledGroup();
-            return value;
         }
 
         public bool TypeEquals(Type type)

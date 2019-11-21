@@ -1,60 +1,37 @@
 ﻿using System;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
 
 namespace Editors
 {
     [ObjectDrawer]
     internal class StringDrawer : IObjectDrawer
     {
+        private Type type;
+        private string name;
+
         public int Priority => DrawerPriority.String;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            type = value.GetType();
+            if (field == null)
             {
-                if (draw.NeedDelayed)
-                {
-                    value = EditorGUILayout.DelayedTextField(draw.ShowName, (string)value);
-                }
-                else
-                {
-                    value = EditorGUILayout.TextField(draw.ShowName, (string)value);
-                }
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                if (draw.NeedDelayed)
-                {
-                    value = EditorGUILayout.DelayedTextField((string)value);
-                }
-                else
-                {
-                    value = EditorGUILayout.TextField((string)value);
-                }
+                name = type.Name;
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                if (draw.NeedDelayed)
-                {
-                    value = EditorGUILayout.DelayedTextField((string)value);
-                }
-                else
-                {
-                    value = EditorGUILayout.TextField((string)value);
-                }
-
-                EditorGUILayout.EndHorizontal();
+                name = field.Name;
             }
 
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.LabelField((string)value);
+            }
+            else
+            {
+                EditorGUILayout.LabelField(field.Name, (string)value);
+            }
         }
 
         public bool TypeEquals(Type type)

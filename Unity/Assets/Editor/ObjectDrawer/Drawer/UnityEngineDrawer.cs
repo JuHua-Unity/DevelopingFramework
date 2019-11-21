@@ -8,32 +8,21 @@ namespace Editors
     [ObjectDrawer]
     internal class UnityObjectDrawer : IObjectDrawer
     {
+        private Type type;
+
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            type = value.GetType();
+            if (field == null)
             {
-                value = EditorGUILayout.ObjectField(draw.ShowName, (UnityEngine.Object)value, type, true);
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                value = EditorGUILayout.ObjectField((UnityEngine.Object)value, type, true);
+                EditorGUILayout.ObjectField((UnityEngine.Object)value, type, true);
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                value = EditorGUILayout.ObjectField((UnityEngine.Object)value, type, true);
-
-                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.ObjectField(field.Name, (UnityEngine.Object)value, type, true);
             }
-
-            EditorGUI.EndDisabledGroup();
-            return value;
         }
 
         public bool TypeEquals(Type type)
@@ -57,12 +46,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector2Field(draw.ShowName, (Vector2)value);
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.Vector2Field("Vector2", (Vector2)value);
+            }
+            else
+            {
+                EditorGUILayout.Vector2Field(field.Name, (Vector2)value);
+            }
         }
 
         public bool TypeEquals(Type type)
@@ -76,12 +69,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector3Field(draw.ShowName, (Vector3)value);
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.Vector3Field("Vector3", (Vector3)value);
+            }
+            else
+            {
+                EditorGUILayout.Vector3Field(field.Name, (Vector3)value);
+            }
         }
 
         public bool TypeEquals(Type type)
@@ -95,12 +92,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.Vector4Field(draw.ShowName, (Vector4)value);
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.Vector4Field("Vector4", (Vector4)value);
+            }
+            else
+            {
+                EditorGUILayout.Vector4Field(field.Name, (Vector4)value);
+            }
         }
 
         public bool TypeEquals(Type type)
@@ -114,12 +115,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-            value = EditorGUILayout.RectField(draw.ShowName, (Rect)value);
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.RectField((Rect)value);
+            }
+            else
+            {
+                EditorGUILayout.RectField(field.Name, (Rect)value);
+            }
         }
 
         public bool TypeEquals(Type type)
@@ -133,30 +138,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            if (field == null)
             {
-                value = EditorGUILayout.BoundsField(draw.ShowName, (Bounds)value);
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                value = EditorGUILayout.BoundsField((Bounds)value);
+                EditorGUILayout.BoundsField((Bounds)value);
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                value = EditorGUILayout.BoundsField((Bounds)value);
-
-                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.BoundsField(field.Name, (Bounds)value);
             }
-
-            EditorGUI.EndDisabledGroup();
-            return value;
         }
 
         public bool TypeEquals(Type type)
@@ -170,30 +161,16 @@ namespace Editors
     {
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            if (field == null)
             {
-                value = EditorGUILayout.ColorField(draw.ShowName, (Color)value);
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                value = EditorGUILayout.ColorField((Color)value);
+                EditorGUILayout.ColorField((Color)value);
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                value = EditorGUILayout.ColorField((Color)value);
-
-                EditorGUILayout.EndHorizontal();
+                EditorGUILayout.ColorField(field.Name, (Color)value);
             }
-
-            EditorGUI.EndDisabledGroup();
-            return value;
         }
 
         public bool TypeEquals(Type type)
@@ -205,53 +182,31 @@ namespace Editors
     [ObjectDrawer]
     internal class AnimationCurveDrawer : IObjectDrawer
     {
+        private Type type;
+        private string name;
+
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            type = value.GetType();
+            if (field == null)
             {
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.CurveField(draw.ShowName, (AnimationCurve)value);
-                }
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.CurveField((AnimationCurve)value);
-                }
+                name = type.Name;
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.CurveField((AnimationCurve)value);
-                }
-
-                EditorGUILayout.EndHorizontal();
+                name = field.Name;
             }
 
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.CurveField((AnimationCurve)value);
+            }
+            else
+            {
+                EditorGUILayout.CurveField(field.Name, (AnimationCurve)value);
+            }
         }
 
         public bool TypeEquals(Type type)
@@ -263,53 +218,31 @@ namespace Editors
     [ObjectDrawer]
     internal class GradientDrawer : IObjectDrawer
     {
+        private Type type;
+        private string name;
+
         public int Priority => DrawerPriority.Zero;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (draw.ShowNameWidth < 0)
+            type = value.GetType();
+            if (field == null)
             {
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.GradientField(draw.ShowName, (Gradient)value);
-                }
-            }
-            else if (draw.ShowNameWidth == 0)
-            {
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.GradientField((Gradient)value);
-                }
+                name = type.Name;
             }
             else
             {
-                EditorGUILayout.BeginHorizontal();
-
-                EditorGUILayout.LabelField(draw.ShowName, GUILayout.Width(draw.ShowNameWidth));
-                if (value == null)
-                {
-                    ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
-                }
-                else
-                {
-                    value = EditorGUILayout.GradientField((Gradient)value);
-                }
-
-                EditorGUILayout.EndHorizontal();
+                name = field.Name;
             }
 
-            EditorGUI.EndDisabledGroup();
-            return value;
+            if (field == null)
+            {
+                EditorGUILayout.GradientField((Gradient)value);
+            }
+            else
+            {
+                EditorGUILayout.GradientField(field.Name, (Gradient)value);
+            }
         }
 
         public bool TypeEquals(Type type)

@@ -30,8 +30,6 @@ namespace Editors
             }
             EditorGUILayout.TextField("1", "2");
 
-            ObjectDrawerHelper.Draw(launchOptions, false);
-
             if (GUILayout.Button("Save"))
             {
                 IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(launchOptions), path);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -9,66 +10,60 @@ namespace Editors
     [ObjectDrawer]
     internal class ICollectionDrawer : IObjectDrawer
     {
+        private Type type;
+        private string name;
+        private ICollection v;
+        private bool fold;
+        private Type[] types;
+        private readonly List<object> list = new List<object>();
+
         public int Priority => DrawerPriority.Collection;
 
-        public object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field)
+        public void Draw(object value, FieldInfo field = null)
         {
-            EditorGUI.BeginDisabledGroup(!draw.Changeable);
-
-            if (value == null)
+            type = value.GetType();
+            if (field == null)
             {
-                ObjectDrawerHelper.ShowNull(draw.ShowName, type, ref value);
+                name = type.Name;
             }
             else
             {
-                var v = (ICollection)value;
-                bool fold = ObjectDrawerHelper.GetAndAddFieldShow_Fold(draw.FieldName);
-                fold = EditorGUILayout.Foldout(fold, draw.ShowName, true);
-                ObjectDrawerHelper.SetAndAddFieldShow_Fold(draw.FieldName, fold);
-                if (fold)
-                {
-                    int count = v.Count;
-                    int len = count / 10 + 1;
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("数量：", GUILayout.Width(60));
-                    EditorGUILayout.LabelField(count.ToString());
-                    EditorGUILayout.EndHorizontal();
-
-                    object[] array = new object[v.Count];
-                    v.CopyTo(array, 0);
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        EditorGUILayout.BeginHorizontal();
-                        ObjectDrawerHelper.Tab();
-                        EditorGUILayout.LabelField("Element:", GUILayout.Width(60));
-
-                        EditorGUILayout.BeginVertical();
-                        string showName = $"{i}";
-                        array[i] = ObjectDrawerHelper.DrawAndGetNewValue(array[i].GetType(), array[i], new DrawInfo()
-                        {
-                            Changeable = draw.Changeable,
-                            NeedDelayed = draw.NeedDelayed,
-                            ShowName = showName,
-                            ShowNameWidth = len * 5 + 15,
-                            IsStatic = false,
-                            FieldName = field.Name + $"_{i}"
-                        }, field);
-                        EditorGUILayout.EndVertical();
-
-                        EditorGUILayout.EndHorizontal();
-                    }
-                }
-
-                value = v;
+                name = field.Name;
             }
 
-            EditorGUI.EndDisabledGroup();
-            return value;
+            v = (ICollection)value;
+            fold = ObjectDrawerHelper.GetAndAddFold(name);
+            fold = EditorGUILayout.Foldout(fold, name, true);
+            ObjectDrawerHelper.SetAndAddFold(name, fold);
+            if (!fold)
+            {
+                return;
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("数量：", GUILayout.Width(60));
+            EditorGUILayout.LabelField(v.Count.ToString());
+            EditorGUILayout.EndHorizontal();
+
+            list.Clear();
+            foreach (var item in v)
+            {
+                list.Add(item);
+            }
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                ObjectDrawerHelper.Tab();
+                EditorGUILayout.LabelField("Element:", GUILayout.Width(60));
+                ObjectDrawerHelper.Draw(list[i], null);
+                EditorGUILayout.EndHorizontal();
+            }
         }
 
         public bool TypeEquals(Type type)
         {
-            return type.IsGenericType && typeof(ICollection).IsAssignableFrom(type) && !typeof(IList).IsAssignableFrom(type) && !typeof(IDictionary).IsAssignableFrom(type);
+            return typeof(ICollection).IsAssignableFrom(type);
         }
     }
 }

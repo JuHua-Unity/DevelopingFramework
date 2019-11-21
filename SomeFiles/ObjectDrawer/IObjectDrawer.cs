@@ -7,6 +7,6 @@ namespace Editors
     {
         int Priority { get; }
         bool TypeEquals(Type type);
-        void Draw(object value, FieldInfo field = null);
+        object DrawAndGetNewValue(Type type, object value, DrawInfo draw, FieldInfo field);
     }
 }
