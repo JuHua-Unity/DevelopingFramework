@@ -19,26 +19,19 @@ namespace Editors
 
         public static T StreamReader<T>(string path)
         {
-            if (File.Exists(path))
+            var t = typeof(T);
+            if (t == typeof(string))
             {
-                string str = "";
-                using (StreamReader sb = new StreamReader(path))
-                {
-                    str = sb.ReadToEnd();
-                }
+                throw new Exception($"直接获取字符串类型的话请使用非泛型方法");
+            }
 
+            string str = StreamReader(path);
+            if (!string.IsNullOrEmpty(str))
+            {
                 return LitJson.JsonMapper.ToObject<T>(str);
             }
-            else
-            {
-                var t = typeof(T);
-                if (t == typeof(string))
-                {
-                    throw new Exception($"直接获取字符串类型的话请使用非泛型方法");
-                }
 
-                return (T)Activator.CreateInstance(t);
-            }
+            return (T)Activator.CreateInstance(t);
         }
 
         public static string StreamReader(string path)

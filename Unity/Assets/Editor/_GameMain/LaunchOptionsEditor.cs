@@ -22,18 +22,7 @@ namespace Editors
                 File.Create(path);
             }
 
-            using (var sr = new StreamReader(path))
-            {
-                string str = sr.ReadToEnd();
-                if (string.IsNullOrEmpty(str))
-                {
-                    launchOptions = new LaunchOptions();
-                }
-                else
-                {
-                    launchOptions = LitJson.JsonMapper.ToObject<LaunchOptions>(str);
-                }
-            }
+            launchOptions = IOHelper.StreamReader<LaunchOptions>(path);
         }
 
         private void OnGUI()

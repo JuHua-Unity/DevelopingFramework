@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace Hotfix
+﻿namespace Hotfix
 {
     public static class Init
     {
         public static void Start()
         {
-            Log.Debug("热更启动完成！");
+            ILHelper.InitILRuntime();
 
             Model.Game.Hotfix.Update = () => { Update(); };
             Model.Game.Hotfix.LateUpdate = () => { LateUpdate(); };
@@ -16,6 +14,7 @@ namespace Hotfix
 
             Model.Game.Hotfix.OnMessage = (id, obj) => { OnMessage(id, obj); };
 
+            Log.Debug("热更启动完成！");
             GameStart.Start();
         }
 

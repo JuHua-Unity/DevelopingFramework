@@ -31,10 +31,10 @@ namespace Editors
         [MenuItem("菜单栏/Core/宏定义")]
         private static void Func5()
         {
-            DefineWindow.Open();
+            ScriptingDefineSymbolsWindow.Open();
         }
 
-        [MenuItem("菜单栏/Core/AssetBundle")]
+        [MenuItem("菜单栏/Core/AssetBunles")]
         private static void Func6()
         {
             AssetBundlesEditor.Open();
@@ -43,7 +43,7 @@ namespace Editors
         [MenuItem("菜单栏/Core/Builder")]
         private static void Func7()
         {
-            BuildPlayerEditor.Open();
+            BuildWindow.Open();
         }
 
         [MenuItem("Assets/菜单栏/路径")]
@@ -52,10 +52,10 @@ namespace Editors
             TestEditors.ShowPath();
         }
 
-        [MenuItem("菜单栏/查找委托")]
-        private static void Func_FindDelegate()
+        [MenuItem("菜单栏/测试")]
+        private static void Func_Test1()
         {
-            CollectDelegate.FindDelegate();
+            TestEditors.TestSth();
         }
 
         [MenuItem("菜单栏/测试窗口")]

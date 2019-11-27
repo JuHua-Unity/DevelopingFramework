@@ -53,5 +53,15 @@ namespace Model
             start = new MonoStaticMethod(hotfixInit, "Start");
 #endif
         }
+
+#if ILRuntime
+        public ILRuntime.Runtime.Enviorment.AppDomain AppDomain
+        {
+            get
+            {
+                return appDomain;
+            }
+        }
+#endif
     }
 }

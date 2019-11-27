@@ -7,11 +7,11 @@ namespace Editors
     /// <summary>
     /// 宏定义窗口
     /// </summary>
-    internal class DefineWindow : EditorWindow
+    internal class ScriptingDefineSymbolsWindow : EditorWindow
     {
         public static void Open()
         {
-            GetWindow<DefineWindow>().Show();
+            GetWindow<ScriptingDefineSymbolsWindow>().Show();
         }
 
         private string define;
@@ -55,6 +55,7 @@ namespace Editors
 
                     list.Add(defines[i]);
                 }
+
                 define = string.Join(";", list);
                 Debug.Log($"新宏定义：{define}");
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(PlatformDefine.TargetGroup, define);
@@ -117,6 +118,7 @@ namespace Editors
 
                 EditorGUILayout.EndHorizontal();
             }
+
             if (GUILayout.Button("Add", GUILayout.Width(80)))
             {
                 defines.Add("");

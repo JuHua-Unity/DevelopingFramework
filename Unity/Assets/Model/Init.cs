@@ -14,7 +14,7 @@ namespace Model
         {
             Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}");
 
-            Game.StartProcess = 1;
+            Game.Start();
         }
 
         private void Update()

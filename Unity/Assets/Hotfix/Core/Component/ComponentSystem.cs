@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Hotfix
 {
     internal sealed class ComponentSystem : Object
     {
-        private readonly Dictionary<long, Component> allComponents = new Dictionary<long, Component>();
+        private readonly Dictionary<long, Component> components = new Dictionary<long, Component>();
 
         private Queue<long> updates = new Queue<long>();
         private Queue<long> updates2 = new Queue<long>();
@@ -20,7 +19,7 @@ namespace Hotfix
                 return;
             }
 
-            allComponents.Add(component.ObjId, component);
+            components.Add(component.ObjId, component);
 
             if (component is IUpdateSystem)
             {
@@ -40,7 +39,7 @@ namespace Hotfix
 
         public void Remove(long ObjId)
         {
-            allComponents.Remove(ObjId);
+            components.Remove(ObjId);
         }
 
         public void Awake(Component component)
@@ -50,7 +49,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!allComponents.ContainsKey(component.ObjId))
+            if (!components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -81,7 +80,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!allComponents.ContainsKey(component.ObjId))
+            if (!components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -112,7 +111,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!allComponents.ContainsKey(component.ObjId))
+            if (!components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -143,7 +142,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!allComponents.ContainsKey(component.ObjId))
+            if (!components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -172,7 +171,7 @@ namespace Hotfix
             while (starts.Count > 0)
             {
                 long ObjId = starts.Dequeue();
-                if (!allComponents.TryGetValue(ObjId, out Component component))
+                if (!components.TryGetValue(ObjId, out Component component))
                 {
                     continue;
                 }
@@ -204,7 +203,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!allComponents.ContainsKey(component.ObjId))
+            if (!components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -235,7 +234,7 @@ namespace Hotfix
             while (updates.Count > 0)
             {
                 long ObjId = updates.Dequeue();
-                if (!allComponents.TryGetValue(ObjId, out Component component))
+                if (!components.TryGetValue(ObjId, out Component component))
                 {
                     continue;
                 }
@@ -274,7 +273,7 @@ namespace Hotfix
             while (lateUpdates.Count > 0)
             {
                 long ObjId = lateUpdates.Dequeue();
-                if (!allComponents.TryGetValue(ObjId, out Component component))
+                if (!components.TryGetValue(ObjId, out Component component))
                 {
                     continue;
                 }
@@ -335,7 +334,7 @@ namespace Hotfix
 
             base.Dispose();
 
-            allComponents.Clear();
+            components.Clear();
             updates.Clear();
             updates2.Clear();
             starts.Clear();

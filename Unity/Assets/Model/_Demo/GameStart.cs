@@ -93,5 +93,40 @@ namespace Model
 
 #endif
         }
+
+        #region Path
+
+        private string hotfixResPath = null;
+        private string resPath = null;
+
+        private string AppHotfixResPath
+        {
+            get
+            {
+                if (hotfixResPath == null)
+                {
+                    hotfixResPath = Application.isMobilePlatform
+                        ? $"{Application.persistentDataPath}/{Application.productName}/{Define.ABsPathParent}/"
+                        : AppResPath;
+                }
+
+                return hotfixResPath;
+            }
+        }
+
+        private string AppResPath
+        {
+            get
+            {
+                if (resPath == null)
+                {
+                    resPath = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/";
+                }
+
+                return resPath;
+            }
+        }
+
+        #endregion
     }
 }

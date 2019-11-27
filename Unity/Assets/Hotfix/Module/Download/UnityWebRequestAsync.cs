@@ -7,7 +7,7 @@ namespace Hotfix
 {
     internal sealed class UnityWebRequestAsync : Component
     {
-        private static readonly AcceptAllCertificate certificateHandler = new AcceptAllCertificate();
+        //private static readonly AcceptAllCertificate certificateHandler = new AcceptAllCertificate();
 
         private UnityWebRequest request;
         private TaskCompletionSource<DownloadHandler> tcs;
@@ -25,7 +25,7 @@ namespace Hotfix
 
             url = url.Replace(" ", "%20");
             request = UnityWebRequest.Get(url);
-            request.certificateHandler = certificateHandler;
+            //request.certificateHandler = certificateHandler;
             asyncOperation = request.SendWebRequest();
             asyncOperation.completed += OnComplete;
 
@@ -93,12 +93,12 @@ namespace Hotfix
             }
         }
 
-        private class AcceptAllCertificate : CertificateHandler
-        {
-            protected override bool ValidateCertificate(byte[] certificateData)
-            {
-                return true;
-            }
-        }
+        //private class AcceptAllCertificate : CertificateHandler
+        //{
+        //    protected override bool ValidateCertificate(byte[] certificateData)
+        //    {
+        //        return true;
+        //    }
+        //}
     }
 }

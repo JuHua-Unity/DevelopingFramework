@@ -5,10 +5,12 @@ namespace Hotfix
 {
     internal partial class Component
     {
-        private readonly Dictionary<Type, Component> components = new Dictionary<Type, Component>();
+        private Dictionary<Type, Component> components = null;
 
         public virtual K AddComponent<K>(bool isFromPool = true) where K : Component, new()
         {
+            SingleSystemInit();
+
             Type type = typeof(K);
             if (components.ContainsKey(type))
             {
@@ -22,6 +24,8 @@ namespace Hotfix
 
         public virtual K AddComponent<K, P1>(P1 p1, bool isFromPool = true) where K : Component, new()
         {
+            SingleSystemInit();
+
             Type type = typeof(K);
             if (components.ContainsKey(type))
             {
@@ -35,6 +39,8 @@ namespace Hotfix
 
         public virtual K AddComponent<K, P1, P2>(P1 p1, P2 p2, bool isFromPool = true) where K : Component, new()
         {
+            SingleSystemInit();
+
             Type type = typeof(K);
             if (components.ContainsKey(type))
             {
@@ -48,6 +54,8 @@ namespace Hotfix
 
         public virtual K AddComponent<K, P1, P2, P3>(P1 p1, P2 p2, P3 p3, bool isFromPool = true) where K : Component, new()
         {
+            SingleSystemInit();
+
             Type type = typeof(K);
             if (components.ContainsKey(type))
             {
@@ -61,28 +69,11 @@ namespace Hotfix
 
         public virtual void RemoveComponent<K>() where K : Component
         {
-            if (IsDisposed)
-            {
-                return;
-            }
-
-            Type type = typeof(K);
-            if (!components.TryGetValue(type, out Component component))
-            {
-                return;
-            }
-
-            components.Remove(type);
-            component.Dispose();
+            RemoveComponent(typeof(K));
         }
 
         public virtual void RemoveComponent(Type type)
         {
-            if (IsDisposed)
-            {
-                return;
-            }
-
             if (!components.TryGetValue(type, out Component component))
             {
                 return;
@@ -94,22 +85,40 @@ namespace Hotfix
 
         public K GetComponent<K>() where K : Component
         {
-            if (!components.TryGetValue(typeof(K), out Component component))
-            {
-                return default;
-            }
-
-            return (K)component;
+            return (K)GetComponent(typeof(K));
         }
 
         public Component GetComponent(Type type)
         {
-            if (!components.TryGetValue(type, out Component component))
+            if (components != null && components.ContainsKey(type))
             {
-                return null;
+                return components[type];
             }
 
-            return component;
+            return null;
+        }
+
+        private void SingleSystemInit()
+        {
+            if (components == null)
+            {
+                components = new Dictionary<Type, Component>();
+            }
+        }
+
+        private void SingleSystemDispose()
+        {
+            if (components == null)
+            {
+                return;
+            }
+
+            foreach (var item in components)
+            {
+                RemoveComponent(item.Key);
+            }
+
+            components.Clear();
         }
     }
 }

@@ -13,8 +13,6 @@ namespace ILRuntime.Runtime.Generated
         /// </summary>
         public static void Initialize(ILRuntime.Runtime.Enviorment.AppDomain app)
         {
-
-            ILRuntime.CLR.TypeSystem.CLRType __clrType = null;
         }
 
         /// <summary>

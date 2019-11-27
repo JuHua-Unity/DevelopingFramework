@@ -5,10 +5,12 @@ namespace Hotfix
 {
     internal partial class Component
     {
-        private readonly Dictionary<Type, List<Component>> multiComponents = new Dictionary<Type, List<Component>>();
+        private Dictionary<Type, List<Component>> multiComponents = null;
 
-        public virtual K AddMultiComponent<K>(bool isFromPool = true) where K : Component, new()
+        public K AddMultiComponent<K>(bool isFromPool = true) where K : Component, new()
         {
+            MultiSystemInit();
+
             Type type = typeof(K);
             K component = ComponentFactory.Create<K>(this, isFromPool);
             if (!multiComponents.ContainsKey(type))
@@ -20,8 +22,10 @@ namespace Hotfix
             return component;
         }
 
-        public virtual K AddMultiComponent<K, P1>(P1 p1, bool isFromPool = true) where K : Component, new()
+        public K AddMultiComponent<K, P1>(P1 p1, bool isFromPool = true) where K : Component, new()
         {
+            MultiSystemInit();
+
             Type type = typeof(K);
             K component = ComponentFactory.Create<K, P1>(this, p1, isFromPool);
             if (!multiComponents.ContainsKey(type))
@@ -33,8 +37,10 @@ namespace Hotfix
             return component;
         }
 
-        public virtual K AddMultiComponent<K, P1, P2>(P1 p1, P2 p2, bool isFromPool = true) where K : Component, new()
+        public K AddMultiComponent<K, P1, P2>(P1 p1, P2 p2, bool isFromPool = true) where K : Component, new()
         {
+            MultiSystemInit();
+
             Type type = typeof(K);
             K component = ComponentFactory.Create<K, P1, P2>(this, p1, p2, isFromPool);
             if (!multiComponents.ContainsKey(type))
@@ -46,8 +52,10 @@ namespace Hotfix
             return component;
         }
 
-        public virtual K AddMultiComponent<K, P1, P2, P3>(P1 p1, P2 p2, P3 p3, bool isFromPool = true) where K : Component, new()
+        public K AddMultiComponent<K, P1, P2, P3>(P1 p1, P2 p2, P3 p3, bool isFromPool = true) where K : Component, new()
         {
+            MultiSystemInit();
+
             Type type = typeof(K);
             K component = ComponentFactory.Create<K, P1, P2, P3>(this, p1, p2, p3, isFromPool);
             if (!multiComponents.ContainsKey(type))
@@ -59,49 +67,63 @@ namespace Hotfix
             return component;
         }
 
-        public virtual void RemoveMultiComponents<K>() where K : Component
+        public void RemoveMultiComponents<K>() where K : Component
         {
-            Type type = typeof(K);
-            if (!multiComponents.TryGetValue(type, out List<Component> components))
+            RemoveMultiComponents(typeof(K));
+        }
+
+        public void RemoveMultiComponents(Type type)
+        {
+            if (multiComponents == null)
             {
+                Log.Error($"{GetType().Name}[{ObjId}]中并不存在任何类型的MultiComponents！");
                 return;
             }
 
-            multiComponents.Remove(type);
+            if (!multiComponents.ContainsKey(type))
+            {
+                Log.Error($"{GetType().Name}[{ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
+                return;
+            }
+
+            var components = multiComponents[type];
             for (int i = 0; i < components.Count; i++)
             {
                 components[i].Dispose();
             }
 
             Game.ObjectPool.Recycle_List_Component(components);
+            multiComponents.Remove(type);
         }
 
-        public virtual void RemoveMultiComponents(Type type)
+        public void RemoveMultiComponent(Component component)
         {
-            if (!multiComponents.TryGetValue(type, out List<Component> components))
+            if (component == null)
             {
+                throw new Exception($"RemoveMultiComponent时Component参数为空！");
+            }
+
+            if (component.IsDisposed)
+            {
+                throw new Exception($"RemoveMultiComponent时Component已被Dispose！");
+            }
+
+            if (multiComponents == null)
+            {
+                Log.Error($"{GetType().Name}[{ObjId}]中并不存在任何类型的MultiComponents！");
                 return;
             }
 
-            multiComponents.Remove(type);
-            for (int i = 0; i < components.Count; i++)
-            {
-                components[i].Dispose();
-            }
-
-            Game.ObjectPool.Recycle_List_Component(components);
-        }
-
-        public virtual void RemoveMultiComponent(Component component)
-        {
             Type type = component.GetType();
-            if (!multiComponents.TryGetValue(type, out List<Component> components))
+            if (!multiComponents.ContainsKey(type))
             {
-                return;
+                Log.Error($"{GetType().Name}[{ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
             }
 
+            var components = multiComponents[type];
             if (!components.Contains(component))
             {
+                Log.Error($"{GetType().Name}[{ObjId}]中并不存在[{type.Name}]类型的MultiComponent[{component.ObjId}]！");
                 return;
             }
 
@@ -112,28 +134,46 @@ namespace Hotfix
                 return;
             }
 
-            multiComponents.Remove(type);
             Game.ObjectPool.Recycle_List_Component(components);
+            multiComponents.Remove(type);
         }
 
         public K[] GetMultiComponents<K>() where K : Component
         {
-            if (!multiComponents.TryGetValue(typeof(K), out List<Component> components))
-            {
-                return default;
-            }
-
-            return (K[])(components.ToArray());
+            return (K[])GetMultiComponents(typeof(K));
         }
 
         public Component[] GetMultiComponents(Type type)
         {
-            if (!multiComponents.TryGetValue(type, out List<Component> components))
+            if (multiComponents != null && multiComponents.ContainsKey(type))
             {
-                return null;
+                return multiComponents[type].ToArray();
             }
 
-            return components.ToArray();
+            return null;
+        }
+
+        private void MultiSystemInit()
+        {
+            if (multiComponents == null)
+            {
+                multiComponents = new Dictionary<Type, List<Component>>();
+            }
+        }
+
+        private void MultiSystemDispose()
+        {
+            if (multiComponents == null)
+            {
+                return;
+            }
+
+            foreach (var item in multiComponents)
+            {
+                RemoveMultiComponents(item.Key);
+            }
+
+            multiComponents.Clear();
         }
     }
 }

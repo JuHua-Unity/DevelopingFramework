@@ -18,6 +18,16 @@
 
         public static Hotfix Hotfix { get; private set; } = null;
 
+        public static void Start()
+        {
+            StartProcess = 1;
+        }
+
+        public static void ReStart()
+        {
+            StartProcess = 3;
+        }
+
         internal static void Start(byte[] assBytes, byte[] pdbBytes)
         {
             Hotfix = new Hotfix();
@@ -34,11 +44,6 @@
 
             Hotfix.OnApplicationQuit?.Invoke();
             Hotfix = null;
-        }
-
-        public static void ReStart()
-        {
-            StartProcess = 3;
         }
     }
 }

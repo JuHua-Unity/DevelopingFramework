@@ -148,7 +148,6 @@ namespace Hotfix
             return true;
         }
 
-
         private string GetBundleMD5(string group, string file)
         {
             string path = Path.Combine(PathHelper.AppHotfixResPath, file);

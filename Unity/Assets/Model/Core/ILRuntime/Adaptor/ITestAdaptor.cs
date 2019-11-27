@@ -5,14 +5,14 @@ using System;
 
 namespace Model
 {
-    //[Adaptor]  方便统一处理
-    public class DemoAdaptor : CrossBindingAdaptor
+    //[Adaptor]
+    public class ITestAdaptor : CrossBindingAdaptor
     {
         public override Type BaseCLRType
         {
             get
             {
-                return typeof(Nullable/* 这里填写需要适配的类或接口 */);
+                return typeof(ITest);
             }
         }
 
@@ -29,7 +29,7 @@ namespace Model
             return new Adaptor(appdomain, instance);
         }
 
-        public class Adaptor : CrossBindingAdaptorType//这里继承需要适配的类或接口
+        public class Adaptor : ITest, CrossBindingAdaptorType
         {
             private ILRuntime.Runtime.Enviorment.AppDomain appdomain;
 
@@ -45,17 +45,17 @@ namespace Model
 
             #region 这里写适配的方法
 
-            //private IMethod m;
+            private IMethod m;
 
-            //public void M()
-            //{
-            //    if (m == null)
-            //    {
-            //        m = ILInstance.Type.GetMethod("M", 0);
-            //    }
+            public void M()
+            {
+                if (m == null)
+                {
+                    m = ILInstance.Type.GetMethod("M", 0);
+                }
 
-            //    appdomain.Invoke(m, ILInstance, null);
-            //}
+                appdomain.Invoke(m, ILInstance, null);
+            }
 
             #endregion
 
