@@ -320,6 +320,9 @@
     <Reference Include="UnityEditor.iOS.Extensions">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.WebGL.Extensions">
+      <HintPath>D:/Unity2018.3.13f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -673,9 +676,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.ThirdParty.csproj">
-      <Project>{E15BADD2-3A26-309A-AB0F-DC5B08044350}</Project>
-      <Name>Unity.ThirdParty</Name>
+    <ProjectReference Include="ILRuntime.csproj">
+      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
+      <Name>ILRuntime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

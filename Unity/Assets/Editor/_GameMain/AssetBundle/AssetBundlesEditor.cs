@@ -1,5 +1,6 @@
-﻿using Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using LitJson;
+using Model;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,26 +19,26 @@ namespace Editors
         private List<string> allABNames = null;
 
         private Vector2 scrollPosition;
-        private readonly bool[] foldouts = new bool[3] { true, true, true };
+        private readonly bool[] foldouts = {true, true, true};
 
         private void Awake()
         {
             AssetDatabase.RemoveUnusedAssetBundleNames();
-            allABNames = new List<string>(AssetDatabase.GetAllAssetBundleNames());
+            this.allABNames = new List<string>(AssetDatabase.GetAllAssetBundleNames());
             ReadABInfo();
         }
 
         private void OnGUI()
         {
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            this.scrollPosition = EditorGUILayout.BeginScrollView(this.scrollPosition);
             ShowABInfos();
             EditorGUILayout.EndScrollView();
         }
 
         private void ShowABInfos()
         {
-            foldouts[0] = EditorGUILayout.Foldout(foldouts[0], "配置AssetBundle", true);
-            if (foldouts[0])
+            this.foldouts[0] = EditorGUILayout.Foldout(this.foldouts[0], "配置AssetBundle", true);
+            if (this.foldouts[0])
             {
                 ShowABInfos_Group();
                 ShowABInfos_CopyToLocal();
@@ -64,22 +65,23 @@ namespace Editors
             EditorGUILayout.BeginHorizontal();
             Tab();
             EditorGUILayout.BeginVertical();
-            foldouts[1] = EditorGUILayout.Foldout(foldouts[1], "配置AssetBundle所属分组", true);
-            if (foldouts[1])
+            this.foldouts[1] = EditorGUILayout.Foldout(this.foldouts[1], "配置AssetBundle所属分组", true);
+            if (this.foldouts[1])
             {
-                for (int i = 0; i < abs.Count; i++)
+                for (var i = 0; i < this.abs.Count; i++)
                 {
                     EditorGUILayout.BeginHorizontal();
 
                     Tab();
                     EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
-                    EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
+                    EditorGUILayout.LabelField(this.abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
                     EditorGUILayout.LabelField("所属分组：", GUILayout.Width(60));
-                    abs[i].Group = EditorGUILayout.TextField(abs[i].Group);
+                    this.abs[i].Group = EditorGUILayout.TextField(this.abs[i].Group);
 
                     EditorGUILayout.EndHorizontal();
                 }
             }
+
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
@@ -92,22 +94,23 @@ namespace Editors
             Tab();
 
             EditorGUILayout.BeginVertical();
-            foldouts[2] = EditorGUILayout.Foldout(foldouts[2], "配置AssetBundle在打包的时候是否复制到本地", true);
-            if (foldouts[2])
+            this.foldouts[2] = EditorGUILayout.Foldout(this.foldouts[2], "配置AssetBundle在打包的时候是否复制到本地", true);
+            if (this.foldouts[2])
             {
-                for (int i = 0; i < abs.Count; i++)
+                for (var i = 0; i < this.abs.Count; i++)
                 {
                     EditorGUILayout.BeginHorizontal();
 
                     Tab();
                     EditorGUILayout.LabelField("AB:", GUILayout.Width(25));
-                    EditorGUILayout.LabelField(abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
+                    EditorGUILayout.LabelField(this.abs[i].Name.PadRight(200, '-'), GUILayout.Width(200));
                     EditorGUILayout.LabelField("复制到本地：", GUILayout.Width(70));
-                    abs[i].CopyToLocal = EditorGUILayout.Toggle(abs[i].CopyToLocal);
+                    this.abs[i].CopyToLocal = EditorGUILayout.Toggle(this.abs[i].CopyToLocal);
 
                     EditorGUILayout.EndHorizontal();
                 }
             }
+
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
@@ -230,42 +233,38 @@ namespace Editors
         private void ReadABInfo()
         {
             var a = IOHelper.StreamReader<List<ABInfo>>(ABsConfigPath);
-            for (int i = 0; i < allABNames.Count; i++)
+            for (var i = 0; i < this.allABNames.Count; i++)
             {
-                string abName = allABNames[i];
-                var item = new ABInfo() { Name = abName, CopyToLocal = false, Group = Define.ABsMainGroup };
-                for (int j = 0; j < a.Count; j++)
-                {
+                var abName = this.allABNames[i];
+                var item = new ABInfo() {Name = abName, CopyToLocal = false, Group = Define.ABsMainGroup};
+                for (var j = 0; j < a.Count; j++)
                     if (a[j].Name.Equals(abName))
                     {
                         item.CopyToLocal = a[j].CopyToLocal;
                         item.Group = a[j].Group;
                         break;
                     }
-                }
 
-                abs.Add(item);
+                this.abs.Add(item);
             }
         }
 
         private void SaveABInfo()
         {
-            IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(abs), ABsConfigPath);
+            IOHelper.StreamWriter(JsonMapper.ToJson(this.abs), ABsConfigPath);
             AssetDatabase.Refresh();
             Debug.Log($"保存{ABsConfigPath}完成!");
         }
 
         public static List<string> GetLocalABs()
         {
-            List<string> list = new List<string>();
+            var list = new List<string>();
             var a = IOHelper.StreamReader<List<ABInfo>>(ABsConfigPath);
-            for (int i = 0; i < a.Count; i++)
-            {
+            for (var i = 0; i < a.Count; i++)
                 if (a[i].CopyToLocal)
                 {
                     list.Add(a[i].Name);
                 }
-            }
 
             return list;
         }

@@ -46,7 +46,7 @@
         /// <returns>该对象</returns>
         public static T FromJson<T>(string str)
         {
-            T t = LitJson.JsonMapper.ToObject<T>(str);
+            var t = LitJson.JsonMapper.ToObject<T>(str);
             if (!(t is ISupportInitialize iSupportInitialize))
             {
                 return t;

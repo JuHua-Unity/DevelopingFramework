@@ -627,13 +627,13 @@
       <Project>{973883F1-D01B-D5BF-592E-229731BDE983}</Project>
       <Name>Unity.Editors</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.ThirdParty.csproj">
-      <Project>{E15BADD2-3A26-309A-AB0F-DC5B08044350}</Project>
-      <Name>Unity.ThirdParty</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Model.csproj">
       <Project>{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}</Project>
       <Name>Unity.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="ILRuntime.csproj">
+      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
+      <Name>ILRuntime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

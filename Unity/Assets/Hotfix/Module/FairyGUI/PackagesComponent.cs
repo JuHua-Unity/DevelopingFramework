@@ -1,4 +1,4 @@
-﻿using FairyGUI;
+﻿//using FairyGUI;
 using System.Collections.Generic;
 #if DEFINE_LOCALRES && UNITY_EDITOR
 #else
@@ -99,13 +99,13 @@ namespace Hotfix
                 Name = b;
                 RefCount = 1;
                 DescFilePath = a;
-                UIPackage.AddPackage(a);
+                //UIPackage.AddPackage(a);
             }
 
             public void Destroy()
             {
                 RefCount = 0;
-                UIPackage.RemovePackage(Name);
+                //UIPackage.RemovePackage(Name);
                 DescFilePath = null;
             }
         }

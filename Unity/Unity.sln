@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.ThirdParty", "Unity.ThirdParty.csproj", "{E15BADD2-3A26-309A-AB0F-DC5B08044350}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ILRuntime", "ILRuntime.csproj", "{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Model", "Unity.Model.csproj", "{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E15BADD2-3A26-309A-AB0F-DC5B08044350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E15BADD2-3A26-309A-AB0F-DC5B08044350}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E15BADD2-3A26-309A-AB0F-DC5B08044350}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E15BADD2-3A26-309A-AB0F-DC5B08044350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4BF9894-F5D9-41C4-13E3-3F26F7700E29}.Release|Any CPU.ActiveCfg = Release|Any CPU

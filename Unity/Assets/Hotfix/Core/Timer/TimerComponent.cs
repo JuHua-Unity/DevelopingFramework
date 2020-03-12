@@ -14,46 +14,46 @@ namespace Hotfix
 
         public void Update()
         {
-            if (timeId.Count == 0)
+            if (this.timeId.Count == 0)
             {
                 return;
             }
 
-            long timeNow = TimeHelper.Now;
+            var timeNow = TimeHelper.Now;
 
-            if (timeNow < minTime)
+            if (timeNow < this.minTime)
             {
                 return;
             }
 
-            foreach (KeyValuePair<long, Queue<long>> kv in timeId)
+            foreach (var kv in this.timeId)
             {
-                long k = kv.Key;
+                var k = kv.Key;
                 if (k > timeNow)
                 {
-                    minTime = k;
+                    this.minTime = k;
                     break;
                 }
 
-                timeOutTime.Enqueue(k);
+                this.timeOutTime.Enqueue(k);
             }
 
-            while (timeOutTime.Count > 0)
+            while (this.timeOutTime.Count > 0)
             {
-                long time = timeOutTime.Dequeue();
-                foreach (long timerId in timeId[time])
+                var time = this.timeOutTime.Dequeue();
+                foreach (var timerId in this.timeId[time])
                 {
-                    timeOutTimerIds.Enqueue(timerId);
+                    this.timeOutTimerIds.Enqueue(timerId);
                 }
 
-                Game.ObjectPool.Recycle_Queue_long(timeId[time]);
-                timeId.Remove(time);
+                Game.ObjectPool.Recycle_Queue_long(this.timeId[time]);
+                this.timeId.Remove(time);
             }
 
-            while (timeOutTimerIds.Count > 0)
+            while (this.timeOutTimerIds.Count > 0)
             {
-                long timerId = timeOutTimerIds.Dequeue();
-                if (!timers.TryGetValue(timerId, out Timer timer))
+                var timerId = this.timeOutTimerIds.Dequeue();
+                if (!this.timers.TryGetValue(timerId, out var timer))
                 {
                     continue;
                 }
@@ -64,29 +64,29 @@ namespace Hotfix
             }
         }
 
-        private void Remove(long id)
+        private void Remove(long tId)
         {
-            timers.Remove(id);
+            this.timers.Remove(tId);
         }
 
         public Task WaitTillAsync(long tillTime, CancellationToken cancellationToken)
         {
-            TaskCompletionSource tcs = new TaskCompletionSource();
-            Timer timer = GetTimer();
+            var tcs = new TaskCompletionSource();
+            var timer = GetTimer();
             timer.Id = GenerateId();
             timer.Time = tillTime;
             timer.Tcs = tcs;
 
-            timers[timer.Id] = timer;
-            if (!timeId.ContainsKey(timer.Time))
+            this.timers[timer.Id] = timer;
+            if (!this.timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
+                this.timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
             }
 
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
+            this.timeId[timer.Time].Enqueue(timer.Id);
+            if (timer.Time < this.minTime)
             {
-                minTime = timer.Time;
+                this.minTime = timer.Time;
             }
 
             cancellationToken.Register(() => { Remove(timer.Id); });
@@ -95,22 +95,22 @@ namespace Hotfix
 
         public Task WaitTillAsync(long tillTime)
         {
-            TaskCompletionSource tcs = new TaskCompletionSource();
-            Timer timer = GetTimer();
+            var tcs = new TaskCompletionSource();
+            var timer = GetTimer();
             timer.Id = GenerateId();
             timer.Time = tillTime;
             timer.Tcs = tcs;
 
-            timers[timer.Id] = timer;
-            if (!timeId.ContainsKey(timer.Time))
+            this.timers[timer.Id] = timer;
+            if (!this.timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
+                this.timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
             }
 
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
+            this.timeId[timer.Time].Enqueue(timer.Id);
+            if (timer.Time < this.minTime)
             {
-                minTime = timer.Time;
+                this.minTime = timer.Time;
             }
 
             return tcs.Task;
@@ -118,22 +118,22 @@ namespace Hotfix
 
         public Task WaitAsync(long time, CancellationToken cancellationToken)
         {
-            TaskCompletionSource tcs = new TaskCompletionSource();
-            Timer timer = GetTimer();
+            var tcs = new TaskCompletionSource();
+            var timer = GetTimer();
             timer.Id = GenerateId();
             timer.Time = TimeHelper.Now + time;
             timer.Tcs = tcs;
 
-            timers[timer.Id] = timer;
-            if (!timeId.ContainsKey(timer.Time))
+            this.timers[timer.Id] = timer;
+            if (!this.timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
+                this.timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
             }
 
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
+            this.timeId[timer.Time].Enqueue(timer.Id);
+            if (timer.Time < this.minTime)
             {
-                minTime = timer.Time;
+                this.minTime = timer.Time;
             }
 
             cancellationToken.Register(() => { Remove(timer.Id); });
@@ -142,22 +142,22 @@ namespace Hotfix
 
         public Task WaitAsync(long time)
         {
-            TaskCompletionSource tcs = new TaskCompletionSource();
-            Timer timer = GetTimer();
+            var tcs = new TaskCompletionSource();
+            var timer = GetTimer();
             timer.Id = GenerateId();
             timer.Time = TimeHelper.Now + time;
             timer.Tcs = tcs;
 
-            timers[timer.Id] = timer;
-            if (!timeId.ContainsKey(timer.Time))
+            this.timers[timer.Id] = timer;
+            if (!this.timeId.ContainsKey(timer.Time))
             {
-                timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
+                this.timeId.Add(timer.Time, Game.ObjectPool.Fetch_Queue_long());
             }
 
-            timeId[timer.Time].Enqueue(timer.Id);
-            if (timer.Time < minTime)
+            this.timeId[timer.Time].Enqueue(timer.Id);
+            if (timer.Time < this.minTime)
             {
-                minTime = timer.Time;
+                this.minTime = timer.Time;
             }
 
             return tcs.Task;
@@ -167,21 +167,21 @@ namespace Hotfix
 
         public void Destroy()
         {
-            for (int i = 0; i < timeId.Count; i++)
+            for (var i = 0; i < this.timeId.Count; i++)
             {
-                Game.ObjectPool.Recycle_Queue_long(timeId[i]);
+                Game.ObjectPool.Recycle_Queue_long(this.timeId[i]);
             }
 
-            timeId.Clear();
-            timeOutTimerIds.Clear();
-            timeOutTime.Clear();
+            this.timeId.Clear();
+            this.timeOutTimerIds.Clear();
+            this.timeOutTime.Clear();
 
-            foreach (var timer in timers)
+            foreach (var timer in this.timers)
             {
                 timer.Value.Dispose();
             }
 
-            timers.Clear();
+            this.timers.Clear();
         }
 
         #endregion
@@ -217,16 +217,16 @@ namespace Hotfix
 
             public override void Dispose()
             {
-                if (IsDisposed)
+                if (this.IsDisposed)
                 {
                     return;
                 }
 
                 base.Dispose();
 
-                Id = 0;
-                Time = 0;
-                Tcs = null;
+                this.Id = 0;
+                this.Time = 0;
+                this.Tcs = null;
             }
         }
 

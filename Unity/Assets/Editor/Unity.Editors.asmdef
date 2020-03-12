@@ -2,9 +2,9 @@
     "name": "Unity.Editors",
     "references": [
         "Unity.Model",
-        "Unity.ThirdParty",
         "Unity.Hotfix",
-        "Test"
+        "Test",
+        "ILRuntime"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

@@ -30,8 +30,8 @@ namespace Editors
 
         private void Build()
         {
-            buildFold = EditorGUILayout.Foldout(buildFold, "AssetBundle");
-            if (!buildFold)
+            this.buildFold = EditorGUILayout.Foldout(this.buildFold, "AssetBundle");
+            if (!this.buildFold)
             {
                 return;
             }
@@ -46,8 +46,8 @@ namespace Editors
 
         private void BuildGUI()
         {
-            abVersion = EditorGUILayout.TextField("Version", abVersion);
-            res = (LocalRes)EditorGUILayout.EnumPopup("资源复制：", res);
+            this.abVersion = EditorGUILayout.TextField("Version", this.abVersion);
+            this.res = (LocalRes)EditorGUILayout.EnumPopup("资源复制：", this.res);
 
             if (GUILayout.Button("BuildAssetBundles"))
             {
@@ -105,29 +105,22 @@ namespace Editors
 
         private void CopyABs(string outPath)
         {
-            List<string> allABs = new List<string>();
-            List<string> localABs = GetLocalABs();
-            DirectoryInfo directory = new DirectoryInfo(outPath);
-            var files = directory.GetFiles().Where((f) => { return !f.Extension.Equals(".manifest"); }) as List<FileInfo>;
-            for (int i = 0; i < files.Count; i++)
-            {
-                allABs.Add(files[i].Name);
-            }
+            var localABs = GetLocalABs();
+            var directory = new DirectoryInfo(outPath);
+            var files = directory.GetFiles().Where(f => !f.Extension.Equals(".manifest")) as List<FileInfo>;
+            var allABs = files.Select(t => t.Name).ToList();
 
             if (localABs == null)
             {
-                for (int i = 0; i < files.Count; i++)
-                {
-                    localABs.Add(files[i].Name);
-                }
+                localABs = files.Select(t => t.Name).ToList();
             }
 
-            string serverPath = GetABServerPath();
+            var serverPath = GetABServerPath();
             Debug.Log($"Server:{serverPath}");
-            string localPath = GetABLocalPath();
+            var localPath = GetABLocalPath();
             Debug.Log($"Local:{localPath}");
 
-            for (int i = 0; i < files.Count; i++)
+            for (var i = 0; i < files.Count; i++)
             {
                 var fileName = files[i].Name;
                 if (localABs.Contains(fileName))
@@ -146,7 +139,7 @@ namespace Editors
         {
             List<string> list = null;
 
-            switch (res)
+            switch (this.res)
             {
                 case LocalRes.不复制_纯热更:
                     list = new List<string>();
@@ -163,7 +156,7 @@ namespace Editors
 
         private string GetABServerPath()
         {
-            if (string.IsNullOrEmpty(abVersion))
+            if (string.IsNullOrEmpty(this.abVersion))
             {
                 Debug.LogError($"abversion is empty!");
                 return null;
@@ -173,13 +166,13 @@ namespace Editors
             switch (PlatformDefine.Target)
             {
                 case BuildTarget.Android:
-                    path = $"../Release/Server/Android/{abVersion}";
+                    path = $"../Release/Server/Android/{this.abVersion}";
                     break;
                 case BuildTarget.StandaloneWindows64:
-                    path = $"../Release/Server/Standalone/{abVersion}";
+                    path = $"../Release/Server/Standalone/{this.abVersion}";
                     break;
                 case BuildTarget.iOS:
-                    path = $"../Release/Server/IOS/{abVersion}";
+                    path = $"../Release/Server/IOS/{this.abVersion}";
                     break;
                 default:
                     Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
@@ -198,7 +191,7 @@ namespace Editors
 
         private string GetABLocalPath()
         {
-            string path = $"{Application.streamingAssetsPath}/{Model.Define.ABsMainGroup}";
+            var path = $"{Application.streamingAssetsPath}/{Model.Define.ABsMainGroup}";
             if (Directory.Exists(path))
             {
                 Debug.Log($"{path} 已删除！");
@@ -211,8 +204,8 @@ namespace Editors
 
         private void Builder()
         {
-            builderFold = EditorGUILayout.Foldout(builderFold, "Build");
-            if (!builderFold)
+            this.builderFold = EditorGUILayout.Foldout(this.builderFold, "Build");
+            if (!this.builderFold)
             {
                 return;
             }
@@ -227,8 +220,8 @@ namespace Editors
 
         private void BuilderM()
         {
-            appVersion = EditorGUILayout.TextField("Version", appVersion);
-            development = EditorGUILayout.ToggleLeft("Development", development);
+            this.appVersion = EditorGUILayout.TextField("Version", this.appVersion);
+            this.development = EditorGUILayout.ToggleLeft("Development", this.development);
 
             if (GUILayout.Button("BuildPlayer"))
             {
@@ -243,7 +236,7 @@ namespace Editors
 #else
             string[] levels = { "Assets/Scenes/Init.unity", };
 #endif
-            var version = appVersion;
+            var version = this.appVersion;
             if (string.IsNullOrEmpty(version))
             {
                 Debug.LogError($"version is empty!");
@@ -294,8 +287,8 @@ namespace Editors
                     return;
             }
 
-            BuildOptions options = BuildOptions.None;
-            if (development)
+            var options = BuildOptions.None;
+            if (this.development)
             {
                 options = BuildOptions.Development | BuildOptions.AutoRunPlayer | BuildOptions.ConnectWithProfiler | BuildOptions.AllowDebugging;
             }

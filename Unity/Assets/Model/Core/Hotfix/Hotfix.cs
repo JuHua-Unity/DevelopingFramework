@@ -1,8 +1,12 @@
 ﻿using System;
 #if ILRuntime
+using ILRuntime.Mono.Cecil.Pdb;
+using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 using System.IO;
+
 #else
 using System.Reflection;
+
 #endif
 
 namespace Model
@@ -10,7 +14,7 @@ namespace Model
     public sealed class Hotfix
     {
 #if ILRuntime
-        private ILRuntime.Runtime.Enviorment.AppDomain appDomain;
+        public AppDomain AppDomain { get; private set; }
 #else
         private Assembly assembly;
 #endif
@@ -28,40 +32,30 @@ namespace Model
         public void GotoHotfix()
         {
 #if ILRuntime
-            ILHelper.InitILRuntime(appDomain);
+            ILHelper.InitILRuntime(this.AppDomain);
 #endif
-            start.Run();
+            this.start.Run();
         }
 
         public void InitHotfixAssembly(byte[] assBytes, byte[] pdbBytes)
         {
 #if ILRuntime
-            Log.Debug($"当前使用的是ILRuntime模式");
-            appDomain = new ILRuntime.Runtime.Enviorment.AppDomain();
+            Log.Debug("当前使用的是ILRuntime模式");
+            this.AppDomain = new AppDomain();
             var dllStream = new MemoryStream(assBytes);
 #if ILRuntime_Pdb
             var pdbStream = new MemoryStream(pdbBytes);
-            appDomain.LoadAssembly(dllStream, pdbStream, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+            this.AppDomain.LoadAssembly(dllStream, pdbStream, new PdbReaderProvider());
 #else
             appDomain.LoadAssembly(dllStream);
 #endif
-            start = new ILStaticMethod(appDomain, "Hotfix.Init", "Start", 0);
+            this.start = new ILStaticMethod(this.AppDomain, "Hotfix.Init", "Start", 0);
 #else
-            Log.Debug($"当前使用的是Mono模式");
-            assembly = Assembly.Load(assBytes, pdbBytes);
-            Type hotfixInit = assembly.GetType("Hotfix.Init");
-            start = new MonoStaticMethod(hotfixInit, "Start");
+            Log.Debug("当前使用的是Mono模式");
+            this.assembly = Assembly.Load(assBytes, pdbBytes);
+            var hotfixInit = this.assembly.GetType("Hotfix.Init");
+            this.start = new MonoStaticMethod(hotfixInit, "Start");
 #endif
         }
-
-#if ILRuntime
-        public ILRuntime.Runtime.Enviorment.AppDomain AppDomain
-        {
-            get
-            {
-                return appDomain;
-            }
-        }
-#endif
     }
 }

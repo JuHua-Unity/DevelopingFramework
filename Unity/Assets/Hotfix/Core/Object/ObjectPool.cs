@@ -18,19 +18,19 @@ namespace Hotfix
         /// <returns>该对象</returns>
         public Object Fetch(Type type)
         {
-            Object obj = null;
-            if (dictionary.TryGetValue(type, out Queue<Object> queue) && queue.Count > 0)
+            Object obj;
+            if (this.dictionary.TryGetValue(type, out var queue) && queue.Count > 0)
             {
                 obj = queue.Dequeue();
                 if (queue.Count == 0)
                 {
                     RecycleObjectQueue(queue);
-                    dictionary.Remove(type);
+                    this.dictionary.Remove(type);
                 }
             }
             else
             {
-                obj = (Object)Activator.CreateInstance(type);
+                obj = (Object) Activator.CreateInstance(type);
             }
 
             obj.IsFromPool = true;
@@ -45,7 +45,7 @@ namespace Hotfix
         /// <returns>该对象</returns>
         public T Fetch<T>() where T : Object
         {
-            T t = (T)Fetch(typeof(T));
+            var t = (T) Fetch(typeof(T));
             return t;
         }
 
@@ -55,11 +55,11 @@ namespace Hotfix
         /// <param name="obj">归还对象</param>
         public void Recycle(Object obj)
         {
-            Type type = obj.GetType();
-            if (!dictionary.TryGetValue(type, out Queue<Object> queue))
+            var type = obj.GetType();
+            if (!this.dictionary.TryGetValue(type, out var queue))
             {
                 queue = GetObjectQueue();
-                dictionary.Add(type, queue);
+                this.dictionary.Add(type, queue);
             }
 
             queue.Enqueue(obj);
@@ -67,17 +67,17 @@ namespace Hotfix
 
         public override void Dispose()
         {
-            if (IsDisposed)
+            if (this.IsDisposed)
             {
                 return;
             }
 
             base.Dispose();
 
-            dictionary.Clear();
-            objQueues.Clear();
-            longQueues.Clear();
-            componentLists.Clear();
+            this.dictionary.Clear();
+            this.objQueues.Clear();
+            this.longQueues.Clear();
+            this.componentLists.Clear();
         }
 
         #region ObjectQueue
@@ -86,17 +86,18 @@ namespace Hotfix
 
         private Queue<Object> GetObjectQueue()
         {
-            if (objQueues.Count > 0)
+            if (this.objQueues.Count > 0)
             {
-                return objQueues.Dequeue();
+                return this.objQueues.Dequeue();
             }
+
             return new Queue<Object>();
         }
 
         private void RecycleObjectQueue(Queue<Object> objQueue)
         {
             objQueue.Clear();
-            objQueues.Enqueue(objQueue);
+            this.objQueues.Enqueue(objQueue);
         }
 
         #endregion
@@ -107,9 +108,9 @@ namespace Hotfix
 
         public Queue<long> Fetch_Queue_long()
         {
-            if (longQueues.Count > 0)
+            if (this.longQueues.Count > 0)
             {
-                return longQueues.Dequeue();
+                return this.longQueues.Dequeue();
             }
 
             return new Queue<long>();
@@ -118,7 +119,7 @@ namespace Hotfix
         public void Recycle_Queue_long(Queue<long> longQueue)
         {
             longQueue.Clear();
-            longQueues.Enqueue(longQueue);
+            this.longQueues.Enqueue(longQueue);
         }
 
         #endregion
@@ -129,9 +130,9 @@ namespace Hotfix
 
         public List<Component> Fetch_List_Component()
         {
-            if (componentLists.Count > 0)
+            if (this.componentLists.Count > 0)
             {
-                return componentLists.Dequeue();
+                return this.componentLists.Dequeue();
             }
 
             return new List<Component>();
@@ -140,7 +141,7 @@ namespace Hotfix
         public void Recycle_List_Component(List<Component> componentList)
         {
             componentList.Clear();
-            componentLists.Enqueue(componentList);
+            this.componentLists.Enqueue(componentList);
         }
 
         #endregion

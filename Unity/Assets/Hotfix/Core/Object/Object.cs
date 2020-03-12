@@ -11,46 +11,42 @@
         /// </summary>
         public Object()
         {
-            ObjId = GenerateId();
+            this.ObjId = GenerateId();
         }
 
         /// <summary>
         /// 对象ID
         /// </summary>
-        public long ObjId { get; private set; } = 0;
+        public long ObjId { get; private set; }
 
 #if UNITY_EDITOR && !ILRuntime && ComponentView
-
-        /// <summary>
-        /// 对象名字
-        /// </summary>
+/// <summary>
+/// 对象名字
+/// </summary>
         public string ObjName { get; set; } = string.Empty;
 
 #endif
 
-        private bool isFromPool;//是否来自对象池
+        private bool isFromPool; //是否来自对象池
 
         /// <summary>
         /// 设置或者获取是否来自对象池
         /// </summary>
         public bool IsFromPool
         {
-            get
-            {
-                return isFromPool;
-            }
+            get => this.isFromPool;
             set
             {
-                isFromPool = value;
+                this.isFromPool = value;
 
-                if (!isFromPool)
+                if (!this.isFromPool)
                 {
                     return;
                 }
 
-                if (ObjId == 0)
+                if (this.ObjId == 0)
                 {
-                    ObjId = GenerateId();
+                    this.ObjId = GenerateId();
                 }
             }
         }
@@ -58,13 +54,7 @@
         /// <summary>
         /// 获取是否已经被释放
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return ObjId == 0;
-            }
-        }
+        public bool IsDisposed => this.ObjId == 0;
 
         #region 接口实现
 
@@ -73,18 +63,20 @@
         /// </summary>
         public virtual void Dispose()
         {
-            if (IsDisposed)
+            if (this.IsDisposed)
             {
                 return;
             }
 
-            ObjId = 0;
+            this.ObjId = 0;
         }
 
         /// <summary>
         /// 完成序列化
         /// </summary>
-        public virtual void EndInit() { }
+        public virtual void EndInit()
+        {
+        }
 
         #endregion
 
@@ -97,7 +89,7 @@
 
         #endregion
 
-        private static long id;//所有实例id累积
+        private static long id; //所有实例id累积
 
         /// <summary>
         /// 生成ObjId

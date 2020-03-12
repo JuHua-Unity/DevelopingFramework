@@ -13,7 +13,7 @@
         {
             Instance = this;
 
-            AddComponent<LoadingComponent>();
+            //AddComponent<LoadingComponent>();
         }
     }
 }

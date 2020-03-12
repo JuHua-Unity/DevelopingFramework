@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Model
 {
     public delegate void DD(string name);
+
     internal class Init : MonoBehaviour
     {
         private void Awake()
@@ -22,7 +24,7 @@ namespace Model
             if (Game.StartProcess == 1)
             {
                 //启动
-                new GameStart().Start(gameObject.Get<TextAsset>("LaunchOptions"));
+                new GameStart().Start(this.gameObject.Get<TextAsset>("LaunchOptions"));
                 Game.StartProcess = 0;
                 return;
             }
@@ -30,7 +32,7 @@ namespace Model
             if (Game.StartProcess == 2)
             {
                 //GC回收
-                System.GC.Collect();
+                GC.Collect();
                 Game.StartProcess = 1;
                 return;
             }

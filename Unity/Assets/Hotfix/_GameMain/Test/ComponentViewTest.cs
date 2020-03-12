@@ -45,7 +45,6 @@ namespace Hotfix
 
         #endregion
 
-
         private sbyte field1_1;
         public sbyte field1_2;
         private static sbyte field1_3;

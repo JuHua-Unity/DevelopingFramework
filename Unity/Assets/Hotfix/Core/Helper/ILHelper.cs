@@ -14,25 +14,17 @@ namespace Hotfix
 
             #region appdomain.DelegateManager.RegisterDelegateConvertor
 
-
-
             #endregion
 
             #region appdomain.DelegateManager.RegisterFunctionDelegate
-
-
 
             #endregion
 
             #region appdomain.DelegateManager.RegisterMethodDelegate
 
-            
-
             #endregion
 
             #region appdomain.RegisterValueTypeBinder
-
-
 
             #endregion
         }
