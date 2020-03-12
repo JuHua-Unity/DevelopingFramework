@@ -1,9 +1,6 @@
 {
-    "name": "Unity.Model",
-    "references": [
-        "ILRuntime",
-        "FairyGUI"
-    ],
+    "name": "FairyGUI",
+    "references": [],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],

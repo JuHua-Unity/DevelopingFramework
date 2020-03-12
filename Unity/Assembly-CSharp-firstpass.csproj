@@ -615,6 +615,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="FairyGUI.Editor.csproj">
+      <Project>{85EA4C81-109B-5FA9-148F-28DF8FB38720}</Project>
+      <Name>FairyGUI.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Test.csproj">
       <Project>{A1166123-CDAD-D6D9-14CE-3BA0CBAE2415}</Project>
       <Name>Test</Name>
@@ -634,6 +638,10 @@
     <ProjectReference Include="ILRuntime.csproj">
       <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
       <Name>ILRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="FairyGUI.csproj">
+      <Project>{5C351BF4-1A33-48AF-B348-52FD7A76B064}</Project>
+      <Name>FairyGUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
