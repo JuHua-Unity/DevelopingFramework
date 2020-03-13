@@ -60,14 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\EditorToolSet.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\UIContentScalerEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\UIPainterEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\FairyGUI\Assets\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\EditorToolSet.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIContentScalerEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIPainterEditor.cs" />
+    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
