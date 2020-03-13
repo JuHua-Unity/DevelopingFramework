@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using LitJson;
+using ReferenceCollector;
 using UnityEditor;
 using UnityEngine;
 

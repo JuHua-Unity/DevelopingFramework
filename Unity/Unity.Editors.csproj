@@ -85,7 +85,6 @@
     <Compile Include="Assets\Editor\ObjectDrawer\IObjectDrawer.cs" />
     <Compile Include="Assets\Editor\ObjectDrawer\ObjectDrawerAttribute.cs" />
     <Compile Include="Assets\Editor\ObjectDrawer\ObjectDrawerHelper.cs" />
-    <Compile Include="Assets\Editor\ReferenceCollector\ReferenceCollectorEditor.cs" />
     <Compile Include="Assets\Editor\ScriptingDefineSymbols\ScriptingDefineSymbolsWindow.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

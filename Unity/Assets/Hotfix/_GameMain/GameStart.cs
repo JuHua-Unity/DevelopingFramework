@@ -15,7 +15,7 @@
             AsyncMethod().Coroutine();
         }
 
-        private static async Model.Void AsyncMethod()
+        private static async Async.Void AsyncMethod()
         {
             Log.Debug("2");
             var t = InitScene.Instance.GetComponent<TimerComponent>();

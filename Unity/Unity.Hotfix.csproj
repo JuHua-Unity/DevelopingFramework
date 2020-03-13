@@ -707,6 +707,10 @@
       <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
       <Name>ILRuntime</Name>
     </ProjectReference>
+    <ProjectReference Include="Async.csproj">
+      <Project>{98FC05A6-0292-E7D4-24E5-0134D38497DF}</Project>
+      <Name>Async</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

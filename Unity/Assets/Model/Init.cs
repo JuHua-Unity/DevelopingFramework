@@ -1,4 +1,5 @@
 ﻿using System;
+using ReferenceCollector;
 using UnityEngine;
 
 namespace Model

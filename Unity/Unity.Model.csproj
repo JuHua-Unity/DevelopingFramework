@@ -62,15 +62,6 @@
   <ItemGroup>
     <Compile Include="Assets\Model\_Demo\GameStart.cs" />
     <Compile Include="Assets\Model\_Demo\LaunchOptions.cs" />
-    <Compile Include="Assets\Model\Core\Async\AsyncMethodBuilderAttribute.cs" />
-    <Compile Include="Assets\Model\Core\Async\AsyncTaskMethodBuilder.cs" />
-    <Compile Include="Assets\Model\Core\Async\AsyncVoidMethodBuilder.cs" />
-    <Compile Include="Assets\Model\Core\Async\IAwaiter.cs" />
-    <Compile Include="Assets\Model\Core\Async\MoveNextRunner.cs" />
-    <Compile Include="Assets\Model\Core\Async\Task.cs" />
-    <Compile Include="Assets\Model\Core\Async\TaskCompletionSource.cs" />
-    <Compile Include="Assets\Model\Core\Async\TaskFactory.cs" />
-    <Compile Include="Assets\Model\Core\Async\Void.cs" />
     <Compile Include="Assets\Model\Core\ComponentView\ComponentView.cs" />
     <Compile Include="Assets\Model\Core\Game.cs" />
     <Compile Include="Assets\Model\Core\Helper\Define.cs" />
@@ -87,7 +78,6 @@
     <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\ITestAdaptor.cs" />
     <Compile Include="Assets\Model\Core\ILRuntime\ILBinding\CLRBindings.cs" />
     <Compile Include="Assets\Model\Core\Log\Log.cs" />
-    <Compile Include="Assets\Model\Core\ReferenceCollector\ReferenceCollector.cs" />
     <Compile Include="Assets\Model\Init.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -683,6 +673,10 @@
     <ProjectReference Include="FairyGUI.csproj">
       <Project>{5C351BF4-1A33-48AF-B348-52FD7A76B064}</Project>
       <Name>FairyGUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="ReferenceCollector.csproj">
+      <Project>{4CA7ABC2-0E34-2A69-D295-27ACDEA89292}</Project>
+      <Name>ReferenceCollector</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

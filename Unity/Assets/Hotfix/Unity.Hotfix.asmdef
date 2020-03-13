@@ -2,7 +2,8 @@
     "name": "Unity.Hotfix",
     "references": [
         "Unity.Model",
-        "ILRuntime"
+        "ILRuntime",
+        "Async"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
