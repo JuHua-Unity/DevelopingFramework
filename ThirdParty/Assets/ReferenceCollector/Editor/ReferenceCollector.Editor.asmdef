@@ -1,0 +1,16 @@
+{
+    "name": "ReferenceCollector.Editor",
+    "references": [
+        "ReferenceCollector"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
