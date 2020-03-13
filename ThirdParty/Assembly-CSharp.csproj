@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ReferenceCollector\ReferenceCollectorEditor.cs" />
+    <Compile Include="Assets\ObjectDrawer\ObjectDrawerHelper.cs" />
     <None Include="Assets\FairyGUI\Resources\Shaders\AddOn\FairyGUI-BlurFilter.shader" />
     <None Include="Assets\FairyGUI\Resources\Shaders\FairyGUI-Image.shader" />
     <None Include="Assets\FairyGUI\ReadMe - 3.5.1.txt" />
@@ -555,9 +555,17 @@
       <Project>{048B0300-BA6C-33C2-CED4-9186D1104762}</Project>
       <Name>Async</Name>
     </ProjectReference>
+    <ProjectReference Include="ReferenceCollector.Editor.csproj">
+      <Project>{F1C8D3C8-1C60-81FB-2AEB-76AB9008C9BE}</Project>
+      <Name>ReferenceCollector.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="ReferenceCollector.csproj">
       <Project>{79ACDD25-0742-C050-95FC-3BF5ADD7BC73}</Project>
       <Name>ReferenceCollector</Name>
+    </ProjectReference>
+    <ProjectReference Include="ObjectDrawer.Editor.csproj">
+      <Project>{E8E5996C-FCBC-4B5D-E042-ADB9611A96D5}</Project>
+      <Name>ObjectDrawer.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

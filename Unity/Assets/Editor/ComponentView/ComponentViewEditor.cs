@@ -1,5 +1,6 @@
 ﻿using ILRuntime.Runtime.Intepreter;
 using Model;
+using ObjectDrawer;
 using UnityEditor;
 
 namespace Editors
@@ -9,14 +10,14 @@ namespace Editors
     {
         public override void OnInspectorGUI()
         {
-            ComponentView componentView = (ComponentView)target;
-            object component = componentView.Component;
+            var componentView = (ComponentView) this.target;
+            var component = componentView.Component;
             if (component == null || component.GetType() == typeof(ILTypeInstance))
             {
                 return;
             }
 
-            ObjectDrawerHelper.Draw(component, null);
+            ObjectDrawerHelper.Draw(component);
         }
     }
 }
