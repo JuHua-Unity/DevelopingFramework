@@ -60,18 +60,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\DelegateDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\DrawerPriority.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\EnumDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\ICollectionDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\KeyValuePairDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\ObjectDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\StringDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\UnityEngineDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\Drawer\ValueTypeDrawers.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\IObjectDrawer.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\ObjectDrawerAttribute.cs" />
-    <Compile Include="Assets\ObjectDrawer\Editor\ObjectDrawerHelper.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\DelegateDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\DrawerPriority.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\EnumDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\ICollectionDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\KeyValuePairDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\ObjectDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\StringDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\UnityEngineDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\Drawers\ValueTypeDrawers.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\IObjectDrawer.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\ObjectDrawerAttribute.cs" />
+    <Compile Include="Assets\ObjectView\Editor\Drawer\ObjectDrawerHelper.cs" />
+    <Compile Include="Assets\ObjectView\Editor\ObjectViewEditor.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -669,6 +670,12 @@
     <Reference Include="Boo.Lang">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ObjectDrawer.csproj">
+      <Project>{C005D9FC-EBD7-B03D-E970-0BCD9D1E8E7E}</Project>
+      <Name>ObjectDrawer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

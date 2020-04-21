@@ -1,6 +1,8 @@
 {
-    "name": "ObjectDrawer.Editor",
-    "references": [],
+    "name": "ObjectView.Editor",
+    "references": [
+        "ObjectView"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [
         "Editor"

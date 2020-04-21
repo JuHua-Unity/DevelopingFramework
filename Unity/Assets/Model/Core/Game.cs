@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using System;
+
+namespace Model
 {
     /// <summary>
     /// GameCore
@@ -6,8 +8,6 @@
     /// </summary>
     public static class Game
     {
-        public static DD DD;
-
         /// <summary>
         /// 启动流程
         /// 3:需要关闭 -> 2
@@ -31,6 +31,11 @@
 
         internal static void Start(byte[] assBytes, byte[] pdbBytes)
         {
+            if (Hotfix != null)
+            {
+                throw new Exception("当前Hotfix不为空，却要Start，请先Close Hotfix");
+            }
+
             Hotfix = new Hotfix();
             Hotfix.InitHotfixAssembly(assBytes, pdbBytes);
             Hotfix.GotoHotfix();
@@ -38,13 +43,28 @@
 
         internal static void Close()
         {
-            if (Hotfix == null)
-            {
-                return;
-            }
-
-            Hotfix.OnApplicationQuit?.Invoke();
+            Hotfix?.OnApplicationQuit?.Invoke();
             Hotfix = null;
+        }
+
+        internal static void LateUpdate()
+        {
+            Hotfix?.LateUpdate?.Invoke();
+        }
+
+        internal static void OnApplicationQuit()
+        {
+            Close();
+        }
+
+        internal static void OnApplicationFocus(bool focus)
+        {
+            Hotfix?.OnApplicationFocus?.Invoke(focus);
+        }
+
+        internal static void OnApplicationPause(bool pause)
+        {
+            Hotfix?.OnApplicationPause?.Invoke(pause);
         }
     }
 }

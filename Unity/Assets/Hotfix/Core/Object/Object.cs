@@ -1,5 +1,7 @@
 ﻿namespace Hotfix
 {
+    /// <inheritdoc cref="ISupportInitialize" />
+    /// <inheritdoc cref="IDisposable" />
     /// <summary>
     /// 万物皆对象
     /// </summary>
@@ -17,12 +19,13 @@
         /// <summary>
         /// 对象ID
         /// </summary>
-        public long ObjId { get; private set; }
+        public ulong ObjId { get; private set; }
 
 #if UNITY_EDITOR && !ILRuntime && ComponentView
-/// <summary>
-/// 对象名字
-/// </summary>
+
+        /// <summary>
+        /// 对象名字
+        /// </summary>
         public string ObjName { get; set; } = string.Empty;
 
 #endif
@@ -31,6 +34,7 @@
 
         /// <summary>
         /// 设置或者获取是否来自对象池
+        /// 注意：框架外不可设置
         /// </summary>
         public bool IsFromPool
         {
@@ -58,6 +62,7 @@
 
         #region 接口实现
 
+        /// <inheritdoc />
         /// <summary>
         /// 释放
         /// </summary>
@@ -71,8 +76,10 @@
             this.ObjId = 0;
         }
 
+        /// <inheritdoc />
         /// <summary>
-        /// 完成序列化
+        /// 如果该对象支持序列化
+        /// 完成序列化调用发生在JsonHelper.FromJson之后
         /// </summary>
         public virtual void EndInit()
         {
@@ -82,6 +89,10 @@
 
         #region Override
 
+        /// <summary>
+        /// 重载ToString展示为Json
+        /// </summary>
+        /// <returns>json</returns>
         public override string ToString()
         {
             return JsonHelper.ToJson(this);
@@ -89,15 +100,16 @@
 
         #endregion
 
-        private static long id; //所有实例id累积
+        private static ulong id; //所有实例id累积
 
         /// <summary>
         /// 生成ObjId
         /// </summary>
         /// <returns>ID</returns>
-        private static long GenerateId()
+        private static ulong GenerateId()
         {
-            return ++id;
+            id++;
+            return id;
         }
     }
 }

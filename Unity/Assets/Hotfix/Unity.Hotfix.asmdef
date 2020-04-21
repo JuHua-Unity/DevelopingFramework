@@ -3,7 +3,8 @@
     "references": [
         "Unity.Model",
         "ILRuntime",
-        "Async"
+        "Async",
+        "ObjectView"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

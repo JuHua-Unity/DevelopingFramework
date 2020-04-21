@@ -4,13 +4,13 @@ namespace Hotfix
 {
     internal sealed class ComponentSystem : Object
     {
-        private readonly Dictionary<long, Component> components = new Dictionary<long, Component>();
+        private readonly Dictionary<ulong, Component> components = new Dictionary<ulong, Component>();
 
-        private Queue<long> updates = new Queue<long>();
-        private Queue<long> updates2 = new Queue<long>();
-        private readonly Queue<long> starts = new Queue<long>();
-        private Queue<long> lateUpdates = new Queue<long>();
-        private Queue<long> lateUpdates2 = new Queue<long>();
+        private Queue<ulong> updates = new Queue<ulong>();
+        private Queue<ulong> updates2 = new Queue<ulong>();
+        private readonly Queue<ulong> starts = new Queue<ulong>();
+        private Queue<ulong> lateUpdates = new Queue<ulong>();
+        private Queue<ulong> lateUpdates2 = new Queue<ulong>();
 
         public void Add(Component component)
         {
@@ -19,27 +19,26 @@ namespace Hotfix
                 return;
             }
 
-            components.Add(component.ObjId, component);
+            var id = component.ObjId;
+            this.components.Add(id, component);
 
-            if (component is IUpdateSystem)
+            switch (component)
             {
-                updates.Enqueue(component.ObjId);
-            }
-
-            if (component is IStartSystem)
-            {
-                starts.Enqueue(component.ObjId);
-            }
-
-            if (component is ILateUpdateSystem)
-            {
-                lateUpdates.Enqueue(component.ObjId);
+                case IUpdateSystem _:
+                    this.updates.Enqueue(id);
+                    break;
+                case IStartSystem _:
+                    this.starts.Enqueue(id);
+                    break;
+                case ILateUpdateSystem _:
+                    this.lateUpdates.Enqueue(id);
+                    break;
             }
         }
 
-        public void Remove(long ObjId)
+        public void Remove(ulong id)
         {
-            components.Remove(ObjId);
+            this.components.Remove(id);
         }
 
         public void Awake(Component component)
@@ -49,7 +48,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!components.ContainsKey(component.ObjId))
+            if (!this.components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -80,7 +79,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!components.ContainsKey(component.ObjId))
+            if (!this.components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -111,7 +110,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!components.ContainsKey(component.ObjId))
+            if (!this.components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -142,7 +141,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!components.ContainsKey(component.ObjId))
+            if (!this.components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -168,10 +167,10 @@ namespace Hotfix
 
         private void Start()
         {
-            while (starts.Count > 0)
+            while (this.starts.Count > 0)
             {
-                long ObjId = starts.Dequeue();
-                if (!components.TryGetValue(ObjId, out Component component))
+                var id = this.starts.Dequeue();
+                if (!this.components.TryGetValue(id, out var component))
                 {
                     continue;
                 }
@@ -203,7 +202,7 @@ namespace Hotfix
                 return;
             }
 
-            if (!components.ContainsKey(component.ObjId))
+            if (!this.components.ContainsKey(component.ObjId))
             {
                 return;
             }
@@ -231,10 +230,10 @@ namespace Hotfix
         {
             Start();
 
-            while (updates.Count > 0)
+            while (this.updates.Count > 0)
             {
-                long ObjId = updates.Dequeue();
-                if (!components.TryGetValue(ObjId, out Component component))
+                var id = this.updates.Dequeue();
+                if (!this.components.TryGetValue(id, out var component))
                 {
                     continue;
                 }
@@ -249,7 +248,7 @@ namespace Hotfix
                     continue;
                 }
 
-                updates2.Enqueue(ObjId);
+                this.updates2.Enqueue(id);
 
 #if UNITY_EDITOR
                 updateSystem.Update();
@@ -265,15 +264,15 @@ namespace Hotfix
 #endif
             }
 
-            Swap(ref updates, ref updates2);
+            Swap(ref this.updates, ref this.updates2);
         }
 
         public void LateUpdate()
         {
-            while (lateUpdates.Count > 0)
+            while (this.lateUpdates.Count > 0)
             {
-                long ObjId = lateUpdates.Dequeue();
-                if (!components.TryGetValue(ObjId, out Component component))
+                var id = this.lateUpdates.Dequeue();
+                if (!this.components.TryGetValue(id, out var component))
                 {
                     continue;
                 }
@@ -288,7 +287,7 @@ namespace Hotfix
                     continue;
                 }
 
-                lateUpdates2.Enqueue(ObjId);
+                this.lateUpdates2.Enqueue(id);
 
 #if UNITY_EDITOR
                 lateUpdateSystem.LateUpdate();
@@ -304,19 +303,19 @@ namespace Hotfix
 #endif
             }
 
-            Swap(ref lateUpdates, ref lateUpdates2);
+            Swap(ref this.lateUpdates, ref this.lateUpdates2);
         }
 
         #region 交换两个update队列
 
-        private static Queue<long> t3;
+        private static Queue<ulong> t3;
 
         /// <summary>
         /// 交换两个update队列
         /// </summary>
-        /// <param name = "t1" ></ param >
+        /// <param name = "t1" ></param >
         /// < param name="t2"></param>
-        private static void Swap(ref Queue<long> t1, ref Queue<long> t2)
+        private static void Swap(ref Queue<ulong> t1, ref Queue<ulong> t2)
         {
             t3 = t1;
             t1 = t2;
@@ -327,19 +326,19 @@ namespace Hotfix
 
         public override void Dispose()
         {
-            if (IsDisposed)
+            if (this.IsDisposed)
             {
                 return;
             }
 
             base.Dispose();
 
-            components.Clear();
-            updates.Clear();
-            updates2.Clear();
-            starts.Clear();
-            lateUpdates.Clear();
-            lateUpdates2.Clear();
+            this.components.Clear();
+            this.updates.Clear();
+            this.updates2.Clear();
+            this.starts.Clear();
+            this.lateUpdates.Clear();
+            this.lateUpdates2.Clear();
         }
     }
 }

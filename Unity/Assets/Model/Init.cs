@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Model
 {
-    public delegate void DD(string name);
-
     internal class Init : MonoBehaviour
     {
         private void Awake()
@@ -22,71 +20,47 @@ namespace Model
 
         private void Update()
         {
-            if (Game.StartProcess == 1)
+            switch (Game.StartProcess)
             {
-                //启动
-                new GameStart().Start(this.gameObject.Get<TextAsset>("LaunchOptions"));
-                Game.StartProcess = 0;
-                return;
+                case 1:
+                    //启动
+                    new GameStart().Start(this.gameObject.Get<TextAsset>("LaunchOptions"));
+                    Game.StartProcess = 0;
+                    return;
+                case 2:
+                    //GC回收
+                    GC.Collect();
+                    Game.StartProcess = 1;
+                    return;
+                case 3:
+                    //关闭热更层
+                    Game.Close();
+                    Game.StartProcess = 2;
+                    return;
+                default:
+                    Game.Hotfix?.Update?.Invoke();
+                    break;
             }
-
-            if (Game.StartProcess == 2)
-            {
-                //GC回收
-                GC.Collect();
-                Game.StartProcess = 1;
-                return;
-            }
-
-            if (Game.StartProcess == 3)
-            {
-                //关闭热更层
-                Game.Close();
-                Game.StartProcess = 2;
-                return;
-            }
-
-            if (Game.Hotfix == null)
-            {
-                return;
-            }
-
-            Game.Hotfix.Update?.Invoke();
         }
 
         private void LateUpdate()
         {
-            if (Game.Hotfix == null)
-            {
-                return;
-            }
-
-            Game.Hotfix.LateUpdate?.Invoke();
+            Game.LateUpdate();
         }
 
         private void OnApplicationQuit()
         {
-            Game.Close();
+            Game.OnApplicationQuit();
         }
 
         private void OnApplicationFocus(bool focus)
         {
-            if (Game.Hotfix == null)
-            {
-                return;
-            }
-
-            Game.Hotfix.OnApplicationFocus?.Invoke(focus);
+            Game.OnApplicationFocus(focus);
         }
 
         private void OnApplicationPause(bool pause)
         {
-            if (Game.Hotfix == null)
-            {
-                return;
-            }
-
-            Game.Hotfix.OnApplicationPause?.Invoke(pause);
+            Game.OnApplicationPause(pause);
         }
     }
 }

@@ -4,8 +4,7 @@
         "Unity.Model",
         "Unity.Hotfix",
         "Test",
-        "ILRuntime",
-        "ObjectDrawer.Editor"
+        "ILRuntime"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

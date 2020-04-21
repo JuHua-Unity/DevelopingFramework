@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ObjectDrawer
 {
-    public static class ObjectDrawerHelper
+    internal static class ObjectDrawerHelper
     {
         private static readonly List<IObjectDrawer> drawers; //排好序的drawer
 

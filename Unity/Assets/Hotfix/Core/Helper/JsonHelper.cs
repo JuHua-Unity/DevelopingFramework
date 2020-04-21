@@ -1,4 +1,6 @@
-﻿namespace Hotfix
+﻿using LitJson;
+
+namespace Hotfix
 {
     /// <summary>
     /// Json辅助器
@@ -12,29 +14,27 @@
         /// <returns></returns>
         public static string ToJson(object obj)
         {
-            if (obj is string s)
+            switch (obj)
             {
-                return s;
+                case string s:
+                    return s;
+                case int _:
+                case float _:
+                case bool _:
+                case long _:
+                case double _:
+                case byte _:
+                case char _:
+                case decimal _:
+                case sbyte _:
+                case short _:
+                case uint _:
+                case ulong _:
+                case ushort _:
+                    return obj.ToString();
+                default:
+                    return JsonMapper.ToJson(obj);
             }
-
-            if (obj is int
-                || obj is float
-                || obj is bool
-                || obj is long
-                || obj is double
-                || obj is byte
-                || obj is char
-                || obj is decimal
-                || obj is sbyte
-                || obj is short
-                || obj is uint
-                || obj is ulong
-                || obj is ushort)
-            {
-                return obj.ToString();
-            }
-
-            return LitJson.JsonMapper.ToJson(obj);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@
         /// <returns>该对象</returns>
         public static T FromJson<T>(string str)
         {
-            var t = LitJson.JsonMapper.ToObject<T>(str);
+            var t = JsonMapper.ToObject<T>(str);
             if (!(t is ISupportInitialize iSupportInitialize))
             {
                 return t;

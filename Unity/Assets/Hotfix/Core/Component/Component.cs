@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ObjectDrawer;
+using UnityEngine;
 
 namespace Hotfix
 {
@@ -10,51 +11,38 @@ namespace Hotfix
     {
 #if UNITY_EDITOR && !ILRuntime && ComponentView
 
-        public Component()
+        public GameObject GameObject { get; }
+        public static GameObject ParentNullRoot { get; set; } = null;
+
+        protected Component()
         {
-            ObjName = GetType().Name;
-            if (GameObject == null)
+            this.ObjName = GetType().Name;
+            if (this.GameObject != null)
             {
-                GameObject = new GameObject(ObjName);
-                GameObject.transform.SetParent(GameRoot.transform, false);
-                GameObject.AddComponent<Model.ComponentView>().Component = this;
+                return;
             }
+
+            this.GameObject = new GameObject(this.ObjName);
+            this.GameObject.transform.SetParent(GameRoot.transform, false);
+            this.GameObject.AddComponent<ObjectView>().Obj = this;
         }
 
 #endif
 
         public static GameObject GameRoot { get; set; } = null;
 
-#if UNITY_EDITOR && !ILRuntime && ComponentView
-
-        public GameObject GameObject { get; private set; } = null;
-
-        public static GameObject ParentNullRoot { get; set; } = null;
-
-#endif
-
         private Component parent;
 
         public Component Parent
         {
-            get
-            {
-                return parent;
-            }
+            get { return this.parent; }
             set
             {
-                parent = value;
+                this.parent = value;
 
 #if UNITY_EDITOR && !ILRuntime && ComponentView
 
-                if (parent == null)
-                {
-                    GameObject.transform.SetParent(ParentNullRoot.transform, false);
-                }
-                else
-                {
-                    GameObject.transform.SetParent(parent.GameObject.transform, false);
-                }
+                this.GameObject.transform.SetParent(this.parent == null ? ParentNullRoot.transform : this.parent.GameObject.transform, false);
 
 #endif
             }
@@ -62,7 +50,7 @@ namespace Hotfix
 
         public T GetParent<T>() where T : Component
         {
-            return Parent as T;
+            return this.Parent as T;
         }
     }
 }
