@@ -1,9 +1,18 @@
-﻿#if ILRuntime
+﻿using System;
+using System.Collections.Generic;
+using ILRuntime.Runtime.Enviorment;
+using ILRuntime.Runtime.Generated;
+using ILRuntime.Runtime.Intepreter;
+using LitJson;
+using UnityEngine;
+using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
+
+#if ILRuntime
 namespace Model
 {
     public static class ILHelper
     {
-        public static void InitILRuntime(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void InitILRuntime(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             m_1.Clear();
@@ -19,68 +28,61 @@ namespace Model
 
             #region appdomain.DelegateManager.RegisterDelegateConvertor
 
-
-
             #endregion
 
             #region appdomain.DelegateManager.RegisterFunctionDelegate
-
-
 
             #endregion
 
             #region appdomain.DelegateManager.RegisterMethodDelegate
 
-            RegisterMethodDelegate<System.Boolean>(appdomain);
-            RegisterMethodDelegate<System.Int32, System.Object>(appdomain);
-            RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance>(appdomain);
-
+            RegisterMethodDelegate<bool>(appdomain);
+            RegisterMethodDelegate<int, object>(appdomain);
+            RegisterMethodDelegate<ILTypeInstance, ILTypeInstance, ILTypeInstance, ILTypeInstance>(appdomain);
 
             #endregion
 
-            RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>(appdomain);
+            RegisterMethodDelegate<ILTypeInstance>(appdomain);
 
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
+            CLRBindings.Initialize(appdomain);
 
             #region appdomain.RegisterCrossBindingAdaptor
 
-            System.Reflection.Assembly assembly = typeof(Init).Assembly;
-            foreach (System.Type type in assembly.GetTypes())
+            var assembly = typeof(Init).Assembly;
+            foreach (var type in assembly.GetTypes())
             {
-                object[] attrs = type.GetCustomAttributes(typeof(AdaptorAttribute), false);
+                var attrs = type.GetCustomAttributes(typeof(AdaptorAttribute), false);
                 if (attrs.Length == 0)
                 {
                     continue;
                 }
 
-                object obj = System.Activator.CreateInstance(type);
-                if (!(obj is ILRuntime.Runtime.Enviorment.CrossBindingAdaptor adaptor))
+                var obj = Activator.CreateInstance(type);
+                if (!(obj is CrossBindingAdaptor adapt))
                 {
                     continue;
                 }
 
-                appdomain.RegisterCrossBindingAdaptor(adaptor);
+                appdomain.RegisterCrossBindingAdaptor(adapt);
             }
 
             #endregion
 
             #region appdomain.RegisterValueTypeBinder
 
-
-
             #endregion
 
             //LitJson注册
-            LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
+            JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
         }
 
-        public static void RegisterMethodDelegate<T1>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterMethodDelegate<T1>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1));
             if (m_1.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterMethodDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterMethodDelegate<{a}>");
             }
             else
             {
@@ -90,13 +92,13 @@ namespace Model
             appdomain.DelegateManager.RegisterMethodDelegate<T1>();
         }
 
-        public static void RegisterMethodDelegate<T1, T2>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterMethodDelegate<T1, T2>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2));
             if (m_2.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterMethodDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterMethodDelegate<{a}>");
             }
             else
             {
@@ -106,13 +108,13 @@ namespace Model
             appdomain.DelegateManager.RegisterMethodDelegate<T1, T2>();
         }
 
-        public static void RegisterMethodDelegate<T1, T2, T3>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterMethodDelegate<T1, T2, T3>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2), typeof(T3));
             if (m_3.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterMethodDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterMethodDelegate<{a}>");
             }
             else
             {
@@ -122,13 +124,13 @@ namespace Model
             appdomain.DelegateManager.RegisterMethodDelegate<T1, T2, T3>();
         }
 
-        public static void RegisterMethodDelegate<T1, T2, T3, T4>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterMethodDelegate<T1, T2, T3, T4>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2), typeof(T3), typeof(T4));
             if (m_4.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterMethodDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterMethodDelegate<{a}>");
             }
             else
             {
@@ -138,13 +140,13 @@ namespace Model
             appdomain.DelegateManager.RegisterMethodDelegate<T1, T2, T3, T4>();
         }
 
-        public static void RegisterFunctionDelegate<TResult>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterFunctionDelegate<TResult>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(TResult));
             if (f_0.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterFunctionDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterFunctionDelegate<{a}>");
             }
             else
             {
@@ -154,13 +156,13 @@ namespace Model
             appdomain.DelegateManager.RegisterFunctionDelegate<TResult>();
         }
 
-        public static void RegisterFunctionDelegate<T1, TResult>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterFunctionDelegate<T1, TResult>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(TResult));
             if (f_1.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterFunctionDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterFunctionDelegate<{a}>");
             }
             else
             {
@@ -170,13 +172,13 @@ namespace Model
             appdomain.DelegateManager.RegisterFunctionDelegate<T1, TResult>();
         }
 
-        public static void RegisterFunctionDelegate<T1, T2, TResult>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterFunctionDelegate<T1, T2, TResult>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2), typeof(TResult));
             if (f_2.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterFunctionDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterFunctionDelegate<{a}>");
             }
             else
             {
@@ -186,13 +188,13 @@ namespace Model
             appdomain.DelegateManager.RegisterFunctionDelegate<T1, T2, TResult>();
         }
 
-        public static void RegisterFunctionDelegate<T1, T2, T3, TResult>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterFunctionDelegate<T1, T2, T3, TResult>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2), typeof(T3), typeof(TResult));
             if (f_3.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterFunctionDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterFunctionDelegate<{a}>");
             }
             else
             {
@@ -202,13 +204,13 @@ namespace Model
             appdomain.DelegateManager.RegisterFunctionDelegate<T1, T2, T3, TResult>();
         }
 
-        public static void RegisterFunctionDelegate<T1, T2, T3, T4, TResult>(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
+        public static void RegisterFunctionDelegate<T1, T2, T3, T4, TResult>(AppDomain appdomain)
         {
 #if UNITY_EDITOR
             var a = new TClass(typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(TResult));
             if (f_4.Contains(a))
             {
-                UnityEngine.Debug.LogError($"重复注册：RegisterFunctionDelegate<{a.ToString()}>");
+                Debug.LogError($"重复注册：RegisterFunctionDelegate<{a}>");
             }
             else
             {
@@ -219,51 +221,51 @@ namespace Model
         }
 
 #if UNITY_EDITOR
-        private static readonly System.Collections.Generic.List<TClass> m_1 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> m_2 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> m_3 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> m_4 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> f_0 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> f_1 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> f_2 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> f_3 = new System.Collections.Generic.List<TClass>();
-        private static readonly System.Collections.Generic.List<TClass> f_4 = new System.Collections.Generic.List<TClass>();
+        private static readonly List<TClass> m_1 = new List<TClass>();
+        private static readonly List<TClass> m_2 = new List<TClass>();
+        private static readonly List<TClass> m_3 = new List<TClass>();
+        private static readonly List<TClass> m_4 = new List<TClass>();
+        private static readonly List<TClass> f_0 = new List<TClass>();
+        private static readonly List<TClass> f_1 = new List<TClass>();
+        private static readonly List<TClass> f_2 = new List<TClass>();
+        private static readonly List<TClass> f_3 = new List<TClass>();
+        private static readonly List<TClass> f_4 = new List<TClass>();
 
         //防止重复注册
         private class TClass
         {
-            private readonly System.Collections.Generic.List<System.Type> list = new System.Collections.Generic.List<System.Type>();
+            private readonly List<Type> list = new List<Type>();
 
-            public TClass(params System.Type[] types)
+            public TClass(params Type[] types)
             {
-                list.Clear();
+                this.list.Clear();
                 if (types == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < types.Length; i++)
+                for (var i = 0; i < types.Length; i++)
                 {
-                    list.Add(types[i]);
+                    this.list.Add(types[i]);
                 }
             }
 
-            public System.Type[] Types { get { return list.ToArray(); } }
+            private Type[] Types => this.list.ToArray();
 
             public override bool Equals(object obj)
             {
                 if (obj is TClass s)
                 {
                     var ts1 = s.Types;
-                    var ts2 = Types;
+                    var ts2 = this.Types;
                     if (ts1.Length != ts2.Length)
                     {
                         return false;
                     }
 
-                    for (int i = 0; i < ts1.Length; i++)
+                    for (var i = 0; i < ts1.Length; i++)
                     {
-                        if (!ts1[i].Equals(ts2[i]))
+                        if (ts1[i] != ts2[i])
                         {
                             return false;
                         }
@@ -272,7 +274,7 @@ namespace Model
                     return true;
                 }
 
-                return base.Equals(obj);
+                return false;
             }
 
             public override int GetHashCode()
@@ -282,10 +284,10 @@ namespace Model
 
             public override string ToString()
             {
-                string str = "";
-                for (int i = 0; i < list.Count; i++)
+                var str = "";
+                for (var i = 0; i < this.list.Count; i++)
                 {
-                    str += $"{list[i].FullName}, ";
+                    str += $"{this.list[i].FullName}, ";
                 }
 
                 return str.Trim().Trim(',').Trim();
