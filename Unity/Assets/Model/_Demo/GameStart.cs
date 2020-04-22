@@ -26,7 +26,7 @@ namespace Model
 #endif
         }
 
-        private GameObject LoadCode(string fileName)
+        private static GameObject LoadCode(string fileName)
         {
             GameObject go = null;
 
@@ -74,7 +74,7 @@ namespace Model
             return go;
         }
 
-        private bool EditorGetCodeGo(string fileName, ref GameObject go)
+        private static bool EditorGetCodeGo(string fileName, ref GameObject go)
         {
 #if DEFINE_LOCALRES && UNITY_EDITOR
 

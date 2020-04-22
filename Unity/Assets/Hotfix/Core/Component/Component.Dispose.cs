@@ -4,7 +4,7 @@
     {
         public override void Dispose()
         {
-            if (IsDisposed)
+            if (this.IsDisposed)
             {
                 return;
             }
@@ -17,18 +17,17 @@
 
             //释放自己
             Game.ComponentSystem.Destroy(this);
-            Game.ComponentSystem.Remove(ObjId);
-            if (IsFromPool)
+            Game.ComponentSystem.Remove(this.ObjId);
+            if (this.IsFromPool)
             {
-                Parent = null;
+                this.Parent = null;
                 Game.ObjectPool.Recycle(this);
             }
-
 #if UNITY_EDITOR && !ILRuntime && ComponentView
 
             else
             {
-                UnityEngine.Object.Destroy(GameObject);
+                UnityEngine.Object.DestroyImmediate(this.GameObject);
             }
 
 #endif

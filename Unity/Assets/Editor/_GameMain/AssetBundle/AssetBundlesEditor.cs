@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using LitJson;
-using Model;
 using UnityEditor;
 using UnityEngine;
 
@@ -236,14 +235,16 @@ namespace Editors
             for (var i = 0; i < this.allABNames.Count; i++)
             {
                 var abName = this.allABNames[i];
-                var item = new ABInfo() {Name = abName, CopyToLocal = false, Group = Define.ABsMainGroup};
+                var item = new ABInfo(abName);
                 for (var j = 0; j < a.Count; j++)
+                {
                     if (a[j].Name.Equals(abName))
                     {
                         item.CopyToLocal = a[j].CopyToLocal;
                         item.Group = a[j].Group;
                         break;
                     }
+                }
 
                 this.abs.Add(item);
             }
@@ -261,19 +262,28 @@ namespace Editors
             var list = new List<string>();
             var a = IOHelper.StreamReader<List<ABInfo>>(ABsConfigPath);
             for (var i = 0; i < a.Count; i++)
+            {
                 if (a[i].CopyToLocal)
                 {
                     list.Add(a[i].Name);
                 }
+            }
 
             return list;
         }
 
         private class ABInfo
         {
-            public string Name { get; set; }
+            public string Name { get; }
             public string Group { get; set; }
             public bool CopyToLocal { get; set; }
+
+            public ABInfo(string name)
+            {
+                this.Name = name;
+                this.Group = "Main";
+                this.CopyToLocal = false;
+            }
         }
     }
 }

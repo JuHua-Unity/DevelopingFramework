@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Model;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Editors
 
         private bool buildFold = true;
         private bool builderFold = true;
-        private bool development = false;
+        private bool development;
         private string abVersion = "0.0.1";
         private string appVersion = "0.0.1";
         private LocalRes res = LocalRes.复制配置部分_打包版本;
@@ -47,7 +48,7 @@ namespace Editors
         private void BuildGUI()
         {
             this.abVersion = EditorGUILayout.TextField("Version", this.abVersion);
-            this.res = (LocalRes)EditorGUILayout.EnumPopup("资源复制：", this.res);
+            this.res = (LocalRes) EditorGUILayout.EnumPopup("资源复制：", this.res);
 
             if (GUILayout.Button("BuildAssetBundles"))
             {
@@ -57,17 +58,17 @@ namespace Editors
 
         private void RunBuild()
         {
-            var outPath = "../Release/Error";
+            string outPath;
             switch (PlatformDefine.Target)
             {
                 case BuildTarget.Android:
-                    outPath = $"../Release/Android/{Model.Define.ABsPathParent}";
+                    outPath = $"../Release/Android/{Define.ABsPathParent}";
                     break;
                 case BuildTarget.StandaloneWindows64:
-                    outPath = $"../Release/Standalone/{Model.Define.ABsPathParent}";
+                    outPath = $"../Release/Standalone/{Define.ABsPathParent}";
                     break;
                 case BuildTarget.iOS:
-                    outPath = $"../Release/IOS/{Model.Define.ABsPathParent}";
+                    outPath = $"../Release/IOS/{Define.ABsPathParent}";
                     break;
                 default:
                     Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
@@ -79,7 +80,7 @@ namespace Editors
                 Directory.CreateDirectory(outPath);
             }
 
-            var options = BuildAssetBundleOptions.None;
+            BuildAssetBundleOptions options;
             switch (PlatformDefine.Target)
             {
                 case BuildTarget.StandaloneWindows64:
@@ -147,8 +148,6 @@ namespace Editors
                 case LocalRes.复制配置部分_打包版本:
                     list = new List<string>(AssetBundlesEditor.GetLocalABs());
                     break;
-                default:
-                    break;
             }
 
             return list;
@@ -162,7 +161,7 @@ namespace Editors
                 return null;
             }
 
-            var path = "../Release/Server/Error";
+            string path;
             switch (PlatformDefine.Target)
             {
                 case BuildTarget.Android:
@@ -191,7 +190,7 @@ namespace Editors
 
         private string GetABLocalPath()
         {
-            var path = $"{Application.streamingAssetsPath}/{Model.Define.ABsMainGroup}";
+            var path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}";
             if (Directory.Exists(path))
             {
                 Debug.Log($"{path} 已删除！");
@@ -234,7 +233,7 @@ namespace Editors
 #if DEFINE_SHOWLOG
             string[] levels = { "Assets/Scenes/Init_Debug.unity", };
 #else
-            string[] levels = { "Assets/Scenes/Init.unity", };
+            string[] levels = {"Assets/Scenes/Init.unity",};
 #endif
             var version = this.appVersion;
             if (string.IsNullOrEmpty(version))
@@ -244,7 +243,7 @@ namespace Editors
             }
 
             PlayerSettings.bundleVersion = version;
-            var outPath = "../Release/Build/Error";
+            string outPath;
             switch (PlatformDefine.Target)
             {
                 case BuildTarget.Android:

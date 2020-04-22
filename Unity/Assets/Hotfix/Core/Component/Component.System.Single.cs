@@ -5,20 +5,20 @@ namespace Hotfix
 {
     internal partial class Component
     {
-        private Dictionary<Type, Component> components = null;
+        private Dictionary<Type, Component> components;
 
         public virtual K AddComponent<K>(bool isFromPool = true) where K : Component, new()
         {
             SingleSystemInit();
 
-            Type type = typeof(K);
-            if (components.ContainsKey(type))
+            var type = typeof(K);
+            if (this.components.ContainsKey(type))
             {
-                throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
+                throw new Exception($"添加组件时该组件存在，id:{this.ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.Create<K>(this, isFromPool);
-            components.Add(type, component);
+            var component = ComponentFactory.Create<K>(this, isFromPool);
+            this.components.Add(type, component);
             return component;
         }
 
@@ -26,14 +26,14 @@ namespace Hotfix
         {
             SingleSystemInit();
 
-            Type type = typeof(K);
-            if (components.ContainsKey(type))
+            var type = typeof(K);
+            if (this.components.ContainsKey(type))
             {
-                throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
+                throw new Exception($"添加组件时该组件存在，id:{this.ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.Create<K, P1>(this, p1, isFromPool);
-            components.Add(type, component);
+            var component = ComponentFactory.Create<K, P1>(this, p1, isFromPool);
+            this.components.Add(type, component);
             return component;
         }
 
@@ -41,14 +41,14 @@ namespace Hotfix
         {
             SingleSystemInit();
 
-            Type type = typeof(K);
-            if (components.ContainsKey(type))
+            var type = typeof(K);
+            if (this.components.ContainsKey(type))
             {
-                throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
+                throw new Exception($"添加组件时该组件存在，id:{this.ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.Create<K, P1, P2>(this, p1, p2, isFromPool);
-            components.Add(type, component);
+            var component = ComponentFactory.Create<K, P1, P2>(this, p1, p2, isFromPool);
+            this.components.Add(type, component);
             return component;
         }
 
@@ -56,14 +56,14 @@ namespace Hotfix
         {
             SingleSystemInit();
 
-            Type type = typeof(K);
-            if (components.ContainsKey(type))
+            var type = typeof(K);
+            if (this.components.ContainsKey(type))
             {
-                throw new Exception($"添加组件时该组件存在，id:{ObjId}，component:{type.Name}");
+                throw new Exception($"添加组件时该组件存在，id:{this.ObjId}，component:{type.Name}");
             }
 
-            K component = ComponentFactory.Create<K, P1, P2, P3>(this, p1, p2, p3, isFromPool);
-            components.Add(type, component);
+            var component = ComponentFactory.Create<K, P1, P2, P3>(this, p1, p2, p3, isFromPool);
+            this.components.Add(type, component);
             return component;
         }
 
@@ -74,25 +74,25 @@ namespace Hotfix
 
         public virtual void RemoveComponent(Type type)
         {
-            if (!components.TryGetValue(type, out Component component))
+            if (!this.components.TryGetValue(type, out var component))
             {
                 return;
             }
 
-            components.Remove(type);
+            this.components.Remove(type);
             component.Dispose();
         }
 
         public K GetComponent<K>() where K : Component
         {
-            return (K)GetComponent(typeof(K));
+            return (K) GetComponent(typeof(K));
         }
 
         public Component GetComponent(Type type)
         {
-            if (components != null && components.ContainsKey(type))
+            if (this.components != null && this.components.ContainsKey(type))
             {
-                return components[type];
+                return this.components[type];
             }
 
             return null;
@@ -100,25 +100,26 @@ namespace Hotfix
 
         private void SingleSystemInit()
         {
-            if (components == null)
+            if (this.components == null)
             {
-                components = new Dictionary<Type, Component>();
+                this.components = new Dictionary<Type, Component>();
             }
         }
 
         private void SingleSystemDispose()
         {
-            if (components == null)
+            if (this.components == null)
             {
                 return;
             }
 
-            foreach (var item in components)
+            foreach (var item in this.components)
             {
-                RemoveComponent(item.Key);
+                var component = item.Value;
+                component.Dispose();
             }
 
-            components.Clear();
+            this.components.Clear();
         }
     }
 }

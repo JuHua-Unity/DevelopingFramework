@@ -1,4 +1,10 @@
-﻿namespace Hotfix
+﻿using UnityEngine;
+#if UNITY_EDITOR && !ILRuntime && ComponentView
+using ObjectDrawer;
+
+#endif
+
+namespace Hotfix
 {
     /// <inheritdoc cref="ISupportInitialize" />
     /// <inheritdoc cref="IDisposable" />
@@ -7,6 +13,25 @@
     /// </summary>
     internal class Object : ISupportInitialize, IDisposable
     {
+        public static GameObject GameRoot { get; set; }
+
+#if UNITY_EDITOR && !ILRuntime && ComponentView
+
+        public static GameObject ParentNullRoot { get; set; }
+
+        public GameObject GameObject { get; }
+
+        /// <summary>
+        /// 对象名字
+        /// </summary>
+        public string ObjName { get; set; }
+
+        public void SetParent(GameObject go)
+        {
+            this.GameObject.transform.SetParent(go == null ? ParentNullRoot.transform : go.transform, false);
+        }
+
+#endif
         /// <summary>
         /// 构造函数
         /// 生成ObjId
@@ -14,21 +39,27 @@
         public Object()
         {
             this.ObjId = GenerateId();
+
+#if UNITY_EDITOR && !ILRuntime && ComponentView
+
+            this.ObjName = GetType().Name;
+
+            if (this.GameObject != null)
+            {
+                return;
+            }
+
+            this.GameObject = new GameObject(this.ObjName);
+            SetParent(GameRoot);
+            this.GameObject.AddComponent<ObjectView>().Obj = this;
+
+#endif
         }
 
         /// <summary>
         /// 对象ID
         /// </summary>
         public ulong ObjId { get; private set; }
-
-#if UNITY_EDITOR && !ILRuntime && ComponentView
-
-        /// <summary>
-        /// 对象名字
-        /// </summary>
-        public string ObjName { get; set; } = string.Empty;
-
-#endif
 
         private bool isFromPool; //是否来自对象池
 

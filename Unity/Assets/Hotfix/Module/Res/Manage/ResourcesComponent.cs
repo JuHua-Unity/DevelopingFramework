@@ -1,15 +1,17 @@
-﻿using Model;
-using Async;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Async;
+using Model;
+using UnityEditor;
 using UnityEngine;
 
 namespace Hotfix
 {
     internal sealed class ResourcesComponent : Component, IDestroySystem, IAwakeSystem
     {
-        public static ResourcesComponent Instance { get; private set; } = null;
+        public static ResourcesComponent Instance { get; private set; }
 
 #if DEFINE_LOCALRES && UNITY_EDITOR
 #else
@@ -22,12 +24,12 @@ namespace Hotfix
         {
             bundleName = AssetBundleNameHelper.CollectBundleName(bundleName);
 
-            if (!res.TryGetValue(bundleName, out ABInfoComponent abInfo))
+            if (!this.res.TryGetValue(bundleName, out var abInfo))
             {
                 return null;
             }
 
-            if (!abInfo.Objects.TryGetValue(prefab, out UnityEngine.Object obj))
+            if (!abInfo.Objects.TryGetValue(prefab, out var obj))
             {
                 return null;
             }
@@ -39,7 +41,7 @@ namespace Hotfix
         {
             bundleName = AssetBundleNameHelper.CollectBundleName(bundleName);
 
-            if (!res.TryGetValue(bundleName, out ABInfoComponent abInfo))
+            if (!this.res.TryGetValue(bundleName, out var abInfo))
             {
                 return null;
             }
@@ -49,8 +51,8 @@ namespace Hotfix
 
         public void Load(string bundleName)
         {
-            string[] dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
-            foreach (string dependency in dependencies)
+            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
                 {
@@ -63,7 +65,7 @@ namespace Hotfix
 
         public void Load(params string[] bundleNames)
         {
-            for (int i = 0; i < bundleNames.Length; i++)
+            for (var i = 0; i < bundleNames.Length; i++)
             {
                 Load(bundleNames[i]);
             }
@@ -71,7 +73,7 @@ namespace Hotfix
 
         public void Load(IEnumerable<string> bundleNames)
         {
-            foreach (string item in bundleNames)
+            foreach (var item in bundleNames)
             {
                 Load(item);
             }
@@ -79,8 +81,8 @@ namespace Hotfix
 
         public async Task LoadAsync(string bundleName)
         {
-            string[] dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
-            foreach (string dependency in dependencies)
+            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
                 {
@@ -93,7 +95,7 @@ namespace Hotfix
 
         public async Task LoadAsync(params string[] bundleNames)
         {
-            for (int i = 0; i < bundleNames.Length; i++)
+            for (var i = 0; i < bundleNames.Length; i++)
             {
                 await LoadAsync(bundleNames[i]);
             }
@@ -101,7 +103,7 @@ namespace Hotfix
 
         public async Task LoadAsync(IEnumerable<string> bundleNames)
         {
-            foreach (string item in bundleNames)
+            foreach (var item in bundleNames)
             {
                 await LoadAsync(item);
             }
@@ -119,8 +121,8 @@ namespace Hotfix
 
         public void Unload(string bundleName)
         {
-            string[] dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
-            foreach (string dependency in dependencies)
+            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
                 {
@@ -133,7 +135,7 @@ namespace Hotfix
 
         public void Unload(params string[] bundleNames)
         {
-            for (int i = 0; i < bundleNames.Length; i++)
+            for (var i = 0; i < bundleNames.Length; i++)
             {
                 Unload(bundleNames[i]);
             }
@@ -141,7 +143,7 @@ namespace Hotfix
 
         public void Unload(IEnumerable<string> bundleNames)
         {
-            foreach (string item in bundleNames)
+            foreach (var item in bundleNames)
             {
                 Unload(item);
             }
@@ -154,7 +156,7 @@ namespace Hotfix
 
         private void LoadOne(string bundleName)
         {
-            if (res.TryGetValue(bundleName, out ABInfoComponent a))
+            if (this.res.TryGetValue(bundleName, out var a))
             {
                 a.RefCount++;
                 return;
@@ -165,35 +167,35 @@ namespace Hotfix
                 return;
             }
 
-            string p = Path.Combine(PathHelper.AppHotfixResPath, bundleName);
+            var p = Path.Combine(PathHelper.AppHotfixResPath, bundleName);
             if (!File.Exists(p))
             {
                 p = Path.Combine(PathHelper.AppResPath, bundleName);
             }
 
-            AssetBundle assetBundle = AssetBundle.LoadFromFile(p);
+            var assetBundle = AssetBundle.LoadFromFile(p);
 
             if (assetBundle == null)
             {
-                throw new System.Exception($"assets bundle not found: {bundleName}");
+                throw new Exception($"assets bundle not found: {bundleName}");
             }
 
-            ABInfoComponent abInfo = AddMultiComponent<ABInfoComponent, AssetBundle>(assetBundle);
+            var abInfo = AddMultiComponent<ABInfoComponent, AssetBundle>(assetBundle);
             if (!assetBundle.isStreamedSceneAssetBundle)
             {
-                UnityEngine.Object[] assets = assetBundle.LoadAllAssets();
-                foreach (UnityEngine.Object asset in assets)
+                var assets = assetBundle.LoadAllAssets();
+                foreach (var asset in assets)
                 {
                     abInfo.Objects.Add(asset.name, asset);
                 }
             }
 
-            res.Add(bundleName, abInfo);
+            this.res.Add(bundleName, abInfo);
         }
 
         private async Task LoadOneAsync(string bundleName)
         {
-            if (res.TryGetValue(bundleName, out ABInfoComponent a))
+            if (this.res.TryGetValue(bundleName, out var a))
             {
                 a.RefCount++;
                 return;
@@ -204,29 +206,29 @@ namespace Hotfix
                 return;
             }
 
-            string p = Path.Combine(PathHelper.AppHotfixResPath, bundleName);
+            var p = Path.Combine(PathHelper.AppHotfixResPath, bundleName);
             if (!File.Exists(p))
             {
                 p = Path.Combine(PathHelper.AppResPath, bundleName);
             }
 
-            AssetsBundleLoaderAsync assetsBundleLoader = AddMultiComponent<AssetsBundleLoaderAsync>();
-            AssetBundle assetBundle = await assetsBundleLoader.LoadAsync(p);
+            var assetsBundleLoader = AddMultiComponent<AssetsBundleLoaderAsync>();
+            var assetBundle = await assetsBundleLoader.LoadAsync(p);
             RemoveMultiComponent(assetsBundleLoader);
             if (assetBundle == null)
             {
-                throw new System.Exception($"assets bundle not found: {bundleName}");
+                throw new Exception($"assets bundle not found: {bundleName}");
             }
 
-            ABInfoComponent abInfo = AddMultiComponent<ABInfoComponent, AssetBundle>(assetBundle);
+            AddMultiComponent<ABInfoComponent, AssetBundle>(assetBundle);
             if (!assetBundle.isStreamedSceneAssetBundle)
             {
-                AssetsLoaderAsync assetsLoader = AddMultiComponent<AssetsLoaderAsync>();
-                UnityEngine.Object[] assets = await assetsLoader.LoadAllAssetsAsync(assetBundle);
+                var assetsLoader = AddMultiComponent<AssetsLoaderAsync>();
+                var assets = await assetsLoader.LoadAllAssetsAsync(assetBundle);
                 RemoveMultiComponent(assetsLoader);
-                foreach (UnityEngine.Object asset in assets)
+                foreach (var asset in assets)
                 {
-                    res[bundleName].Objects.Add(asset.name, asset);
+                    this.res[bundleName].Objects.Add(asset.name, asset);
                 }
             }
         }
@@ -234,16 +236,15 @@ namespace Hotfix
         private bool LoadOne_LocalRes(string bundleName)
         {
 #if DEFINE_LOCALRES && UNITY_EDITOR
-            string[] realPath = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(bundleName);
-            ABInfoComponent abInfo = AddMultiComponent<ABInfoComponent, AssetBundle>(null);
-            foreach (string s in realPath)
+            var realPath = AssetDatabase.GetAssetPathsFromAssetBundle(bundleName);
+            var abInfo = AddMultiComponent<ABInfoComponent, AssetBundle>(null);
+            foreach (var s in realPath)
             {
-                string assetName = Path.GetFileNameWithoutExtension(s);
-                UnityEngine.Object resource = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(s);
+                var resource = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(s);
                 abInfo.Objects.Add(resource.name, resource);
             }
 
-            res.Add(bundleName, abInfo);
+            this.res.Add(bundleName, abInfo);
 
             return true;
 #else
@@ -253,7 +254,7 @@ namespace Hotfix
 
         private void UnloadOne(string bundleName)
         {
-            if (res.TryGetValue(bundleName, out ABInfoComponent a))
+            if (this.res.TryGetValue(bundleName, out var a))
             {
                 a.RefCount--;
                 if (a.RefCount > 0)
@@ -285,8 +286,8 @@ namespace Hotfix
 
         public void Destroy()
         {
-            res.Clear();
-            dependenciesCache.Clear();
+            this.res.Clear();
+            this.dependenciesCache.Clear();
 #if DEFINE_LOCALRES && UNITY_EDITOR
 #else
             assetBundleManifest = null;
@@ -304,68 +305,67 @@ namespace Hotfix
 
             public void Awake(AssetBundle b)
             {
-                RefCount = 1;
-                AssetBundle = b;
+                this.RefCount = 1;
+                this.AssetBundle = b;
             }
 
             public void Destroy()
             {
-                RefCount = 0;
-                AssetBundle?.Unload(true);
-                Objects.Clear();
+                this.RefCount = 0;
+                this.AssetBundle?.Unload(true);
+                this.Objects.Clear();
             }
         }
 
         #region Dependencies
 
-        private Dictionary<string, string[]> dependenciesCache = new Dictionary<string, string[]>();
+        private readonly Dictionary<string, string[]> dependenciesCache = new Dictionary<string, string[]>();
 
         private string[] GetDependencies(string bundleName)
         {
-            string[] dependencies = new string[0];
-            if (dependenciesCache.TryGetValue(bundleName, out dependencies))
+            if (this.dependenciesCache.TryGetValue(bundleName, out var dependencies))
             {
                 return dependencies;
             }
 
 #if DEFINE_LOCALRES && UNITY_EDITOR
-            dependencies = UnityEditor.AssetDatabase.GetAssetBundleDependencies(bundleName, true);
+            dependencies = AssetDatabase.GetAssetBundleDependencies(bundleName, true);
 #else
             dependencies = assetBundleManifest.GetAllDependencies(bundleName);
 #endif
-            dependenciesCache.Add(bundleName, dependencies);
+            this.dependenciesCache.Add(bundleName, dependencies);
 
             return dependencies;
         }
 
-        private string[] GetSortedDependencies(string bundleName)
+        private IEnumerable<string> GetSortedDependencies(string bundleName)
         {
-            Dictionary<string, int> info = new Dictionary<string, int>();
-            List<string> parents = new List<string>();
+            var info = new Dictionary<string, int>();
+            var parents = new List<string>();
             CollectDependencies(parents, bundleName, info);
-            string[] ss = info.OrderBy(x => x.Value).Select(x => x.Key).ToArray();
+            var ss = info.OrderBy(x => x.Value).Select(x => x.Key).ToArray();
             return ss;
         }
 
-        private void CollectDependencies(List<string> parents, string bundleName, Dictionary<string, int> info)
+        private void CollectDependencies(IList<string> parents, string bundleName, Dictionary<string, int> info)
         {
             parents.Add(bundleName);
-            string[] deps = GetDependencies(bundleName);
-            foreach (string parent in parents)
+            var dependencies = GetDependencies(bundleName);
+            foreach (var parent in parents)
             {
                 if (!info.ContainsKey(parent))
                 {
                     info[parent] = 0;
                 }
 
-                info[parent] += deps.Length;
+                info[parent] += dependencies.Length;
             }
 
-            foreach (string dep in deps)
+            foreach (var dep in dependencies)
             {
                 if (parents.Contains(dep))
                 {
-                    throw new System.Exception($"包有循环依赖，请重新标记: {bundleName} {dep}");
+                    throw new Exception($"包有循环依赖，请重新标记: {bundleName} {dep}");
                 }
 
                 CollectDependencies(parents, dep, info);

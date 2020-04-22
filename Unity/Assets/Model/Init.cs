@@ -20,12 +20,20 @@ namespace Model
 
         private void Update()
         {
+            if (Game.StartProcess == 0)
+            {
+                return;
+            }
+
             switch (Game.StartProcess)
             {
+                case -1:
+                    Game.Hotfix?.Update?.Invoke();
+                    break;
                 case 1:
                     //启动
                     new GameStart().Start(this.gameObject.Get<TextAsset>("LaunchOptions"));
-                    Game.StartProcess = 0;
+                    Game.StartProcess = -1;
                     return;
                 case 2:
                     //GC回收
@@ -37,9 +45,6 @@ namespace Model
                     Game.Close();
                     Game.StartProcess = 2;
                     return;
-                default:
-                    Game.Hotfix?.Update?.Invoke();
-                    break;
             }
         }
 

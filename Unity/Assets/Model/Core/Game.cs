@@ -14,6 +14,7 @@ namespace Model
         /// 2:需要GC -> 1
         /// 1:启动 -> 0
         /// 0:空闲
+        /// -1:运行中
         /// </summary>
         internal static int StartProcess { get; set; }
 
@@ -21,16 +22,31 @@ namespace Model
 
         public static void Start()
         {
+            if (StartProcess != 0)
+            {
+                throw new Exception($"当前游戏启动流程状态={StartProcess}，不可启动！");
+            }
+
             StartProcess = 1;
         }
 
         public static void ReStart()
         {
+            if (StartProcess != -1)
+            {
+                throw new Exception($"当前游戏启动流程状态={StartProcess}，不可重启！");
+            }
+
             StartProcess = 3;
         }
 
         internal static void Start(byte[] assBytes, byte[] pdbBytes)
         {
+            if (StartProcess != 1)
+            {
+                throw new Exception($"当前游戏启动流程状态={StartProcess}，不可启动！");
+            }
+
             if (Hotfix != null)
             {
                 throw new Exception("当前Hotfix不为空，却要Start，请先Close Hotfix");

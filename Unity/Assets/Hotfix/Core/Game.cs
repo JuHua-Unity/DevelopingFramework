@@ -1,4 +1,6 @@
-﻿namespace Hotfix
+﻿using UnityEngine;
+
+namespace Hotfix
 {
     /// <summary>
     /// GameCore
@@ -13,24 +15,12 @@
         /// <summary>
         /// 对象池
         /// </summary>
-        public static ObjectPool ObjectPool
-        {
-            get
-            {
-                return objectPool ?? (objectPool = new ObjectPool());
-            }
-        }
+        public static ObjectPool ObjectPool => objectPool ?? (objectPool = new ObjectPool());
 
         /// <summary>
         /// 组件的事件系统
         /// </summary>
-        public static ComponentSystem ComponentSystem
-        {
-            get
-            {
-                return componentSystem ?? (componentSystem = new ComponentSystem());
-            }
-        }
+        public static ComponentSystem ComponentSystem => componentSystem ?? (componentSystem = new ComponentSystem());
 
         /// <summary>
         /// 组件的根
@@ -39,20 +29,22 @@
         {
             get
             {
-                if (componentRoot == null)
+                if (componentRoot != null)
                 {
-                    Component.GameRoot = UnityEngine.GameObject.Find("/GameRoot");
+                    return componentRoot;
+                }
+
+                Object.GameRoot = GameObject.Find("/GameRoot");
 
 #if UNITY_EDITOR && !ILRuntime && ComponentView
 
-                    Component.ParentNullRoot = new UnityEngine.GameObject("DisposedComponentRoot");
-                    Component.ParentNullRoot.transform.SetParent(Component.GameRoot.transform, false);
-                    Component.ParentNullRoot.SetActive(false);
+                Object.ParentNullRoot = new GameObject("DisposedObjectRoot");
+                Object.ParentNullRoot.transform.SetParent(Object.GameRoot.transform, false);
+                Object.ParentNullRoot.SetActive(false);
 
 #endif
 
-                    componentRoot = new ComponentRoot();
-                }
+                componentRoot = new ComponentRoot();
 
                 return componentRoot;
             }
@@ -73,11 +65,11 @@
 
 #if UNITY_EDITOR && !ILRuntime && ComponentView
 
-            UnityEngine.Object.DestroyImmediate(Component.ParentNullRoot);
-            Component.ParentNullRoot = null;
+            UnityEngine.Object.DestroyImmediate(Object.ParentNullRoot);
+            Object.ParentNullRoot = null;
 #endif
 
-            Component.GameRoot = null;
+            Object.GameRoot = null;
         }
     }
 }

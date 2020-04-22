@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Hotfix
 {
+    /// <inheritdoc />
     /// <summary>
     /// 对象池
     /// </summary>
@@ -75,72 +76,54 @@ namespace Hotfix
             base.Dispose();
 
             this.dictionary.Clear();
-            this.objQueues.Clear();
+            this.objectQueues.Clear();
             this.longQueues.Clear();
             this.componentLists.Clear();
         }
 
-        #region ObjectQueue
+        #region Object池子
 
-        private readonly Queue<Queue<Object>> objQueues = new Queue<Queue<Object>>();
+        private readonly Queue<Queue<Object>> objectQueues = new Queue<Queue<Object>>();
 
         private Queue<Object> GetObjectQueue()
         {
-            if (this.objQueues.Count > 0)
-            {
-                return this.objQueues.Dequeue();
-            }
-
-            return new Queue<Object>();
+            return this.objectQueues.Count > 0 ? this.objectQueues.Dequeue() : new Queue<Object>();
         }
 
         private void RecycleObjectQueue(Queue<Object> objQueue)
         {
-            objQueue.Clear();
-            this.objQueues.Enqueue(objQueue);
+            this.objectQueues.Enqueue(objQueue);
         }
 
         #endregion
 
-        #region Queue<Queue<long>>
+        #region Queue<long>池子
 
         private readonly Queue<Queue<long>> longQueues = new Queue<Queue<long>>();
 
         public Queue<long> Fetch_Queue_long()
         {
-            if (this.longQueues.Count > 0)
-            {
-                return this.longQueues.Dequeue();
-            }
-
-            return new Queue<long>();
+            return this.longQueues.Count > 0 ? this.longQueues.Dequeue() : new Queue<long>();
         }
 
         public void Recycle_Queue_long(Queue<long> longQueue)
         {
-            longQueue.Clear();
             this.longQueues.Enqueue(longQueue);
         }
 
         #endregion
 
-        #region Queue<List<Component>>
+        #region List<Component>池子
 
         private readonly Queue<List<Component>> componentLists = new Queue<List<Component>>();
 
         public List<Component> Fetch_List_Component()
         {
-            if (this.componentLists.Count > 0)
-            {
-                return this.componentLists.Dequeue();
-            }
-
-            return new List<Component>();
+            return this.componentLists.Count > 0 ? this.componentLists.Dequeue() : new List<Component>();
         }
 
         public void Recycle_List_Component(List<Component> componentList)
         {
-            componentList.Clear();
             this.componentLists.Enqueue(componentList);
         }
 

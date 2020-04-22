@@ -1,6 +1,6 @@
-﻿using Async;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
+using Async;
 
 namespace Hotfix
 {
@@ -41,12 +41,14 @@ namespace Hotfix
             while (this.timeOutTime.Count > 0)
             {
                 var time = this.timeOutTime.Dequeue();
-                foreach (var timerId in this.timeId[time])
+                var timerIds = this.timeId[time];
+                foreach (var timerId in timerIds)
                 {
                     this.timeOutTimerIds.Enqueue(timerId);
                 }
 
-                Game.ObjectPool.Recycle_Queue_long(this.timeId[time]);
+                timerIds.Clear();
+                Game.ObjectPool.Recycle_Queue_long(timerIds);
                 this.timeId.Remove(time);
             }
 
@@ -169,7 +171,9 @@ namespace Hotfix
         {
             for (var i = 0; i < this.timeId.Count; i++)
             {
-                Game.ObjectPool.Recycle_Queue_long(this.timeId[i]);
+                var longQueue = this.timeId[i];
+                longQueue.Clear();
+                Game.ObjectPool.Recycle_Queue_long(longQueue);
             }
 
             this.timeId.Clear();
