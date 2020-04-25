@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4F87CA56-7106-4ECF-9A86-78ADF4F2B16A}</ProjectGuid>
+    <ProjectGuid>{838CBC86-4284-9E53-6859-AC02C31AA200}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>ReferenceCollector.Editor</AssemblyName>
+    <AssemblyName>Hotfix</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2018.3.13f1</UnityVersion>
   </PropertyGroup>
@@ -60,7 +60,49 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\ReferenceCollector\Editor\ReferenceCollectorEditor.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\GameStart.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Scene\InitScene.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Scene\LoadingScene.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Scene\TestScene.cs" />
+    <Compile Include="Assets\Hotfix\_GameMain\Test\ComponentViewTest.cs" />
+    <Compile Include="Assets\Hotfix\Core\Async\CancellationToken.cs" />
+    <Compile Include="Assets\Hotfix\Core\Async\CancellationTokenSource.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Component.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Component.Dispose.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Component.System.Multi.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Component.System.Single.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\ComponentFactory.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\ComponentRoot.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\ComponentSystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Interface\IAwakeSystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Interface\IDestroySystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Interface\ILateUpdateSystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Interface\IStartSystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Component\Interface\IUpdateSystem.cs" />
+    <Compile Include="Assets\Hotfix\Core\Game.cs" />
+    <Compile Include="Assets\Hotfix\Core\Helper\ILHelper.cs" />
+    <Compile Include="Assets\Hotfix\Core\Helper\JsonHelper.cs" />
+    <Compile Include="Assets\Hotfix\Core\Helper\TimeHelper.cs" />
+    <Compile Include="Assets\Hotfix\Core\Log\Log.cs" />
+    <Compile Include="Assets\Hotfix\Core\Object\IDisposable.cs" />
+    <Compile Include="Assets\Hotfix\Core\Object\ISupportInitialize.cs" />
+    <Compile Include="Assets\Hotfix\Core\Object\Object.cs" />
+    <Compile Include="Assets\Hotfix\Core\Object\ObjectPool.cs" />
+    <Compile Include="Assets\Hotfix\Core\Timer\Component.Timer.cs" />
+    <Compile Include="Assets\Hotfix\Core\Timer\TimerComponent.cs" />
+    <Compile Include="Assets\Hotfix\Init.cs" />
+    <Compile Include="Assets\Hotfix\Module\Download\UnityWebRequestAsync.cs" />
+    <Compile Include="Assets\Hotfix\Module\FairyGUI\FairyGUIHelper.cs" />
+    <Compile Include="Assets\Hotfix\Module\FairyGUI\FUIComponent.cs" />
+    <Compile Include="Assets\Hotfix\Module\FairyGUI\FUIPackagesComponent.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Manage\AssetsBundleLoaderAsync.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Manage\AssetsLoaderAsync.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Manage\ResourcesComponent.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\AssetBundleNameHelper.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\MD5Helper.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\PathHelper.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\ResVersion.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Update\ResUpdateComponent.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -660,9 +702,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ReferenceCollector.csproj">
-      <Project>{4CA7ABC2-0E34-2A69-D295-27ACDEA89292}</Project>
-      <Name>ReferenceCollector</Name>
+    <ProjectReference Include="Model.csproj">
+      <Project>{2EC4903E-4963-EF63-D655-19011D9F16B8}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="ILRuntime.csproj">
+      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
+      <Name>ILRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Async.csproj">
+      <Project>{98FC05A6-0292-E7D4-24E5-0134D38497DF}</Project>
+      <Name>Async</Name>
+    </ProjectReference>
+    <ProjectReference Include="ObjectView.csproj">
+      <Project>{DC893C52-BC58-8358-B450-22205CAC447F}</Project>
+      <Name>ObjectView</Name>
+    </ProjectReference>
+    <ProjectReference Include="FairyGUI.csproj">
+      <Project>{5C351BF4-1A33-48AF-B348-52FD7A76B064}</Project>
+      <Name>FairyGUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

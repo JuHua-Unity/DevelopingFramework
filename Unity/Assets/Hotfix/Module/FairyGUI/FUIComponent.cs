@@ -15,7 +15,7 @@
         {
             FairyGUIHelper.Init();
 
-            AddComponent<PackagesComponent>();
+            AddComponent<FUIPackagesComponent>();
         }
     }
 }

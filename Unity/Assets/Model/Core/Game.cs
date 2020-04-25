@@ -1,4 +1,5 @@
 ﻿using System;
+using ILRuntime.Hotfix;
 
 namespace Model
 {
@@ -14,7 +15,7 @@ namespace Model
         /// 2:需要GC -> 1
         /// 1:启动 -> 0
         /// 0:空闲
-        /// -1:运行中
+        /// 4:运行中
         /// </summary>
         internal static int StartProcess { get; set; }
 
@@ -32,7 +33,7 @@ namespace Model
 
         public static void ReStart()
         {
-            if (StartProcess != -1)
+            if (StartProcess != 4)
             {
                 throw new Exception($"当前游戏启动流程状态={StartProcess}，不可重启！");
             }
@@ -42,7 +43,7 @@ namespace Model
 
         internal static void Start(byte[] assBytes, byte[] pdbBytes)
         {
-            if (StartProcess != 1)
+            if (StartProcess != -1)
             {
                 throw new Exception($"当前游戏启动流程状态={StartProcess}，不可启动！");
             }
@@ -54,6 +55,9 @@ namespace Model
 
             Hotfix = new Hotfix();
             Hotfix.InitHotfixAssembly(assBytes, pdbBytes);
+#if ILRuntime
+            ILHelper.InitILRuntime(this.AppDomain);
+#endif
             Hotfix.GotoHotfix();
         }
 

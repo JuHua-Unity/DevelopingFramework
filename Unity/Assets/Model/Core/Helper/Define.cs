@@ -9,10 +9,16 @@ namespace Model
         /// </summary>
         public static string ABsPathParent { get; } = "AssetBundles";
 
+        /// <summary>
+        /// AB变体名
+        /// </summary>
+        public static string ABVariant { get; } = "unity3d";
+
         #region 资源路径
 
         private static string hotfixResPath;
         private static string resPath;
+        private static string resPathForWeb;
 
         /// <summary>
         ///应用程序外部资源路径存放路径(热更新资源路径)
@@ -39,6 +45,25 @@ namespace Model
 #endif
 
                 return resPath;
+            }
+        }
+
+        /// <summary>
+        /// 应用程序内部资源路径存放路径(www/webrequest专用)
+        /// </summary>
+        public static string AppResPathForWeb
+        {
+            get
+            {
+                if (resPathForWeb == null)
+                {
+                    resPathForWeb = AppResPath;
+#if !UNITY_EDITOR && (UNITY_IOS || UNITY_STANDALONE_OSX)
+                    resPathForWeb = $"file://{AppResPath}";
+#endif
+                }
+
+                return resPathForWeb;
             }
         }
 

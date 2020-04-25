@@ -1,15 +1,18 @@
-﻿//using FairyGUI;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FairyGUI;
 #if DEFINE_LOCALRES && UNITY_EDITOR
+using UnityEditor;
+
 #else
 using UnityEngine;
+
 #endif
 
 namespace Hotfix
 {
-    internal class PackagesComponent : Component, IAwakeSystem
+    internal class FUIPackagesComponent : Component, IAwakeSystem
     {
-        public static PackagesComponent Instance { get; private set; } = null;
+        public static FUIPackagesComponent Instance { get; private set; }
 
         private readonly Dictionary<string, PackageInfoComponent> packages = new Dictionary<string, PackageInfoComponent>();
 
@@ -26,7 +29,7 @@ namespace Hotfix
         /// <param name="resName">unity命名的AssetBundle名字 资源文件 不需要.unity3d</param>
         public void AddPackage(string pkgName, string descName, string resName = null)
         {
-            if (packages.TryGetValue(pkgName, out var packageInfo))
+            if (this.packages.TryGetValue(pkgName, out var packageInfo))
             {
                 packageInfo.RefCount++;
                 return;
@@ -39,7 +42,7 @@ namespace Hotfix
 
         public void RemovePackage(string pkgName)
         {
-            if (!packages.TryGetValue(pkgName, out var packageInfo))
+            if (!this.packages.TryGetValue(pkgName, out var packageInfo))
             {
                 Log.Error($"包{pkgName}不存在却要卸载！");
                 return;
@@ -57,37 +60,34 @@ namespace Hotfix
         private void AddOnePackage(string descName, string resName, string pkgName)
         {
 #if DEFINE_LOCALRES && UNITY_EDITOR
-
-            string[] realPath = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(descName);
-            foreach (string s in realPath)
+            var realPath = AssetDatabase.GetAssetPathsFromAssetBundle(descName);
+            foreach (var s in realPath)
             {
                 if (s.EndsWith("_fui.bytes"))
                 {
                     var packageInfo = AddMultiComponent<PackageInfoComponent, string, string>(s.Replace("_fui.bytes", string.Empty), pkgName);
-                    packages[pkgName] = packageInfo;
+                    this.packages[pkgName] = packageInfo;
                 }
             }
 
 #else
-
             var desc = ResourcesComponent.Instance.GetAssetBundle(descName);
             if (string.IsNullOrEmpty(resName))
             {
                 var packageInfo = AddMultiComponent<PackageInfoComponent, AssetBundle, string>(desc, pkgName);
-                packages[pkgName] = packageInfo;
+                this.packages[pkgName] = packageInfo;
             }
             else
             {
                 var res = ResourcesComponent.Instance.GetAssetBundle(resName);
                 var packageInfo = AddMultiComponent<PackageInfoComponent, AssetBundle, AssetBundle, string>(desc, res, pkgName);
-                packages[pkgName] = packageInfo;
+                this.packages[pkgName] = packageInfo;
             }
 
 #endif
         }
 
 #if DEFINE_LOCALRES && UNITY_EDITOR
-
         private class PackageInfoComponent : Component, IDestroySystem, IAwakeSystem<string, string>
         {
             public string Name { get; set; }
@@ -96,22 +96,21 @@ namespace Hotfix
 
             public void Awake(string a, string b)
             {
-                Name = b;
-                RefCount = 1;
-                DescFilePath = a;
-                //UIPackage.AddPackage(a);
+                this.Name = b;
+                this.RefCount = 1;
+                this.DescFilePath = a;
+                UIPackage.AddPackage(a);
             }
 
             public void Destroy()
             {
-                RefCount = 0;
-                //UIPackage.RemovePackage(Name);
-                DescFilePath = null;
+                this.RefCount = 0;
+                UIPackage.RemovePackage(this.Name);
+                this.DescFilePath = null;
             }
         }
 
 #else
-
         private class PackageInfoComponent : Component, IAwakeSystem<AssetBundle, AssetBundle, string>, IDestroySystem, IAwakeSystem<AssetBundle, string>
         {
             public string Name { get; set; }
@@ -121,28 +120,28 @@ namespace Hotfix
 
             public void Awake(AssetBundle a, AssetBundle b, string c)
             {
-                Name = c;
-                RefCount = 1;
-                DescAssetBundle = a;
-                ResAssetBundle = b;
+                this.Name = c;
+                this.RefCount = 1;
+                this.DescAssetBundle = a;
+                this.ResAssetBundle = b;
                 UIPackage.AddPackage(a, b);
             }
 
             public void Awake(AssetBundle a, string b)
             {
-                Name = b;
-                RefCount = 1;
-                DescAssetBundle = a;
-                ResAssetBundle = null;
+                this.Name = b;
+                this.RefCount = 1;
+                this.DescAssetBundle = a;
+                this.ResAssetBundle = null;
                 UIPackage.AddPackage(a);
             }
 
             public void Destroy()
             {
-                RefCount = 0;
-                UIPackage.RemovePackage(Name);
-                DescAssetBundle?.Unload(true);
-                ResAssetBundle?.Unload(true);
+                this.RefCount = 0;
+                UIPackage.RemovePackage(this.Name);
+                this.DescAssetBundle?.Unload(true);
+                this.ResAssetBundle?.Unload(true);
             }
         }
 

@@ -22,9 +22,9 @@ namespace ObjectDrawer
             this.type = value.GetType();
             this.name = field == null ? this.type.Name : field.Name;
             this.v = (Delegate) value;
-            this.fold = ObjectDrawerHelper.GetAndAddFold(this.name);
+            this.fold = ObjectDrawerHelper.GetAndAddFold(value);
             this.fold = EditorGUILayout.Foldout(this.fold, this.name, true);
-            ObjectDrawerHelper.SetAndAddFold(this.name, this.fold);
+            ObjectDrawerHelper.SetAndAddFold(value, this.fold);
             if (!this.fold)
             {
                 return;

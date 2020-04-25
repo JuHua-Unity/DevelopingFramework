@@ -4,8 +4,11 @@ using System.IO;
 using System.Linq;
 using Async;
 using Model;
-using UnityEditor;
 using UnityEngine;
+#if DEFINE_LOCALRES && UNITY_EDITOR
+using UnityEditor;
+
+#endif
 
 namespace Hotfix
 {
@@ -23,18 +26,7 @@ namespace Hotfix
         public UnityEngine.Object GetAsset(string bundleName, string prefab)
         {
             bundleName = AssetBundleNameHelper.CollectBundleName(bundleName);
-
-            if (!this.res.TryGetValue(bundleName, out var abInfo))
-            {
-                return null;
-            }
-
-            if (!abInfo.Objects.TryGetValue(prefab, out var obj))
-            {
-                return null;
-            }
-
-            return obj;
+            return !this.res.TryGetValue(bundleName, out var abInfo) ? null : abInfo.Get(prefab);
         }
 
         public AssetBundle GetAssetBundle(string bundleName)
@@ -186,7 +178,7 @@ namespace Hotfix
                 var assets = assetBundle.LoadAllAssets();
                 foreach (var asset in assets)
                 {
-                    abInfo.Objects.Add(asset.name, asset);
+                    abInfo.Add(asset.name, asset);
                 }
             }
 
@@ -228,7 +220,7 @@ namespace Hotfix
                 RemoveMultiComponent(assetsLoader);
                 foreach (var asset in assets)
                 {
-                    this.res[bundleName].Objects.Add(asset.name, asset);
+                    this.res[bundleName].Add(asset.name, asset);
                 }
             }
         }
@@ -241,7 +233,7 @@ namespace Hotfix
             foreach (var s in realPath)
             {
                 var resource = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(s);
-                abInfo.Objects.Add(resource.name, resource);
+                abInfo.Add(resource.name, resource);
             }
 
             this.res.Add(bundleName, abInfo);
@@ -298,10 +290,11 @@ namespace Hotfix
 
         private class ABInfoComponent : Component, IAwakeSystem<AssetBundle>, IDestroySystem
         {
+            private readonly Dictionary<string, UnityEngine.Object> Objects = new Dictionary<string, UnityEngine.Object>();
+
             public int RefCount { get; set; }
             public AssetBundle AssetBundle { get; private set; }
 
-            public readonly Dictionary<string, UnityEngine.Object> Objects = new Dictionary<string, UnityEngine.Object>();
 
             public void Awake(AssetBundle b)
             {
@@ -314,6 +307,16 @@ namespace Hotfix
                 this.RefCount = 0;
                 this.AssetBundle?.Unload(true);
                 this.Objects.Clear();
+            }
+
+            public void Add(string key, UnityEngine.Object value)
+            {
+                this.Objects.Add(key, value);
+            }
+
+            public UnityEngine.Object Get(string key)
+            {
+                return this.Objects.ContainsKey(key) ? this.Objects[key] : null;
             }
         }
 

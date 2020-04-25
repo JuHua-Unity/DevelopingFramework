@@ -32,24 +32,12 @@ namespace Model
 
             if (!EditorGetCodeGo(fileName, ref go))
             {
-                string path;
-                if (Application.isMobilePlatform)
+                var path = $"{Define.AppHotfixResPath}{fileName}";
+                if (!File.Exists(path))
                 {
-                    path = $"{Application.persistentDataPath}/{Application.productName}/{Define.ABsPathParent}/{fileName}";
-                    if (!File.Exists(path))
-                    {
-                        Log.Debug($"热更路径[{path}]下没有该文件！");
-                        path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
-                    }
+                    Log.Debug($"热更路径[{path}]下没有该文件！");
+                    path = $"{Define.AppResPath}{fileName}";
 
-                    if (!File.Exists(path))
-                    {
-                        throw new Exception($"本地路径[{path}]下没有该文件！");
-                    }
-                }
-                else
-                {
-                    path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}/{fileName}";
                     if (!File.Exists(path))
                     {
                         throw new Exception($"本地路径[{path}]下没有该文件！");

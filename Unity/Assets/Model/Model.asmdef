@@ -1,15 +1,12 @@
 {
-    "name": "Unity.Editors",
+    "name": "Model",
     "references": [
-        "Unity.Model",
-        "Unity.Hotfix",
-        "Test",
-        "ILRuntime"
+        "ILRuntime",
+        "FairyGUI",
+        "ReferenceCollector"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,

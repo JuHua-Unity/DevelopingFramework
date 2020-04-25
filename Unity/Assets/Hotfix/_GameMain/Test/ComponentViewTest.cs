@@ -9,6 +9,7 @@ namespace Hotfix
         #region 界面开关
 
         private static Component ParentComponent;
+        private static ComponentViewTest Instance;
 
         public static void Open(Component parent = null)
         {
@@ -32,6 +33,7 @@ namespace Hotfix
 
         public void Awake()
         {
+            Instance = this;
             TestClass testClass = new TestClass();
             var a = JsonHelper.ToJson(testClass);
             Log.Debug(a);
@@ -41,6 +43,8 @@ namespace Hotfix
             //var aa = JsonHelper.ToJson(testEnum1);
             //Log.Debug(aa);
             //var bb = JsonHelper.FromJson<TestEnum1>(aa);
+
+            WaitAsync(1000).Coroutine();            
         }
 
         #endregion
@@ -149,7 +153,11 @@ namespace Hotfix
         public Testdelegate field21_2 = new Testdelegate(TestdelegateMethod);
         private static Testdelegate field21_3 = new Testdelegate(TestdelegateMethod);
         public static Testdelegate field21_4 = new Testdelegate(TestdelegateMethod);
-        private static void TestdelegateMethod() { Log.Debug("测试委托！"); }
+
+        private static void TestdelegateMethod()
+        {
+            Log.Debug("测试委托！");
+        }
 
         private List<int> field22_5;
 
@@ -185,22 +193,23 @@ namespace Hotfix
 
         public Dictionary<int, string> field28_1 = new Dictionary<int, string>()
         {
-            {1,"1"},
-            {2,"2"}
+            {1, "1"},
+            {2, "2"}
         };
+
         public Dictionary<TestClass, TestClass> field28_2 = new Dictionary<TestClass, TestClass>()
         {
-            {new TestClass(),new TestClass()},
-            {new TestClass(),new TestClass()},
+            {new TestClass(), new TestClass()},
+            {new TestClass(), new TestClass()},
         };
 
         public Hashtable field29_1 = new Hashtable()
         {
-            {"1","1"},
-            {1,1},
-            {"2",2},
-            {2,"2"},
-            {new TestClass(),"TestClass"},
+            {"1", "1"},
+            {1, 1},
+            {"2", 2},
+            {2, "2"},
+            {new TestClass(), "TestClass"},
         };
 
         public TestClass[] field30_1 = new TestClass[10];
@@ -215,15 +224,15 @@ namespace Hotfix
 
         public Queue field32_1 = null;
         public Queue field32_2 = new Queue();
-        public Queue field32_3 = new Queue(new List<object>() { "1", new TestClass() });
+        public Queue field32_3 = new Queue(new List<object>() {"1", new TestClass()});
 
         public Stack field33_1 = null;
         public Stack field33_2 = new Stack();
-        public Stack field33_3 = new Stack(new List<object>() { "1", new TestClass(), "2", new TestClass(), 1 });
+        public Stack field33_3 = new Stack(new List<object>() {"1", new TestClass(), "2", new TestClass(), 1});
 
         public Stack<int> field34_1 = null;
         public Stack<int> field34_2 = new Stack<int>();
-        public Stack<int> field34_3 = new Stack<int>(new List<int>() { 1, 2, 3 });
+        public Stack<int> field34_3 = new Stack<int>(new List<int>() {1, 2, 3});
 
         public Stack<TestClass> field35_1 = null;
         public Queue<TestClass> field35_2 = null;

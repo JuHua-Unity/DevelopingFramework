@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Model;
 
 namespace Hotfix
 {
@@ -8,9 +9,9 @@ namespace Hotfix
 
         public static string CollectBundleName(string bundleName)
         {
-            if (!bundleNames.TryGetValue(bundleName, out string n))
+            if (!bundleNames.TryGetValue(bundleName, out var n))
             {
-                n = $"{bundleName}.unity3d".ToLower();
+                n = $"{bundleName}.{Define.ABVariant}".ToLower();
                 bundleNames.Add(bundleName, n);
             }
 

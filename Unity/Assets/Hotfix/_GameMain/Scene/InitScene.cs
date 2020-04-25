@@ -19,8 +19,6 @@
         private void Init()
         {
             //添加初始场景上的组件 一般为通用组件 全局唯一等类型的组件
-            //timer
-            AddComponent<TimerComponent>();
             //资源管理器
             AddComponent<ResourcesComponent>();
             //FairyGUI UI管理器

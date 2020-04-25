@@ -63,6 +63,7 @@ namespace Hotfix
                 this.dictionary.Add(type, queue);
             }
 
+            obj.IsFromPool = false;
             queue.Enqueue(obj);
         }
 

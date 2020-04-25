@@ -1,10 +1,11 @@
 {
-    "name": "Unity.Hotfix",
+    "name": "Hotfix",
     "references": [
-        "Unity.Model",
+        "Model",
         "ILRuntime",
         "Async",
-        "ObjectView"
+        "ObjectView",
+        "FairyGUI"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

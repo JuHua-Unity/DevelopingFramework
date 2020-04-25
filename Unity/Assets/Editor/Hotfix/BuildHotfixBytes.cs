@@ -9,8 +9,8 @@ namespace Editors
     {
         private const string ScriptAssembliesDir = "Library/ScriptAssemblies";
         private const string CodeDir = "Assets/_GameMain/Res/Code/";
-        private const string HotfixDll = "Unity.Hotfix.dll";
-        private const string HotfixPdb = "Unity.Hotfix.pdb";
+        private const string HotfixDll = "Hotfix.dll";
+        private const string HotfixPdb = "Hotfix.pdb";
 
         /// <summary>
         /// 复制Library里面的热更代码DLL到工程中

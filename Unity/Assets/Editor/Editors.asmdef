@@ -1,12 +1,14 @@
 {
-    "name": "Unity.Model",
+    "name": "Editors",
     "references": [
-        "ILRuntime",
-        "FairyGUI",
-        "ReferenceCollector"
+        "Model",
+        "Test",
+        "ILRuntime"
     ],
     "optionalUnityReferences": [],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,

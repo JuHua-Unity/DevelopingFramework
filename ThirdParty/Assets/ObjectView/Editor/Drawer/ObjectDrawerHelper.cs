@@ -126,9 +126,9 @@ namespace ObjectDrawer
 
         #region foldouts
 
-        private static readonly Dictionary<string, bool> foldouts = new Dictionary<string, bool>();
+        private static readonly Dictionary<object, bool> foldouts = new Dictionary<object, bool>();
 
-        public static bool GetAndAddFold(string name)
+        public static bool GetAndAddFold(object name)
         {
             if (!foldouts.ContainsKey(name))
             {
@@ -138,7 +138,7 @@ namespace ObjectDrawer
             return foldouts[name];
         }
 
-        public static void SetAndAddFold(string name, bool fold)
+        public static void SetAndAddFold(object name, bool fold)
         {
             if (!foldouts.ContainsKey(name))
             {

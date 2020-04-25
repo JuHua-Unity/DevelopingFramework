@@ -36,7 +36,7 @@ namespace Hotfix
 
                 Object.GameRoot = GameObject.Find("/GameRoot");
 
-#if UNITY_EDITOR && !ILRuntime && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 
                 Object.ParentNullRoot = new GameObject("DisposedObjectRoot");
                 Object.ParentNullRoot.transform.SetParent(Object.GameRoot.transform, false);
@@ -63,7 +63,7 @@ namespace Hotfix
 
             //最后执行
 
-#if UNITY_EDITOR && !ILRuntime && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 
             UnityEngine.Object.DestroyImmediate(Object.ParentNullRoot);
             Object.ParentNullRoot = null;

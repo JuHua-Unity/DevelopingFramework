@@ -60,6 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ILRuntime\Hotfix\Hotfix.cs" />
+    <Compile Include="Assets\ILRuntime\Hotfix\IInstanceMethod.cs" />
+    <Compile Include="Assets\ILRuntime\Hotfix\ILStaticMethod.cs" />
+    <Compile Include="Assets\ILRuntime\Hotfix\MonoStaticMethod.cs" />
     <Compile Include="Assets\ILRuntime\ILRuntime\CLR\Method\CLRMethod.cs" />
     <Compile Include="Assets\ILRuntime\ILRuntime\CLR\Method\ExceptionHandler.cs" />
     <Compile Include="Assets\ILRuntime\ILRuntime\CLR\Method\ILMethod.cs" />

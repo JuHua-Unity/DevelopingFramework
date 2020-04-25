@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-#if UNITY_EDITOR && !ILRuntime && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 using ObjectDrawer;
 
 #endif
@@ -15,7 +15,7 @@ namespace Hotfix
     {
         public static GameObject GameRoot { get; set; }
 
-#if UNITY_EDITOR && !ILRuntime && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 
         public static GameObject ParentNullRoot { get; set; }
 
@@ -40,7 +40,7 @@ namespace Hotfix
         {
             this.ObjId = GenerateId();
 
-#if UNITY_EDITOR && !ILRuntime && ComponentView
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 
             this.ObjName = GetType().Name;
 
@@ -105,6 +105,9 @@ namespace Hotfix
             }
 
             this.ObjId = 0;
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
+            SetParent(ParentNullRoot);
+#endif
         }
 
         /// <inheritdoc />

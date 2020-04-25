@@ -17,14 +17,16 @@ namespace ObjectDrawer
         public void Draw(object value, FieldInfo field = null)
         {
             this.type = value.GetType();
-            EditorGUILayout.BeginHorizontal();
             if (field != null)
             {
                 EditorGUILayout.LabelField(field.Name);
             }
 
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Key:", GUILayout.Width(50));
             ObjectDrawerHelper.Draw(this.type.GetProperty("Key")?.GetValue(value));
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Value:", GUILayout.Width(60));
             ObjectDrawerHelper.Draw(this.type.GetProperty("Value")?.GetValue(value));
             EditorGUILayout.EndHorizontal();

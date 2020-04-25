@@ -1,4 +1,4 @@
-﻿namespace Model
+﻿namespace ILRuntime.Hotfix
 {
     internal abstract class IStaticMethod
     {

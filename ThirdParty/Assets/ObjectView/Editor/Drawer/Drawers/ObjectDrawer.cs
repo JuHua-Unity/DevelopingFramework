@@ -23,9 +23,9 @@ namespace ObjectDrawer
         {
             this.type = value.GetType();
             this.name = field == null ? this.type.Name : field.Name;
-            this.fold = ObjectDrawerHelper.GetAndAddFold(this.name);
+            this.fold = ObjectDrawerHelper.GetAndAddFold(value);
             this.fold = EditorGUILayout.Foldout(this.fold, this.name, true);
-            ObjectDrawerHelper.SetAndAddFold(this.name, this.fold);
+            ObjectDrawerHelper.SetAndAddFold(value, this.fold);
             if (!this.fold)
             {
                 return;
@@ -38,12 +38,14 @@ namespace ObjectDrawer
             this.fs.Clear();
             for (var i = 0; i < this.fieldInfos.Length; i++)
             {
-                //剔除类型为自己(父类、子类这种有继承关系)的字段
                 this.f = this.fieldInfos[i];
-                if (this.f.FieldType != this.type && !this.type.IsSubclassOf(this.f.FieldType) && !this.f.FieldType.IsSubclassOf(this.type))
+                //剔除值为自己的字段
+                if ((this.f.FieldType == this.type || this.type.IsSubclassOf(this.f.FieldType) || this.f.FieldType.IsSubclassOf(this.type)) && this.f.GetValue(value) == value)
                 {
-                    this.fs.Add(this.f);
+                    continue;
                 }
+
+                this.fs.Add(this.f);
             }
 
             EditorGUILayout.BeginVertical();

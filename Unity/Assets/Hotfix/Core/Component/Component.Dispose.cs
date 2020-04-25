@@ -23,8 +23,7 @@
                 this.Parent = null;
                 Game.ObjectPool.Recycle(this);
             }
-#if UNITY_EDITOR && !ILRuntime && ComponentView
-
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
             else
             {
                 UnityEngine.Object.DestroyImmediate(this.GameObject);
