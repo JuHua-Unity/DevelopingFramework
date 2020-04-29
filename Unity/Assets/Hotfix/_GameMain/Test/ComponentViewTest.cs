@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Hotfix
 {
@@ -34,7 +35,7 @@ namespace Hotfix
         public void Awake()
         {
             Instance = this;
-            TestClass testClass = new TestClass();
+            var testClass = new TestClass();
             var a = JsonHelper.ToJson(testClass);
             Log.Debug(a);
             var b = JsonHelper.FromJson<TestClass>(a);
@@ -44,7 +45,19 @@ namespace Hotfix
             //Log.Debug(aa);
             //var bb = JsonHelper.FromJson<TestEnum1>(aa);
 
-            WaitAsync(1000).Coroutine();            
+            AAA().Coroutine();
+            //RepeatWaitAsync(1, 10000, 10, AA);
+        }
+
+        private async Async.Void AAA()
+        {
+            await WaitAsync(1000);
+            WaitAsync(1000).Coroutine();
+        }
+
+        private void AA(int obj)
+        {
+            Log.Debug($"{obj}s");
         }
 
         #endregion
@@ -215,9 +228,9 @@ namespace Hotfix
         public TestClass[] field30_1 = new TestClass[10];
         public Array field30_2 = Array.CreateInstance(typeof(TestClass), 10);
         public readonly List<TestClass> field30_3 = new List<TestClass>();
-        public UnityEngine.GameObject[] field30_4 = new UnityEngine.GameObject[10];
+        public GameObject[] field30_4 = new GameObject[10];
 
-        public UnityEngine.GameObject[] field31_1 = new UnityEngine.GameObject[1];
+        public GameObject[] field31_1 = new GameObject[1];
         public TestClass[] field31_2 = new TestClass[1];
         public int[] field31_3 = new int[1];
         public string[] field31_4 = new string[1];

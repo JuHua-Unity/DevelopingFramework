@@ -45,6 +45,7 @@ namespace Hotfix
 #endif
 
                 componentRoot = new ComponentRoot();
+                componentRoot.AddComponent<TimerComponent>();
 
                 return componentRoot;
             }

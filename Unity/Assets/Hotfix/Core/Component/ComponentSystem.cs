@@ -14,6 +14,7 @@ namespace Hotfix
 
         public void Add(Component component)
         {
+            Log.Debug($"Add Component:{component.ObjName}");
             if (component.IsDisposed)
             {
                 return;
@@ -331,14 +332,14 @@ namespace Hotfix
                 return;
             }
 
-            base.Dispose();
-
             this.components.Clear();
             this.updates.Clear();
             this.updates2.Clear();
             this.starts.Clear();
             this.lateUpdates.Clear();
             this.lateUpdates2.Clear();
+
+            base.Dispose();
         }
     }
 }

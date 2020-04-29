@@ -3,8 +3,17 @@ using Async;
 
 namespace Hotfix
 {
-    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem
+    /// <summary>
+    /// Game里面自动挂 不需要手动AddComponent
+    /// </summary>
+    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem, IAwakeSystem
     {
+        #region 实例
+
+        public static TimerComponent Instance { get; private set; }
+
+        #endregion
+
         /// <summary>
         /// 正在等待的所有时间
         /// key:timeId 依次叠加来的
@@ -162,13 +171,21 @@ namespace Hotfix
             return tcs.Task;
         }
 
-        #region Destroy
+        #region Awake Destroy
+
+        public void Awake()
+        {
+            Instance = this;
+        }
 
         public void Destroy()
         {
-            for (var i = 0; i < this.timeId.Count; i++)
+            //优先设置为null 防止后面调用的时候继续可用
+            Instance = null;
+
+            foreach (var tId in this.timeId)
             {
-                var longQueue = this.timeId[i];
+                var longQueue = tId.Value;
                 longQueue.Clear();
                 Game.ObjectPool.Recycle_Queue_long(longQueue);
             }

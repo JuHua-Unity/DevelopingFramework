@@ -1,11 +1,11 @@
-﻿using Async;
-using System;
+﻿using System;
+using Async;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Hotfix
 {
-    internal sealed class UnityWebRequestAsync : Component
+    internal sealed class UnityWebRequestAsync : Component, IDestroySystem
     {
         //private static readonly AcceptAllCertificate certificateHandler = new AcceptAllCertificate();
 
@@ -21,59 +21,49 @@ namespace Hotfix
         /// <returns></returns>
         public Task<DownloadHandler> DownloadAsync(string url)
         {
-            tcs = new TaskCompletionSource<DownloadHandler>();
+            this.tcs = new TaskCompletionSource<DownloadHandler>();
 
             url = url.Replace(" ", "%20");
-            request = UnityWebRequest.Get(url);
+            this.request = UnityWebRequest.Get(url);
             //request.certificateHandler = certificateHandler;
-            asyncOperation = request.SendWebRequest();
-            asyncOperation.completed += OnComplete;
+            this.asyncOperation = this.request.SendWebRequest();
+            this.asyncOperation.completed += OnComplete;
 
-            return tcs.Task;
+            return this.tcs.Task;
         }
 
         public ulong Bytes
         {
             get
             {
-                if (request == null)
+                if (this.request == null)
                 {
                     return 0;
                 }
 
-                return request.downloadedBytes;
+                return this.request.downloadedBytes;
             }
         }
 
-        public bool Downloading
+        public bool Downloading => this.request != null;
+
+        public void Destroy()
         {
-            get
+            if (this.asyncOperation != null)
             {
-                return request != null;
-            }
-        }
+                if (!this.asyncOperation.isDone)
+                {
+                    this.request.Abort();
+                }
 
-        public override void Dispose()
-        {
-            if (IsDisposed)
-            {
-                return;
+                this.asyncOperation.completed -= OnComplete;
             }
 
-            base.Dispose();
+            this.asyncOperation = null;
+            this.request.Dispose();
+            this.request = null;
 
-            if (asyncOperation != null && !asyncOperation.isDone)
-            {
-                request.Abort();
-            }
-
-            asyncOperation.completed -= OnComplete;
-            asyncOperation = null;
-
-            request.Dispose();
-            request = null;
-
-            tcs = null;
+            this.tcs = null;
         }
 
         private void OnComplete(AsyncOperation obj)
@@ -83,13 +73,13 @@ namespace Hotfix
 
         private void EndRequest()
         {
-            if (request.isHttpError || request.isNetworkError)
+            if (this.request.isHttpError || this.request.isNetworkError)
             {
-                tcs.SetException(new Exception($"UnityWebRequest 下载失败！"));
+                this.tcs.SetException(new Exception("UnityWebRequest 下载失败！"));
             }
             else
             {
-                tcs.SetResult(request.downloadHandler);
+                this.tcs.SetResult(this.request.downloadHandler);
             }
         }
 

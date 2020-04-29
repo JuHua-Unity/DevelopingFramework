@@ -4,13 +4,13 @@
     {
         public override void Dispose()
         {
+            Log.Debug($"Dispose->ID:{this.ObjId} Name:{GetType().FullName}");
             if (this.IsDisposed)
             {
                 return;
             }
 
-            base.Dispose();
-
+            TimerDispose();
             //先释放所有挂在自己身上的Component
             SingleSystemDispose();
             MultiSystemDispose();
@@ -18,18 +18,10 @@
             //释放自己
             Game.ComponentSystem.Destroy(this);
             Game.ComponentSystem.Remove(this.ObjId);
-            if (this.IsFromPool)
-            {
-                this.Parent = null;
-                Game.ObjectPool.Recycle(this);
-            }
-#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-            else
-            {
-                UnityEngine.Object.DestroyImmediate(this.GameObject);
-            }
+            this.Parent = null;
 
-#endif
+            //最后执行 防止在此之前还有需要判断IsDisposed
+            base.Dispose();
         }
     }
 }

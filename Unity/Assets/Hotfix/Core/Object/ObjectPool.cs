@@ -74,12 +74,12 @@ namespace Hotfix
                 return;
             }
 
-            base.Dispose();
-
             this.dictionary.Clear();
             this.objectQueues.Clear();
             this.longQueues.Clear();
             this.componentLists.Clear();
+
+            base.Dispose();
         }
 
         #region Object池子

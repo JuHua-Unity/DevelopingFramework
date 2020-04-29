@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using ReferenceCollector;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace Model
 
         private void Start()
         {
-            Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}");
+            Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}\tThreadId:{Thread.CurrentThread.ManagedThreadId}");
 
             Game.Start();
         }

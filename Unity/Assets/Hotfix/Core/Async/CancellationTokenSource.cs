@@ -3,17 +3,27 @@ using Async;
 
 namespace Hotfix
 {
-    internal class CancellationTokenSource : Component, IAwakeSystem<long>
+    internal class CancellationTokenSource : Component, IAwakeSystem<long>, IDestroySystem
     {
-        private readonly List<CancellationToken> cancellationTokens = new List<CancellationToken>();
+        private List<CancellationToken> cancellationTokens;
 
         public void Awake(long a)
         {
             CancelAfter(a).Coroutine();
         }
 
+        public void Destroy()
+        {
+            this.cancellationTokens?.Clear();
+        }
+
         public void Cancel()
         {
+            if (this.cancellationTokens == null)
+            {
+                return;
+            }
+
             foreach (var token in this.cancellationTokens)
             {
                 token.Cancel();
@@ -27,8 +37,13 @@ namespace Hotfix
         /// <returns></returns>
         public async Void CancelAfter(long afterTimeCancel)
         {
+            if (this.cancellationTokens == null)
+            {
+                return;
+            }
+
             var objId = this.ObjId;
-            await WaitAsync(afterTimeCancel);
+            await TimerComponent.Instance.WaitAsync(afterTimeCancel);
             if (this.ObjId != objId)
             {
                 return;
@@ -46,9 +61,19 @@ namespace Hotfix
             get
             {
                 var cancellationToken = AddMultiComponent<CancellationToken>();
-                this.cancellationTokens.Add(cancellationToken);
+                Add(cancellationToken);
                 return cancellationToken;
             }
+        }
+
+        private void Add(CancellationToken cancellationToken)
+        {
+            if (this.cancellationTokens == null)
+            {
+                this.cancellationTokens = new List<CancellationToken>();
+            }
+
+            this.cancellationTokens.Add(cancellationToken);
         }
     }
 }

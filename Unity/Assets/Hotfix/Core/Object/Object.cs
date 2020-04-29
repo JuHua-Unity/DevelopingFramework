@@ -19,7 +19,7 @@ namespace Hotfix
 
         public static GameObject ParentNullRoot { get; set; }
 
-        public GameObject GameObject { get; }
+        public GameObject GameObject { get; private set; }
 
         /// <summary>
         /// 对象名字
@@ -54,6 +54,8 @@ namespace Hotfix
             this.GameObject.AddComponent<ObjectView>().Obj = this;
 
 #endif
+
+            Log.Debug($"Create->ID:{this.ObjId} Name:{GetType().FullName}");
         }
 
         /// <summary>
@@ -105,9 +107,20 @@ namespace Hotfix
             }
 
             this.ObjId = 0;
+
+            if (this.IsFromPool)
+            {
+                Game.ObjectPool.Recycle(this);
+
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-            SetParent(ParentNullRoot);
+                SetParent(ParentNullRoot);
+            }
+            else
+            {
+                UnityEngine.Object.DestroyImmediate(this.GameObject);
+                this.GameObject = null;
 #endif
+            }
         }
 
         /// <inheritdoc />

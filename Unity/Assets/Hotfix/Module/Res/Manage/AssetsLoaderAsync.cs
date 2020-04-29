@@ -1,10 +1,10 @@
-﻿using Async;
-using System;
+﻿using System;
+using Async;
 using UnityEngine;
 
 namespace Hotfix
 {
-    internal class AssetsLoaderAsync : Component
+    internal class AssetsLoaderAsync : Component, IDestroySystem
     {
         private AssetBundleRequest request;
         private TaskCompletionSource<UnityEngine.Object[]> tcs;
@@ -12,40 +12,33 @@ namespace Hotfix
         public async Task<UnityEngine.Object[]> LoadAllAssetsAsync(AssetBundle assetBundle)
         {
             await InnerLoadAllAssetsAsync(assetBundle);
-            return request.allAssets;
+            return this.request.allAssets;
         }
 
-        public override void Dispose()
+        public void Destroy()
         {
-            if (IsDisposed)
-            {
-                return;
-            }
-
-            base.Dispose();
-
-            request.completed -= OnComplete;
-            request = null;
-            tcs = null;
+            this.request.completed -= OnComplete;
+            this.request = null;
+            this.tcs = null;
         }
 
         private Task InnerLoadAllAssetsAsync(AssetBundle assetBundle)
         {
-            tcs = new TaskCompletionSource<UnityEngine.Object[]>();
-            request = assetBundle.LoadAllAssetsAsync();
-            request.completed += OnComplete;
-            return tcs.Task;
+            this.tcs = new TaskCompletionSource<UnityEngine.Object[]>();
+            this.request = assetBundle.LoadAllAssetsAsync();
+            this.request.completed += OnComplete;
+            return this.tcs.Task;
         }
 
         private void OnComplete(AsyncOperation obj)
         {
-            if (request != null && request.isDone)
+            if (this.request != null && this.request.isDone)
             {
-                tcs.SetResult(request.allAssets);
+                this.tcs.SetResult(this.request.allAssets);
             }
             else
             {
-                tcs.SetException(new Exception($"异步加载AB里面的资源出错！"));
+                this.tcs.SetException(new Exception("异步加载AB里面的资源出错！"));
             }
         }
     }

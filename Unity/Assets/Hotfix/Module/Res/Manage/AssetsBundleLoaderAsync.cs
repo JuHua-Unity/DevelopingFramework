@@ -1,45 +1,38 @@
-﻿using Async;
-using System;
+﻿using System;
+using Async;
 using UnityEngine;
 
 namespace Hotfix
 {
-    internal sealed class AssetsBundleLoaderAsync : Component
+    internal sealed class AssetsBundleLoaderAsync : Component, IDestroySystem
     {
         private AssetBundleCreateRequest request;
         private TaskCompletionSource<AssetBundle> tcs;
 
         public Task<AssetBundle> LoadAsync(string path)
         {
-            tcs = new TaskCompletionSource<AssetBundle>();
-            request = AssetBundle.LoadFromFileAsync(path);
-            request.completed += OnComplete;
-            return tcs.Task;
+            this.tcs = new TaskCompletionSource<AssetBundle>();
+            this.request = AssetBundle.LoadFromFileAsync(path);
+            this.request.completed += OnComplete;
+            return this.tcs.Task;
         }
 
-        public override void Dispose()
+        public void Destroy()
         {
-            if (IsDisposed)
-            {
-                return;
-            }
-
-            base.Dispose();
-
-            request.completed -= OnComplete;
-            request = null;
-            tcs = null;
+            this.request.completed -= OnComplete;
+            this.request = null;
+            this.tcs = null;
         }
 
         private void OnComplete(AsyncOperation obj)
         {
-            if (request != null)
+            if (this.request != null)
             {
-                tcs.SetResult(request.assetBundle);
+                this.tcs.SetResult(this.request.assetBundle);
             }
             else
             {
-                tcs.SetException(new Exception($"加载AB出错！"));
+                this.tcs.SetException(new Exception("加载AB出错！"));
             }
         }
     }

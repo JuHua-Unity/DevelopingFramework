@@ -195,7 +195,7 @@ namespace Hotfix
         /// <returns></returns>
         public K[] GetMultiComponents<K>() where K : Component
         {
-            return (K[]) GetMultiComponents(typeof(K));
+            return GetMultiComponents(typeof(K)) as K[];
         }
 
         /// <summary>

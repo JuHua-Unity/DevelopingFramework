@@ -17,7 +17,6 @@
                 this.parent = value;
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-
                 SetParent(this.parent?.GameObject);
 #endif
             }
