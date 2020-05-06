@@ -83,6 +83,7 @@
     <Compile Include="Assets\Hotfix\Core\Helper\ILHelper.cs" />
     <Compile Include="Assets\Hotfix\Core\Helper\JsonHelper.cs" />
     <Compile Include="Assets\Hotfix\Core\Helper\TimeHelper.cs" />
+    <Compile Include="Assets\Hotfix\Core\Log\Component.Log.cs" />
     <Compile Include="Assets\Hotfix\Core\Log\Log.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\IDisposable.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\ISupportInitialize.cs" />

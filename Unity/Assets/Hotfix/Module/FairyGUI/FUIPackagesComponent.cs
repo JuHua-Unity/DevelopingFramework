@@ -44,7 +44,7 @@ namespace Hotfix
         {
             if (!this.packages.TryGetValue(pkgName, out var packageInfo))
             {
-                Log.Error($"包{pkgName}不存在却要卸载！");
+                Error($"包{pkgName}不存在却要卸载！");
                 return;
             }
 

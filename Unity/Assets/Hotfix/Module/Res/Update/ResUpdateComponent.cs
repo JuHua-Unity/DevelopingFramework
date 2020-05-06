@@ -124,7 +124,7 @@ namespace Hotfix
                 try
                 {
                     string file = download[i];
-                    Log.Debug($"开始下载：{file}");
+                    Log($"开始下载：{file}");
                     CreateRequest();
                     DownloadHandler res = await request.DownloadAsync($"{resServerUrl}{file}");
                     byte[] data = res.data;
@@ -136,11 +136,11 @@ namespace Hotfix
 
                     CloseRequest();
                     downloaded.Add(file);
-                    Log.Debug($"{file}下载完成！");
+                    Log($"{file}下载完成！");
                 }
                 catch (System.Exception e)
                 {
-                    Log.Exception(e);
+                    Exception(e);
                     return false;
                 }
             }
@@ -200,7 +200,7 @@ namespace Hotfix
         {
             bool result = true;
             string url = $"{PathHelper.AppResPathForWeb}ResVersion.json";
-            Log.Debug($"本地资源版本URL:{url}");
+            Log($"本地资源版本URL:{url}");
             CreateRequest();
             try
             {
@@ -208,7 +208,7 @@ namespace Hotfix
             }
             catch (System.Exception e)
             {
-                Log.Exception(e);
+                Exception(e);
                 result = false;
             }
 
@@ -220,7 +220,7 @@ namespace Hotfix
         {
             bool result = true;
             string url = $"{resServerUrl}ResVersion.json";
-            Log.Debug($"服务器资源版本URL:{url}");
+            Log($"服务器资源版本URL:{url}");
             CreateRequest();
             try
             {
@@ -228,7 +228,7 @@ namespace Hotfix
             }
             catch (System.Exception e)
             {
-                Log.Exception(e);
+                Exception(e);
                 result = false;
             }
 

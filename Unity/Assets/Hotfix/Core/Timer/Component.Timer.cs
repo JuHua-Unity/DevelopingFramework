@@ -9,7 +9,7 @@ namespace Hotfix
     {
         protected async Task WaitAsync(long time, int waiter = 0)
         {
-            if (TimerComponent.Instance == null || TimerComponent.Instance.IsDisposed)
+            if (!TimerComponent.Active)
             {
                 return;
             }
@@ -73,7 +73,7 @@ namespace Hotfix
 
         protected void RepeatWaitAsync(int id, long time, int times, Action<int> run)
         {
-            if (TimerComponent.Instance == null || TimerComponent.Instance.IsDisposed)
+            if (!TimerComponent.Active)
             {
                 return;
             }
@@ -86,7 +86,7 @@ namespace Hotfix
 
             if (!AddRepeatId(id))
             {
-                Log.Error($"重新使用一个ID，id={id}已被使用！");
+                Error($"重新使用一个ID，id={id}已被使用！");
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace Hotfix
         {
             if (!this.repeatIds.Contains(id))
             {
-                Log.Error($"id={id}并未使用，请检查！");
+                Error($"id={id}并未使用，请检查！");
                 return;
             }
 

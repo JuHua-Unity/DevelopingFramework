@@ -17,7 +17,8 @@ namespace Hotfix
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
 
-        public static GameObject ParentNullRoot { get; set; }
+        public static GameObject DisposedObjectsParent { get; set; }
+        public static GameObject ObjectsParent { get; set; }
 
         public GameObject GameObject { get; private set; }
 
@@ -28,7 +29,7 @@ namespace Hotfix
 
         public void SetParent(GameObject go)
         {
-            this.GameObject.transform.SetParent(go == null ? ParentNullRoot.transform : go.transform, false);
+            this.GameObject.transform.SetParent(go == null ? DisposedObjectsParent.transform : go.transform, false);
         }
 
 #endif
@@ -50,7 +51,7 @@ namespace Hotfix
             }
 
             this.GameObject = new GameObject(this.ObjName);
-            SetParent(GameRoot);
+            SetParent(ObjectsParent);
             this.GameObject.AddComponent<ObjectView>().Obj = this;
 
 #endif
@@ -113,7 +114,7 @@ namespace Hotfix
                 Game.ObjectPool.Recycle(this);
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-                SetParent(ParentNullRoot);
+                SetParent(DisposedObjectsParent);
             }
             else
             {

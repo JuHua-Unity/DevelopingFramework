@@ -67,14 +67,14 @@ namespace Editors
 
                 this.define = string.Join(";", list);
                 Debug.Log($"新宏定义：{this.define}");
-                PlayerSettings.SetScriptingDefineSymbolsForGroup(PlatformDefine.TargetGroup, this.define);
+                PlayerSettings.SetScriptingDefineSymbolsForGroup(Define.TargetGroup, this.define);
                 AssetDatabase.Refresh();
             }
         }
 
         private void SetList()
         {
-            this.define = PlayerSettings.GetScriptingDefineSymbolsForGroup(PlatformDefine.TargetGroup);
+            this.define = PlayerSettings.GetScriptingDefineSymbolsForGroup(Define.TargetGroup);
             this.defines.Clear();
             this.defines.AddRange(this.define.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries));
         }

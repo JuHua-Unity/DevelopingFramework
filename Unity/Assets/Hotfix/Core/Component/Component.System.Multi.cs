@@ -120,13 +120,13 @@ namespace Hotfix
         {
             if (this.multiComponents == null)
             {
-                Log.Error($"{GetType().Name}[{this.ObjId}]中并不存在任何类型的MultiComponents！");
+                Error($"{GetType().Name}[{this.ObjId}]中并不存在任何类型的MultiComponents！");
                 return;
             }
 
             if (!this.multiComponents.ContainsKey(type))
             {
-                Log.Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
+                Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
                 return;
             }
 
@@ -159,21 +159,21 @@ namespace Hotfix
 
             if (this.multiComponents == null)
             {
-                Log.Error($"{GetType().Name}[{this.ObjId}]中并不存在任何类型的MultiComponents！");
+                Error($"{GetType().Name}[{this.ObjId}]中并不存在任何类型的MultiComponents！");
                 return;
             }
 
             var type = component.GetType();
             if (!this.multiComponents.ContainsKey(type))
             {
-                Log.Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
+                Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponents！");
                 return;
             }
 
             var multiComponent = this.multiComponents[type];
             if (!multiComponent.Contains(component))
             {
-                Log.Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponent[{component.ObjId}]！");
+                Error($"{GetType().Name}[{this.ObjId}]中并不存在[{type.Name}]类型的MultiComponent[{component.ObjId}]！");
                 return;
             }
 
@@ -237,6 +237,7 @@ namespace Hotfix
                     component.Dispose();
                 }
 
+                componentList.Clear();
                 Game.ObjectPool.Recycle_List_Component(componentList);
             }
 

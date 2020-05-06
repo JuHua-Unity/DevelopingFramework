@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Model;
 using UnityEditor;
 using UnityEngine;
 
@@ -58,30 +57,14 @@ namespace Editors
 
         private void RunBuild()
         {
-            string outPath;
-            switch (PlatformDefine.Target)
-            {
-                case BuildTarget.Android:
-                    outPath = $"../Release/Android/{Define.ABsPathParent}";
-                    break;
-                case BuildTarget.StandaloneWindows64:
-                    outPath = $"../Release/Standalone/{Define.ABsPathParent}";
-                    break;
-                case BuildTarget.iOS:
-                    outPath = $"../Release/IOS/{Define.ABsPathParent}";
-                    break;
-                default:
-                    Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
-                    return;
-            }
-
+            var outPath = $"{Define.BuildPath}{Define.TargetName}/{Model.Define.ABsPathParent}";
             if (!Directory.Exists(outPath))
             {
                 Directory.CreateDirectory(outPath);
             }
 
             BuildAssetBundleOptions options;
-            switch (PlatformDefine.Target)
+            switch (Define.Target)
             {
                 case BuildTarget.StandaloneWindows64:
                     options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.StrictMode;
@@ -91,11 +74,11 @@ namespace Editors
                     options = BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.StrictMode | BuildAssetBundleOptions.ChunkBasedCompression;
                     break;
                 default:
-                    Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
+                    Debug.LogError($"不支持[{Define.Target}]打包！");
                     return;
             }
 
-            var target = PlatformDefine.Target;
+            var target = Define.Target;
             BuildPipeline.BuildAssetBundles(outPath, options, target);
             AssetDatabase.Refresh();
             Debug.Log($"BuildAssetBundles complete");
@@ -162,7 +145,7 @@ namespace Editors
             }
 
             string path;
-            switch (PlatformDefine.Target)
+            switch (Define.Target)
             {
                 case BuildTarget.Android:
                     path = $"../Release/Server/Android/{this.abVersion}";
@@ -174,7 +157,7 @@ namespace Editors
                     path = $"../Release/Server/IOS/{this.abVersion}";
                     break;
                 default:
-                    Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
+                    Debug.LogError($"不支持[{Define.Target}]打包！");
                     return null;
             }
 
@@ -190,7 +173,7 @@ namespace Editors
 
         private string GetABLocalPath()
         {
-            var path = $"{Application.streamingAssetsPath}/{Define.ABsPathParent}";
+            var path = $"{Application.streamingAssetsPath}/{Model.Define.ABsPathParent}";
             if (Directory.Exists(path))
             {
                 Debug.Log($"{path} 已删除！");
@@ -244,7 +227,7 @@ namespace Editors
 
             PlayerSettings.bundleVersion = version;
             string outPath;
-            switch (PlatformDefine.Target)
+            switch (Define.Target)
             {
                 case BuildTarget.Android:
                     outPath = $"../Release/Build/Android/";
@@ -282,7 +265,7 @@ namespace Editors
                     Directory.CreateDirectory(outPath);
                     break;
                 default:
-                    Debug.LogError($"不支持[{PlatformDefine.Target}]打包！");
+                    Debug.LogError($"不支持[{Define.Target}]打包！");
                     return;
             }
 
@@ -292,7 +275,7 @@ namespace Editors
                 options = BuildOptions.Development | BuildOptions.AutoRunPlayer | BuildOptions.ConnectWithProfiler | BuildOptions.AllowDebugging;
             }
 
-            var target = PlatformDefine.Target;
+            var target = Define.Target;
             BuildPipeline.BuildPlayer(levels, outPath, target, options);
             AssetDatabase.Refresh();
             Debug.Log($"BuildPlayer complete");

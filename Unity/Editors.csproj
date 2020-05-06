@@ -67,8 +67,8 @@
     <Compile Include="Assets\Editor\_GameMain\MyEditors.cs" />
     <Compile Include="Assets\Editor\_GameMain\Test\TestEditors.cs" />
     <Compile Include="Assets\Editor\_GameMain\Test\TestEditorWindows.cs" />
+    <Compile Include="Assets\Editor\Helper\Define.cs" />
     <Compile Include="Assets\Editor\Helper\IOHelper.cs" />
-    <Compile Include="Assets\Editor\Helper\PlatformDefine.cs" />
     <Compile Include="Assets\Editor\Hotfix\BuildHotfixBytes.cs" />
     <Compile Include="Assets\Editor\Hotfix\ILRuntimeCLRBinding.cs" />
     <Compile Include="Assets\Editor\Log\LogRedirect.cs" />

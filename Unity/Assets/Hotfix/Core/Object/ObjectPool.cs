@@ -9,7 +9,7 @@ namespace Hotfix
     /// </summary>
     internal sealed class ObjectPool : Object
     {
-        private readonly Dictionary<Type, Queue<Object>> dictionary = new Dictionary<Type, Queue<Object>>();
+        private readonly Dictionary<Type, Queue<Object>> objDic = new Dictionary<Type, Queue<Object>>();
 
         /// <summary>
         /// 抓取一个对象
@@ -20,13 +20,13 @@ namespace Hotfix
         public Object Fetch(Type type)
         {
             Object obj;
-            if (this.dictionary.TryGetValue(type, out var queue) && queue.Count > 0)
+            if (this.objDic.TryGetValue(type, out var queue) && queue.Count > 0)
             {
                 obj = queue.Dequeue();
                 if (queue.Count == 0)
                 {
                     RecycleObjectQueue(queue);
-                    this.dictionary.Remove(type);
+                    this.objDic.Remove(type);
                 }
             }
             else
@@ -57,10 +57,10 @@ namespace Hotfix
         public void Recycle(Object obj)
         {
             var type = obj.GetType();
-            if (!this.dictionary.TryGetValue(type, out var queue))
+            if (!this.objDic.TryGetValue(type, out var queue))
             {
                 queue = GetObjectQueue();
-                this.dictionary.Add(type, queue);
+                this.objDic.Add(type, queue);
             }
 
             obj.IsFromPool = false;
@@ -74,7 +74,7 @@ namespace Hotfix
                 return;
             }
 
-            this.dictionary.Clear();
+            this.objDic.Clear();
             this.objectQueues.Clear();
             this.longQueues.Clear();
             this.componentLists.Clear();

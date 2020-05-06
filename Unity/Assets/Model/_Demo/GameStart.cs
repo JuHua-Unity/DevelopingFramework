@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using LitJson;
 using ReferenceCollector;
 using UnityEditor;
 using UnityEngine;
@@ -15,7 +14,7 @@ namespace Model
         /// <param name="text">启动游戏的配置文件</param>
         public void Start(TextAsset text)
         {
-            var options = JsonMapper.ToObject<LaunchOptions>(text.text);
+            var options = JsonHelper.FromJson<LaunchOptions>(text.text);
             var code = LoadCode(options.CodeABName.ToLower());
             var assBytes = code.Get<TextAsset>("Hotfix.dll").bytes;
 #if ILRuntime && ILRuntime_Pdb

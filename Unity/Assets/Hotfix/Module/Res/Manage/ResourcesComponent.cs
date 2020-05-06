@@ -258,7 +258,7 @@ namespace Hotfix
             }
             else
             {
-                Log.Error($"资源[{bundleName}]没有加载却要卸载！");
+                Error($"资源[{bundleName}]没有加载却要卸载！");
             }
         }
 

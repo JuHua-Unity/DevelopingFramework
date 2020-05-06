@@ -37,7 +37,7 @@ namespace Hotfix
             Instance = this;
             var testClass = new TestClass();
             var a = JsonHelper.ToJson(testClass);
-            Log.Debug(a);
+            Log(a);
             var b = JsonHelper.FromJson<TestClass>(a);
 
             //TestEnum1 testEnum1 = TestEnum1.Enum1;
@@ -46,7 +46,7 @@ namespace Hotfix
             //var bb = JsonHelper.FromJson<TestEnum1>(aa);
 
             AAA().Coroutine();
-            //RepeatWaitAsync(1, 10000, 10, AA);
+            RepeatWaitAsync(1, 10000, 10, AA);
         }
 
         private async Async.Void AAA()
@@ -57,7 +57,7 @@ namespace Hotfix
 
         private void AA(int obj)
         {
-            Log.Debug($"{obj}s");
+            Log($"{obj}s");
         }
 
         #endregion
@@ -169,7 +169,7 @@ namespace Hotfix
 
         private static void TestdelegateMethod()
         {
-            Log.Debug("测试委托！");
+           Log("测试委托！");
         }
 
         private List<int> field22_5;

@@ -1,10 +1,10 @@
 {
     "name": "Test",
     "references": [],
-    "optionalUnityReferences": [],
-    "includePlatforms": [
-        "Editor"
+    "optionalUnityReferences": [
+        "TestAssemblies"
     ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,

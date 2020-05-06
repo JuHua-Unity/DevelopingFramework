@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using LitJson;
 using UnityEditor;
 
 namespace Editors
@@ -9,7 +10,7 @@ namespace Editors
         public static void StreamWriter(string data, string path)
         {
             CreateFile(path);
-            using (StreamWriter sw = new StreamWriter(path))
+            using (var sw = new StreamWriter(path))
             {
                 sw.Write(data);
             }
@@ -22,34 +23,32 @@ namespace Editors
             var t = typeof(T);
             if (t == typeof(string))
             {
-                throw new Exception($"直接获取字符串类型的话请使用非泛型方法");
+                throw new Exception("直接获取字符串类型的话请使用非泛型方法");
             }
 
-            string str = StreamReader(path);
+            var str = StreamReader(path);
             if (!string.IsNullOrEmpty(str))
             {
-                return LitJson.JsonMapper.ToObject<T>(str);
+                return JsonMapper.ToObject<T>(str);
             }
 
-            return (T)Activator.CreateInstance(t);
+            return (T) Activator.CreateInstance(t);
         }
 
         public static string StreamReader(string path)
         {
-            if (File.Exists(path))
-            {
-                string str = "";
-                using (StreamReader sb = new StreamReader(path))
-                {
-                    str = sb.ReadToEnd();
-                }
-
-                return str;
-            }
-            else
+            if (!File.Exists(path))
             {
                 return string.Empty;
             }
+
+            string str;
+            using (var sb = new StreamReader(path))
+            {
+                str = sb.ReadToEnd();
+            }
+
+            return str;
         }
 
         /// <summary>

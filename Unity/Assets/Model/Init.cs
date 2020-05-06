@@ -7,11 +7,6 @@ namespace Model
 {
     internal class Init : MonoBehaviour
     {
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-        }
-
         private void Start()
         {
             Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}\tThreadId:{Thread.CurrentThread.ManagedThreadId}");

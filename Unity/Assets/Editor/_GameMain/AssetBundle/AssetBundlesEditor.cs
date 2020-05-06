@@ -12,10 +12,10 @@ namespace Editors
             GetWindow<AssetBundlesEditor>().Show();
         }
 
-        public const string ABsConfigPath = "Assets/Editor/_GameMain/Configs/AssetBundlesConfig.json";
+        public static readonly string ABsConfigPath = $"{Define.EditorConfigsPath}AssetBundlesConfig.json";
 
-        private List<ABInfo> abs = new List<ABInfo>();
-        private List<string> allABNames = null;
+        private readonly List<ABInfo> abs = new List<ABInfo>();
+        private List<string> allABNames;
 
         private Vector2 scrollPosition;
         private readonly bool[] foldouts = {true, true, true};
@@ -235,7 +235,7 @@ namespace Editors
             for (var i = 0; i < this.allABNames.Count; i++)
             {
                 var abName = this.allABNames[i];
-                var item = new ABInfo(abName);
+                var item = new ABInfo {Name = abName};
                 for (var j = 0; j < a.Count; j++)
                 {
                     if (a[j].Name.Equals(abName))
@@ -274,13 +274,17 @@ namespace Editors
 
         private class ABInfo
         {
-            public string Name { get; }
+            public string Name { get; set; }
             public string Group { get; set; }
             public bool CopyToLocal { get; set; }
 
-            public ABInfo(string name)
+            public ABInfo()
             {
-                this.Name = name;
+                Init();
+            }
+
+            private void Init()
+            {
                 this.Group = "Main";
                 this.CopyToLocal = false;
             }

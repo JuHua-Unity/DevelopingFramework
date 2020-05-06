@@ -3,14 +3,15 @@ using Async;
 
 namespace Hotfix
 {
-    /// <summary>
-    /// Game里面自动挂 不需要手动AddComponent
-    /// </summary>
-    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem, IAwakeSystem
+    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem
     {
         #region 实例
 
-        public static TimerComponent Instance { get; private set; }
+        private static TimerComponent inst;
+
+        public static TimerComponent Instance => inst ?? (inst = Game.ComponentRoot.AddComponent<TimerComponent>());
+
+        public static bool Active => inst != null;
 
         #endregion
 
@@ -147,7 +148,7 @@ namespace Hotfix
             }
 
             cancellationToken.Register(() => { Remove(cid); });
-            tcs.Task.GetAwaiter().OnCompleted(() => { Log.Debug($"timer执行完成！"); });
+            tcs.Task.GetAwaiter().OnCompleted(() => { Log($"timer执行完成！"); });
             return tcs.Task;
         }
 
@@ -171,17 +172,12 @@ namespace Hotfix
             return tcs.Task;
         }
 
-        #region Awake Destroy
-
-        public void Awake()
-        {
-            Instance = this;
-        }
+        #region Destroy
 
         public void Destroy()
         {
             //优先设置为null 防止后面调用的时候继续可用
-            Instance = null;
+            inst = null;
 
             foreach (var tId in this.timeId)
             {

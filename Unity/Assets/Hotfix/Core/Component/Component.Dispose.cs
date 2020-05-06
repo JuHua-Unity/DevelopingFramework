@@ -4,7 +4,7 @@
     {
         public override void Dispose()
         {
-            Log.Debug($"Dispose->ID:{this.ObjId} Name:{GetType().FullName}");
+            Log($"Dispose->ID:{this.ObjId} Name:{GetType().FullName}");
             if (this.IsDisposed)
             {
                 return;
