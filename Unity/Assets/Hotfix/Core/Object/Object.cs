@@ -56,7 +56,7 @@ namespace Hotfix
 
 #endif
 
-            Log.Debug($"Create->ID:{this.ObjId} Name:{GetType().FullName}");
+            Log.Warning($"Create->ID:{this.ObjId} Name:{GetType().FullName}");
         }
 
         /// <summary>

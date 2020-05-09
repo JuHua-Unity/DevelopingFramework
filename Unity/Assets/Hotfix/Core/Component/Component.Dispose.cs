@@ -4,13 +4,15 @@
     {
         public override void Dispose()
         {
-            Log($"Dispose->ID:{this.ObjId} Name:{GetType().FullName}");
+            Warning($"Dispose->ID:{this.ObjId} Name:{GetType().FullName}");
             if (this.IsDisposed)
             {
                 return;
             }
 
-            TimerDispose();
+            OnceWaitTimerDispose();
+            RepeatWaitTimerDispose();
+            PlayerPrefsDispose();
             //先释放所有挂在自己身上的Component
             SingleSystemDispose();
             MultiSystemDispose();

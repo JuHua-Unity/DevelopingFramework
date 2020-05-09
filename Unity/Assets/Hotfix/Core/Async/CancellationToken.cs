@@ -22,9 +22,10 @@ namespace Hotfix
 
         public void Cancel()
         {
-            foreach (var action in this.actions)
+            var a = this.actions.ToArray();
+            for (var i = 0; i < a.Length; i++)
             {
-                action?.Invoke();
+                a[i]?.Invoke();
             }
         }
 

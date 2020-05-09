@@ -24,9 +24,10 @@ namespace Hotfix
                 return;
             }
 
-            foreach (var token in this.cancellationTokens)
+            var a = this.cancellationTokens.ToArray();
+            for (var i = 0; i < a.Length; i++)
             {
-                token.Cancel();
+                a[i]?.Cancel();
             }
         }
 

@@ -89,7 +89,11 @@
     <Compile Include="Assets\Hotfix\Core\Object\ISupportInitialize.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\Object.cs" />
     <Compile Include="Assets\Hotfix\Core\Object\ObjectPool.cs" />
+    <Compile Include="Assets\Hotfix\Core\PlayerPrefs\Component.PlayerPrefs.cs" />
+    <Compile Include="Assets\Hotfix\Core\PlayerPrefs\PlayerPrefsComponent.cs" />
     <Compile Include="Assets\Hotfix\Core\Timer\Component.Timer.cs" />
+    <Compile Include="Assets\Hotfix\Core\Timer\OnceWaitComponent.cs" />
+    <Compile Include="Assets\Hotfix\Core\Timer\RepeatWaitComponent.cs" />
     <Compile Include="Assets\Hotfix\Core\Timer\TimerComponent.cs" />
     <Compile Include="Assets\Hotfix\Init.cs" />
     <Compile Include="Assets\Hotfix\Module\Download\UnityWebRequestAsync.cs" />

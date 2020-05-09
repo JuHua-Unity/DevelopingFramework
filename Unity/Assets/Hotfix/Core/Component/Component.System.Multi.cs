@@ -195,7 +195,19 @@ namespace Hotfix
         /// <returns></returns>
         public K[] GetMultiComponents<K>() where K : Component
         {
-            return GetMultiComponents(typeof(K)) as K[];
+            var a = GetMultiComponents(typeof(K));
+            if (a == null)
+            {
+                return null;
+            }
+
+            var b = new K[a.Length];
+            for (var i = 0; i < a.Length; i++)
+            {
+                b[i] = a[i] as K;
+            }
+
+            return b;
         }
 
         /// <summary>

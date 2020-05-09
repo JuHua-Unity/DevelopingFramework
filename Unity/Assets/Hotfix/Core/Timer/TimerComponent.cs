@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Async;
 
 namespace Hotfix
 {
-    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem
+    internal sealed class TimerComponent : Component, IUpdateSystem, IDestroySystem, IAwakeSystem
     {
         #region 实例
 
-        private static TimerComponent inst;
+        public static TimerComponent Instance { get; private set; }
 
-        public static TimerComponent Instance => inst ?? (inst = Game.ComponentRoot.AddComponent<TimerComponent>());
-
-        public static bool Active => inst != null;
+        public static bool Active => Instance != null;
 
         #endregion
 
@@ -22,11 +21,12 @@ namespace Hotfix
         private readonly Dictionary<long, TaskCompletionSource<bool>> timers = new Dictionary<long, TaskCompletionSource<bool>>();
 
         /// <summary>
+        /// SortedDictionary:每次插入都会排序
         /// 正在等待的所有时间
         /// key:真实时间
         /// value:这个时间点对应的有哪些id(也就是timers的key)
         /// </summary>
-        private readonly Dictionary<long, Queue<long>> timeId = new Dictionary<long, Queue<long>>();
+        private readonly SortedDictionary<long, Queue<long>> timeId = new SortedDictionary<long, Queue<long>>();
 
         private readonly Queue<long> timeOutTime = new Queue<long>();
         private readonly Queue<long> timeOutTimerIds = new Queue<long>();
@@ -106,7 +106,7 @@ namespace Hotfix
                 this.minTime = tillTime;
             }
 
-            cancellationToken.Register(() => { Remove(cid); });
+            cancellationToken?.Register(() => { Remove(cid); });
             return tcs.Task;
         }
 
@@ -147,8 +147,7 @@ namespace Hotfix
                 this.minTime = tillTime;
             }
 
-            cancellationToken.Register(() => { Remove(cid); });
-            tcs.Task.GetAwaiter().OnCompleted(() => { Log($"timer执行完成！"); });
+            cancellationToken?.Register(() => { Remove(cid); });
             return tcs.Task;
         }
 
@@ -172,12 +171,22 @@ namespace Hotfix
             return tcs.Task;
         }
 
-        #region Destroy
+        #region 接口实现
+
+        public void Awake()
+        {
+            if (Instance != null)
+            {
+                throw new Exception($"TimerComponent 实例已存在，请勿再次添加此组件！Parent={this.Parent?.GetType().FullName}");
+            }
+
+            Instance = this;
+        }
 
         public void Destroy()
         {
             //优先设置为null 防止后面调用的时候继续可用
-            inst = null;
+            Instance = null;
 
             foreach (var tId in this.timeId)
             {

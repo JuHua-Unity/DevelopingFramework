@@ -14,7 +14,7 @@ namespace Hotfix
 
         public void Add(Component component)
         {
-            Log.Debug($"Add Component:{component.ObjName}");
+            Log.Warning($"Add->ID:{component.ObjId} Name:{component.GetType().FullName}");
             if (component.IsDisposed)
             {
                 return;

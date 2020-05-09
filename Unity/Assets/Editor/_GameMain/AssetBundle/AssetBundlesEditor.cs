@@ -280,11 +280,6 @@ namespace Editors
 
             public ABInfo()
             {
-                Init();
-            }
-
-            private void Init()
-            {
                 this.Group = "Main";
                 this.CopyToLocal = false;
             }

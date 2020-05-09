@@ -18,6 +18,7 @@
 
         private void Init()
         {
+            AddComponent<TimerComponent>();
             //添加初始场景上的组件 一般为通用组件 全局唯一等类型的组件
             //资源管理器
             AddComponent<ResourcesComponent>();

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Void = Async.Void;
 
 namespace Hotfix
 {
@@ -35,29 +36,34 @@ namespace Hotfix
         public void Awake()
         {
             Instance = this;
-            var testClass = new TestClass();
-            var a = JsonHelper.ToJson(testClass);
-            Log(a);
-            var b = JsonHelper.FromJson<TestClass>(a);
+            //var testClass = new TestClass();
+            //var a = JsonHelper.ToJson(testClass);
+            //Log(a);
+            //var b = JsonHelper.FromJson<TestClass>(a);
 
             //TestEnum1 testEnum1 = TestEnum1.Enum1;
             //var aa = JsonHelper.ToJson(testEnum1);
             //Log.Debug(aa);
             //var bb = JsonHelper.FromJson<TestEnum1>(aa);
 
+            RepeatWait(1, 1000, 100, obj => { Log($"{obj}"); });
+            OnceWait(5000, () => { StopRepeat(1); });
             AAA().Coroutine();
-            RepeatWaitAsync(1, 10000, 10, AA);
         }
 
-        private async Async.Void AAA()
+        private async Void AAA()
         {
-            await WaitAsync(1000);
-            WaitAsync(1000).Coroutine();
-        }
-
-        private void AA(int obj)
-        {
-            Log($"{obj}s");
+            await WaitAsync(3001);
+            CancelWaitAsync();
+            RepeatWait(2, 500, 10, obj =>
+            {
+                Log($"----{obj}");
+                if (obj == 5)
+                {
+                    StopRepeat(1);
+                    StopRepeat(2);
+                }
+            });
         }
 
         #endregion
@@ -169,7 +175,7 @@ namespace Hotfix
 
         private static void TestdelegateMethod()
         {
-           Log("测试委托！");
+            Log("测试委托！");
         }
 
         private List<int> field22_5;
