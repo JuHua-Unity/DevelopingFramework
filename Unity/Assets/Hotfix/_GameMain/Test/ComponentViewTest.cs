@@ -53,6 +53,13 @@ namespace Hotfix
             SetObject("MyClassKey", myClass);
             var a = GetObject("MyClassKey", new MyClass() {Filed = 2});
             Log(a.ToString());
+
+            RepeatWait(1, 1000, 3, (obj) =>
+            {
+                Log($"{3 - obj + 1}");
+                AddMultiComponent<ComponentRoot>();
+            });
+            OnceWait(3100, Game.ReStart);
         }
 
         private class MyClass

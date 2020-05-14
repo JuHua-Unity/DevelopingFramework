@@ -10,17 +10,17 @@ namespace Model
         /// <summary>
         /// 存放AB的父目录名字   会影响打包AB的时候与之对应的信息类文件的名字
         /// </summary>
-        public static string ABsPathParent { get; } = "AssetBundles";
+        public const string ABsPathParent = "AssetBundles";
 
         /// <summary>
         /// AB变体名
         /// </summary>
-        public static string ABVariant { get; } = "unity3d";
+        public const string ABVariant = "unity3d";
 
         /// <summary>
         /// 打包AB之后的版本文件名字
         /// </summary>
-        public static string ResVersionJson { get; } = "ResVersion.json";
+        public const string ResVersionJson = "AssetBundlesVersion.json";
 
         #region AssetBundle名字转换缓存池
 
@@ -39,6 +39,13 @@ namespace Model
         }
 
         #endregion
+
+        #endregion
+
+        #region Code
+
+        public const string HotfixDll = "Hotfix.dll";
+        public const string HotfixPdb = "Hotfix.pdb";
 
         #endregion
 

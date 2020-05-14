@@ -1,5 +1,4 @@
 ﻿using System;
-using ILRuntime.Hotfix;
 
 namespace Model
 {
@@ -19,7 +18,7 @@ namespace Model
         /// </summary>
         internal static int StartProcess { get; set; }
 
-        public static Hotfix Hotfix { get; private set; }
+        public static ILRuntime.Hotfix.Hotfix Hotfix { get; private set; }
 
         public static void Start()
         {
@@ -53,7 +52,7 @@ namespace Model
                 throw new Exception("当前Hotfix不为空，却要Start，请先Close Hotfix");
             }
 
-            Hotfix = new Hotfix();
+            Hotfix = new ILRuntime.Hotfix.Hotfix();
 #if ILRuntime
             Log.Debug("当前使用的是ILRuntime模式！");
 #else

@@ -145,6 +145,7 @@
     <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\JsonWriter.cs" />
     <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\Lexer.cs" />
     <Compile Include="Assets\ThirdParty\ILRuntime\LitJson\ParserToken.cs" />
+    <None Include="Assets\ThirdParty\ILRuntime\link.xml" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>

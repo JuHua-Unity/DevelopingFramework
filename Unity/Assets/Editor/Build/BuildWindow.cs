@@ -128,18 +128,18 @@ namespace Editors
         private static void GenerateVersion(string path, IReadOnlyList<FileInfo> files)
         {
             var count = files.Count;
-            var a = new ResVersion();
+            var a = new AssetBundleVersion();
             if (count > 0)
             {
-                a.Res = new ResVersion.ResVersionInfo[count];
+                a.Res = new AssetBundleVersion.Item[count];
 
                 for (var i = 0; i < count; i++)
                 {
                     var fileInfo = files[i];
-                    a.Res[i] = new ResVersion.ResVersionInfo
+                    a.Res[i] = new AssetBundleVersion.Item
                     {
                         File = fileInfo.Name,
-                        MD5 = MD5Helper.FileMD5(fileInfo.FullName),
+                        MD5 = AssetBundleMD5Helper.FileMD5(fileInfo.FullName),
                         Size = fileInfo.Length
                     };
                 }

@@ -7,19 +7,19 @@ namespace Editors
 {
     public class CustomEditors : Editor
     {
-        [MenuItem("Assets/菜单栏/设置AB名字")]
+        [MenuItem("Assets/菜单栏/设置路径下所有文件(除文件夹)的AB名字")]
         private static void Func1()
         {
             AssetBundleNameEditor.SetAssetBundleName();
         }
 
-        [MenuItem("Assets/菜单栏/清除AB名字")]
+        [MenuItem("Assets/菜单栏/清除选中文件夹及文件的AB名字")]
         private static void Func2()
         {
             AssetBundleNameEditor.ClearAssetBundleName();
         }
 
-        [MenuItem("Assets/菜单栏/清除AB名字(包含子文件)")]
+        [MenuItem("Assets/菜单栏/清除路径下所有文件夹及文件的AB名字")]
         private static void Func3()
         {
             AssetBundleNameEditor.ClearAssetBundleName(SelectionMode.DeepAssets);

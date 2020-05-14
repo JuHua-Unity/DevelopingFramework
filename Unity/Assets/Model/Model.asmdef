@@ -1,9 +1,8 @@
 {
     "name": "Model",
     "references": [
-        "ILRuntime",
-        "FairyGUI",
-        "ReferenceCollector"
+        "ReferenceCollector",
+        "ILRuntime"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

@@ -104,9 +104,9 @@
     <Compile Include="Assets\Hotfix\Module\Res\Manage\AssetsLoaderAsync.cs" />
     <Compile Include="Assets\Hotfix\Module\Res\Manage\ResourcesComponent.cs" />
     <Compile Include="Assets\Hotfix\Module\Res\Other\AssetBundleGroup.cs" />
-    <Compile Include="Assets\Hotfix\Module\Res\Other\MD5Helper.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\AssetBundleMD5Helper.cs" />
+    <Compile Include="Assets\Hotfix\Module\Res\Other\AssetBundleVersion.cs" />
     <Compile Include="Assets\Hotfix\Module\Res\Other\PathHelper.cs" />
-    <Compile Include="Assets\Hotfix\Module\Res\Other\ResVersion.cs" />
     <Compile Include="Assets\Hotfix\Module\Res\Update\ResUpdateComponent.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -354,11 +354,11 @@
     <Reference Include="ILRuntim.Mono.Cecil">
       <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
     </Reference>
-    <Reference Include="ILRuntime.Mono.Cecil.Pdb">
-      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Mdb">
       <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

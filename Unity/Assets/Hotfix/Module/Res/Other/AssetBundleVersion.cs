@@ -1,10 +1,10 @@
 ﻿namespace Hotfix
 {
-    public sealed class ResVersion
+    public sealed class AssetBundleVersion //开放给Editor使用
     {
-        public ResVersionInfo[] Res { get; set; }
+        public Item[] Res { get; set; }
 
-        public class ResVersionInfo
+        public class Item
         {
             public string File { get; set; }
             public string MD5 { get; set; }

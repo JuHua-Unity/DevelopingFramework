@@ -16,9 +16,9 @@ namespace Model
         {
             var options = JsonHelper.FromJson<LaunchOptions>(text.text);
             var code = LoadCode(options.CodeABName.ToBundleName());
-            var assBytes = code.Get<TextAsset>("Hotfix.dll").bytes;
+            var assBytes = code.Get<TextAsset>(Define.HotfixDll).bytes;
 #if ILRuntime && ILRuntime_Pdb
-            byte[] pdbBytes = code.Get<TextAsset>("Hotfix.pdb").bytes;
+            var pdbBytes = code.Get<TextAsset>(Define.HotfixPdb).bytes;
             Game.Start(assBytes, pdbBytes);
 #else
             Game.Start(assBytes, null);

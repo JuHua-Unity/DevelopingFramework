@@ -64,19 +64,28 @@ namespace Hotfix
                     return componentRoot;
                 }
 
-                var a = new GameObject("GameRoot");
-                UnityEngine.Object.DontDestroyOnLoad(a);
-                Object.GameRoot = a;
+                if (Object.GameRoot == null)
+                {
+                    var a = new GameObject("GameRoot");
+                    UnityEngine.Object.DontDestroyOnLoad(a);
+                    Object.GameRoot = a;
+                }
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-                var b = new GameObject("DisposedObjects");
-                b.transform.SetParent(Object.GameRoot.transform, false);
-                b.SetActive(false);
-                Object.DisposedObjectsParent = b;
+                if (Object.DisposedObjectsParent == null)
+                {
+                    var b = new GameObject("DisposedObjects");
+                    b.transform.SetParent(Object.GameRoot.transform, false);
+                    b.SetActive(false);
+                    Object.DisposedObjectsParent = b;
+                }
 
-                var c = new GameObject("Objects");
-                c.transform.SetParent(Object.GameRoot.transform, false);
-                Object.ObjectsParent = c;
+                if (Object.ObjectsParent == null)
+                {
+                    var c = new GameObject("Objects");
+                    c.transform.SetParent(Object.GameRoot.transform, false);
+                    Object.ObjectsParent = c;
+                }
 
 #endif
 
@@ -90,13 +99,17 @@ namespace Hotfix
 
         public static void Close()
         {
-            componentRoot?.Dispose();
-            ObjectPool.Recycle(componentRoot);
-            componentRoot = null;
+            if (componentRoot != null)
+            {
+                componentRoot.Dispose();
+                componentRoot = null;
+            }
 
-            componentSystem?.Dispose();
-            ObjectPool.Recycle(objectPool);
-            componentSystem = null;
+            if (componentSystem != null)
+            {
+                componentSystem.Dispose();
+                componentSystem = null;
+            }
 
             objectPool?.Dispose();
             objectPool = null;
@@ -112,7 +125,30 @@ namespace Hotfix
 
 #endif
 
+            UnityEngine.Object.DestroyImmediate(Object.GameRoot);
             Object.GameRoot = null;
+        }
+
+        public static void Start()
+        {
+            GameStart.Start();
+        }
+
+        public static void ReStart()
+        {
+            if (componentRoot != null)
+            {
+                componentRoot.Dispose();
+                componentRoot = null;
+            }
+
+            if (componentSystem != null)
+            {
+                componentSystem.Dispose();
+                componentSystem = null;
+            }
+
+            GameStart.Start();
         }
     }
 }

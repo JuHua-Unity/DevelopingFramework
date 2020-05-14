@@ -14,7 +14,7 @@ namespace Hotfix
             LoadingScene.Open();
 
             ComponentViewTest.Open();
-            Log.Debug("1");
+            //Log.Debug("1");
             //AsyncMethod().Coroutine();
         }
 

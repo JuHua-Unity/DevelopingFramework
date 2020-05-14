@@ -17,7 +17,7 @@
             Model.Game.Hotfix.OnMessage = OnMessage;
 
             Log.Debug("热更启动完成！");
-            GameStart.Start();
+            Game.Start();
         }
 
         private static void OnMessage(int id, object obj)

@@ -33,16 +33,15 @@ namespace Editors
                 if (import.assetBundleName != abName)
                 {
                     import.assetBundleName = abName;
-                    Debug.Log($"设置[{path}]assetBundleName名字完成！");
                 }
 
                 if (import.assetBundleVariant != Model.Define.ABVariant)
                 {
                     import.assetBundleVariant = Model.Define.ABVariant;
-                    Debug.Log($"设置[{path}]assetBundleVariant完成！");
                 }
 
                 import.SaveAndReimport();
+                Debug.Log($"设置[{path} Name={abName}]assetBundleName名字完成！");
             }
 
             AssetDatabase.RemoveUnusedAssetBundleNames();
@@ -62,16 +61,15 @@ namespace Editors
             {
                 var path = AssetDatabase.GetAssetPath(objects[i]);
                 var import = AssetImporter.GetAtPath(path);
-                if (import.assetBundleName != null)
+                if (!string.IsNullOrEmpty(import.assetBundleName))
                 {
+                    if (!string.IsNullOrEmpty(import.assetBundleVariant))
+                    {
+                        import.assetBundleVariant = null;
+                    }
+
                     import.assetBundleName = null;
                     Debug.Log($"清除[{path}]assetBundleName名字完成！");
-                }
-
-                if (import.assetBundleVariant != null)
-                {
-                    import.assetBundleVariant = null;
-                    Debug.Log($"清除[{path}]assetBundleVariant完成！");
                 }
 
                 import.SaveAndReimport();

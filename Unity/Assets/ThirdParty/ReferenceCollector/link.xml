@@ -1,0 +1,3 @@
+<linker>
+  <assembly fullname="ReferenceCollector" preserve="all"/>
+</linker>

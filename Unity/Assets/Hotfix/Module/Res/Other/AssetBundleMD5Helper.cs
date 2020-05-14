@@ -4,8 +4,10 @@ using System.Text;
 
 namespace Hotfix
 {
-    public static class MD5Helper
+    public static class AssetBundleMD5Helper //开放给Editor使用
     {
+        private const string format = "x2";
+
         public static string FileMD5(string filePath)
         {
             byte[] retVal;
@@ -15,14 +17,13 @@ namespace Hotfix
                 retVal = md5.ComputeHash(file);
             }
 
-            const string format = "x2";
-            var stringBuilder = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var b in retVal)
             {
-                stringBuilder.Append(b.ToString(format));
+                sb.Append(b.ToString(format));
             }
 
-            return stringBuilder.ToString();
+            return sb.ToString();
         }
     }
 }

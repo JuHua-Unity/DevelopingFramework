@@ -2,7 +2,7 @@
 
 namespace Hotfix
 {
-    public class AssetBundleGroup
+    public class AssetBundleGroup //开放给Editor使用
     {
         /// <summary>
         /// AB包属于哪个组
@@ -22,7 +22,7 @@ namespace Hotfix
                 return null;
             }
 
-            return !this.Dic.TryGetValue(@group, out var res) ? null : res.ToArray();
+            return !this.Dic.TryGetValue(group, out var res) ? null : res.ToArray();
         }
     }
 }

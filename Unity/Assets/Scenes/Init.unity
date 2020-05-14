@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 786621448}
   - component: {fileID: 786621449}
   m_Layer: 0
-  m_Name: GameRoot
+  m_Name: init
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
