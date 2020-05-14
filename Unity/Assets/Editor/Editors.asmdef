@@ -2,8 +2,9 @@
     "name": "Editors",
     "references": [
         "Model",
-        "Test",
-        "ILRuntime"
+        "Hotfix",
+        "ILRuntime",
+        "Test"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

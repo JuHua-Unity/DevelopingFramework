@@ -4,8 +4,8 @@ namespace Editors
 {
     internal class Define : Editor
     {
-        public static readonly string BuildPath = "../Release/";
-        public static readonly string EditorConfigsPath = "EditorConfigs/";
+        public static string BuildPath { get; } = "../Release/";
+        public static string EditorConfigsPath { get; } = "EditorConfigs/";
 
         // WindowsPC Android IOS 三类平台
 #if UNITY_STANDALONE

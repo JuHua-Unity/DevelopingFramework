@@ -15,7 +15,7 @@ namespace Model
         public void Start(TextAsset text)
         {
             var options = JsonHelper.FromJson<LaunchOptions>(text.text);
-            var code = LoadCode(options.CodeABName.ToLower());
+            var code = LoadCode(options.CodeABName.ToBundleName());
             var assBytes = code.Get<TextAsset>("Hotfix.dll").bytes;
 #if ILRuntime && ILRuntime_Pdb
             byte[] pdbBytes = code.Get<TextAsset>("Hotfix.pdb").bytes;

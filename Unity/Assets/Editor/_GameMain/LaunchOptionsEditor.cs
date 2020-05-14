@@ -1,5 +1,6 @@
-﻿using Model;
-using System.IO;
+﻿using System.IO;
+using LitJson;
+using Model;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace Editors
         private const string path = "Assets/_GameMain/Res/Configs/LaunchOptions.json";
         private LaunchOptions launchOptions;
 
+        // ReSharper disable once UnusedMember.Local
         private void Awake()
         {
             if (!File.Exists(path))
@@ -22,23 +24,26 @@ namespace Editors
                 File.Create(path);
             }
 
-            launchOptions = IOHelper.StreamReader<LaunchOptions>(path);
+            this.launchOptions = IOHelper.StreamReader<LaunchOptions>(path);
         }
 
+        // ReSharper disable once UnusedMember.Local
         private void OnGUI()
         {
             EditorGUILayout.BeginHorizontal();
 
             EditorGUILayout.LabelField("代码预制体名字：");
-            launchOptions.CodeABName = EditorGUILayout.TextField(launchOptions.CodeABName);
+            this.launchOptions.CodeABName = EditorGUILayout.TextField(this.launchOptions.CodeABName);
 
             EditorGUILayout.EndHorizontal();
 
-            if (GUILayout.Button("Save"))
+            if (!GUILayout.Button("Save"))
             {
-                IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(launchOptions), path);
-                AssetDatabase.Refresh();
+                return;
             }
+
+            IOHelper.StreamWriter(JsonMapper.ToJson(this.launchOptions), path);
+            AssetDatabase.Refresh();
         }
     }
 }

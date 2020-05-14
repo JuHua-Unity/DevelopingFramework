@@ -46,9 +46,18 @@ namespace Hotfix
             //Log.Debug(aa);
             //var bb = JsonHelper.FromJson<TestEnum1>(aa);
 
-            RepeatWait(1, 1000, 100, obj => { Log($"{obj}"); });
-            OnceWait(5000, () => { StopRepeat(1); });
-            AAA().Coroutine();
+            //RepeatWait(1, 1000, 100, obj => { Log($"{obj}"); });
+            //OnceWait(5000, () => { StopRepeat(1); });
+            //AAA().Coroutine();
+            var myClass = new MyClass() {Filed = 1};
+            SetObject("MyClassKey", myClass);
+            var a = GetObject("MyClassKey", new MyClass() {Filed = 2});
+            Log(a.ToString());
+        }
+
+        private class MyClass
+        {
+            public int Filed;
         }
 
         private async Void AAA()

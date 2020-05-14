@@ -32,18 +32,7 @@ namespace Hotfix
             return this.tcs.Task;
         }
 
-        public ulong Bytes
-        {
-            get
-            {
-                if (this.request == null)
-                {
-                    return 0;
-                }
-
-                return this.request.downloadedBytes;
-            }
-        }
+        public ulong Bytes => this.request?.downloadedBytes ?? 0;
 
         public bool Downloading => this.request != null;
 
@@ -60,7 +49,7 @@ namespace Hotfix
             }
 
             this.asyncOperation = null;
-            this.request.Dispose();
+            this.request?.Dispose();
             this.request = null;
 
             this.tcs = null;

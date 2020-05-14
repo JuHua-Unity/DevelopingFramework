@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FairyGUI;
+using Model;
 #if DEFINE_LOCALRES && UNITY_EDITOR
 using UnityEditor;
 
@@ -35,8 +36,8 @@ namespace Hotfix
                 return;
             }
 
-            descName = AssetBundleNameHelper.CollectBundleName(descName);
-            resName = string.IsNullOrEmpty(resName) ? resName : AssetBundleNameHelper.CollectBundleName(resName);
+            descName = descName.ToBundleName();
+            resName = string.IsNullOrEmpty(resName) ? resName : resName.ToBundleName();
             AddOnePackage(descName, resName, pkgName);
         }
 

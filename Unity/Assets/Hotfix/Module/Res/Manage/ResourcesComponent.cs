@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable UnusedMember.Global
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,25 +27,19 @@ namespace Hotfix
 
         public UnityEngine.Object GetAsset(string bundleName, string prefab)
         {
-            bundleName = AssetBundleNameHelper.CollectBundleName(bundleName);
+            bundleName = bundleName.ToBundleName();
             return !this.res.TryGetValue(bundleName, out var abInfo) ? null : abInfo.Get(prefab);
         }
 
         public AssetBundle GetAssetBundle(string bundleName)
         {
-            bundleName = AssetBundleNameHelper.CollectBundleName(bundleName);
-
-            if (!this.res.TryGetValue(bundleName, out var abInfo))
-            {
-                return null;
-            }
-
-            return abInfo.AssetBundle;
+            bundleName = bundleName.ToBundleName();
+            return !this.res.TryGetValue(bundleName, out var abInfo) ? null : abInfo.AssetBundle;
         }
 
         public void Load(string bundleName)
         {
-            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            var dependencies = GetSortedDependencies(bundleName.ToBundleName());
             foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
@@ -73,7 +69,7 @@ namespace Hotfix
 
         public async Task LoadAsync(string bundleName)
         {
-            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            var dependencies = GetSortedDependencies(bundleName.ToBundleName());
             foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
@@ -113,7 +109,7 @@ namespace Hotfix
 
         public void Unload(string bundleName)
         {
-            var dependencies = GetSortedDependencies(AssetBundleNameHelper.CollectBundleName(bundleName));
+            var dependencies = GetSortedDependencies(bundleName.ToBundleName());
             foreach (var dependency in dependencies)
             {
                 if (string.IsNullOrEmpty(dependency))
@@ -295,7 +291,6 @@ namespace Hotfix
             public int RefCount { get; set; }
             public AssetBundle AssetBundle { get; private set; }
 
-
             public void Awake(AssetBundle b)
             {
                 this.RefCount = 1;
@@ -350,7 +345,7 @@ namespace Hotfix
             return ss;
         }
 
-        private void CollectDependencies(IList<string> parents, string bundleName, Dictionary<string, int> info)
+        private void CollectDependencies(IList<string> parents, string bundleName, IDictionary<string, int> info)
         {
             parents.Add(bundleName);
             var dependencies = GetDependencies(bundleName);

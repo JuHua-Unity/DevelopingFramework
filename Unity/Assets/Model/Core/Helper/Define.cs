@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Model
 {
     public static class Define
     {
+        #region AssetBundle相关
+
         /// <summary>
         /// 存放AB的父目录名字   会影响打包AB的时候与之对应的信息类文件的名字
         /// </summary>
@@ -13,6 +16,31 @@ namespace Model
         /// AB变体名
         /// </summary>
         public static string ABVariant { get; } = "unity3d";
+
+        /// <summary>
+        /// 打包AB之后的版本文件名字
+        /// </summary>
+        public static string ResVersionJson { get; } = "ResVersion.json";
+
+        #region AssetBundle名字转换缓存池
+
+        private static readonly Dictionary<string, string> bundleNames = new Dictionary<string, string>();
+
+        public static string ToBundleName(this string bundleName)
+        {
+            if (bundleNames.TryGetValue(bundleName, out var n))
+            {
+                return n;
+            }
+
+            n = $"{bundleName}.{ABVariant}".ToLower();
+            bundleNames.Add(bundleName, n);
+            return n;
+        }
+
+        #endregion
+
+        #endregion
 
         #region 资源路径
 
@@ -58,8 +86,10 @@ namespace Model
                 if (resPathForWeb == null)
                 {
                     resPathForWeb = AppResPath;
-#if !UNITY_EDITOR && (UNITY_IOS || UNITY_STANDALONE_OSX)
+#if !UNITY_EDITOR
+#if UNITY_IOS || UNITY_STANDALONE_OSX
                     resPathForWeb = $"file://{AppResPath}";
+#endif
 #endif
                 }
 

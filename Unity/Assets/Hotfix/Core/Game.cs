@@ -25,7 +25,9 @@ namespace Hotfix
                 }
 
                 objectPool = new ObjectPool();
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
                 objectPool.SetParent(Object.GameRoot);
+#endif
                 return objectPool;
             }
         }
@@ -43,7 +45,9 @@ namespace Hotfix
                 }
 
                 componentSystem = ObjectPool.Fetch<ComponentSystem>();
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
                 componentSystem.SetParent(Object.GameRoot);
+#endif
                 return componentSystem;
             }
         }
@@ -65,7 +69,6 @@ namespace Hotfix
                 Object.GameRoot = a;
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-
                 var b = new GameObject("DisposedObjects");
                 b.transform.SetParent(Object.GameRoot.transform, false);
                 b.SetActive(false);
@@ -78,7 +81,9 @@ namespace Hotfix
 #endif
 
                 componentRoot = ObjectPool.Fetch<ComponentRoot>();
+#if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
                 componentRoot.SetParent(Object.GameRoot);
+#endif
                 return componentRoot;
             }
         }
@@ -99,7 +104,6 @@ namespace Hotfix
             //最后执行
 
 #if UNITY_EDITOR && !ILRuntime && ObjectView && DEFINE_HOTFIXEDITOR
-
             UnityEngine.Object.DestroyImmediate(Object.DisposedObjectsParent);
             Object.DisposedObjectsParent = null;
 

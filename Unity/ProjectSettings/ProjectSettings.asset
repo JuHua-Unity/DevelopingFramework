@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.1
+  bundleVersion: 0.0.1
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -497,7 +497,7 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   scriptingDefineSymbols:
-    1: DEFINE_LOCALRES;ObjectView;DEFINE_HOTFIXLOG;DEFINE_MODELLOG;DEFINE_HOTFIXEDITOR
+    1: DEFINE_LOCALRES;DEFINE_HOTFIXLOG;DEFINE_MODELLOG;DEFINE_HOTFIXEDITOR;ObjectView
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

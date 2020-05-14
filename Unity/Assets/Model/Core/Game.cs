@@ -54,9 +54,14 @@ namespace Model
             }
 
             Hotfix = new Hotfix();
+#if ILRuntime
+            Log.Debug("当前使用的是ILRuntime模式！");
+#else
+            Log.Debug("当前使用的是Mono模式！");
+#endif
             Hotfix.InitHotfixAssembly(assBytes, pdbBytes);
 #if ILRuntime
-            ILHelper.InitILRuntime(this.AppDomain);
+            ILHelper.InitILRuntime(Hotfix.AppDomain);
 #endif
             Hotfix.GotoHotfix();
         }

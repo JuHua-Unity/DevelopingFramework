@@ -43,4 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b321a8d50085ae42ad5a271ddb226bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: []
+  Data:
+  - Key: AssetBundleGroup
+    Value: {fileID: 4900000, guid: 2e7116f768b2340418026e02a08d40a7, type: 3}

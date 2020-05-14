@@ -12,7 +12,6 @@
 
             OnceWaitTimerDispose();
             RepeatWaitTimerDispose();
-            PlayerPrefsDispose();
             //先释放所有挂在自己身上的Component
             SingleSystemDispose();
             MultiSystemDispose();

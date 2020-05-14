@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace Hotfix
+﻿namespace Hotfix
 {
     public sealed class ResVersion
     {
-        /// <summary>
-        /// 组 以及组里面的资源
-        /// 资源可以属于多个组
-        /// </summary>
-        public Dictionary<string, List<ResVersionInfo>> Res;
+        public ResVersionInfo[] Res { get; set; }
 
         public class ResVersionInfo
         {
