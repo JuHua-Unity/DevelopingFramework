@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable UnusedMember.Local
+
+using System;
 using System.Threading;
 using ReferenceCollector;
 using UnityEngine;
@@ -7,6 +9,12 @@ namespace Model
 {
     internal class Init : MonoBehaviour
     {
+#if DEFINE_SHOWLOG
+        private void Awake()
+        {
+            ShowLog.ShowLog.Init();
+        }
+#endif
         private void Start()
         {
             Log.Debug($"UnityVersion:{Application.unityVersion}\tAppVersion:{Application.version}\t游戏名:{Application.productName}\tPlatform:{Application.platform}\tThreadId:{Thread.CurrentThread.ManagedThreadId}");
