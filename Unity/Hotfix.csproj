@@ -351,6 +351,15 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="ILRuntim.Mono.Cecil">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
     </Reference>
@@ -710,6 +719,22 @@
     <ProjectReference Include="Model.csproj">
       <Project>{2EC4903E-4963-EF63-D655-19011D9F16B8}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="ILRuntime.csproj">
+      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
+      <Name>ILRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Async.csproj">
+      <Project>{98FC05A6-0292-E7D4-24E5-0134D38497DF}</Project>
+      <Name>Async</Name>
+    </ProjectReference>
+    <ProjectReference Include="ObjectView.csproj">
+      <Project>{DC893C52-BC58-8358-B450-22205CAC447F}</Project>
+      <Name>ObjectView</Name>
+    </ProjectReference>
+    <ProjectReference Include="FairyGUI.csproj">
+      <Project>{5C351BF4-1A33-48AF-B348-52FD7A76B064}</Project>
+      <Name>FairyGUI</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -318,6 +318,15 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="ILRuntim.Mono.Cecil">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
     </Reference>
@@ -681,6 +690,10 @@
     <ProjectReference Include="Hotfix.csproj">
       <Project>{838CBC86-4284-9E53-6859-AC02C31AA200}</Project>
       <Name>Hotfix</Name>
+    </ProjectReference>
+    <ProjectReference Include="ILRuntime.csproj">
+      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
+      <Name>ILRuntime</Name>
     </ProjectReference>
     <ProjectReference Include="Test.csproj">
       <Project>{A1166123-CDAD-D6D9-14CE-3BA0CBAE2415}</Project>

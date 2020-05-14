@@ -60,7 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\ObjectView\Runtime\ObjectView.cs" />
+    <Compile Include="Assets\ThirdParty\ObjectView\Runtime\ObjectView.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -302,13 +302,13 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="ILRuntim.Mono.Cecil">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

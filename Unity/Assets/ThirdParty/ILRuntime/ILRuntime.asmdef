@@ -1,0 +1,16 @@
+{
+    "name": "ILRuntime",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "ILRuntim.Mono.Cecil.dll",
+        "ILRuntime.Mono.Cecil.Mdb.dll",
+        "ILRuntime.Mono.Cecil.Pdb.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

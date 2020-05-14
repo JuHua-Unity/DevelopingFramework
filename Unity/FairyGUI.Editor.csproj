@@ -60,14 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\EditorToolSet.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIContentScalerEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIPainterEditor.cs" />
-    <Compile Include="D:\GitHub\DevelopingFramework\ThirdParty\Assets\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\EditorToolSet.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\UIContentScalerEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\UIPainterEditor.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -312,13 +312,13 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="ILRuntim.Mono.Cecil">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntim.Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
-      <HintPath>D:/GitHub/DevelopingFramework/ThirdParty/Assets/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+      <HintPath>D:/GitHub/DevelopingFramework/Unity/Assets/ThirdParty/ILRuntime/Dependencies/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
