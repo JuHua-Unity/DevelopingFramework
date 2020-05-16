@@ -497,7 +497,7 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   scriptingDefineSymbols:
-    1: DEFINE_LOCALRES;DEFINE_HOTFIXLOG;DEFINE_MODELLOG;DEFINE_HOTFIXEDITOR;ObjectView
+    1: DEFINE_LOCALRES;DEFINE_HOTFIXLOG;DEFINE_MODELLOG;DEFINE_HOTFIXEDITOR;ObjectView;DEFINE_SHOWLOG
   platformArchitecture: {}
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}

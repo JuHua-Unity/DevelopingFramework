@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ThirdParty\ShowLog\Runtime\GUITest.cs" />
     <Compile Include="Assets\ThirdParty\ShowLog\Runtime\LogGUI.cs" />
     <Compile Include="Assets\ThirdParty\ShowLog\Runtime\ShowLog.cs" />
     <Compile Include="Assets\ThirdParty\ShowLog\Runtime\ShowLogHelper.cs" />
