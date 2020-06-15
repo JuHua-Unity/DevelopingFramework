@@ -3,8 +3,8 @@
     "references": [
         "Model",
         "Hotfix",
-        "ILRuntime",
-        "Test"
+        "Test",
+        "ILRuntime"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

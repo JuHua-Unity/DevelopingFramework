@@ -93,8 +93,7 @@ namespace ");
             GenerateCrossBindingMethodBody(sb, virtMethods);
             sb.Append(@"            public override string ToString()
             {
-                IMethod m = appdomain.ObjectType.GetMethod(");
-            sb.AppendLine("\"ToString\", 0);");
+                IMethod m = appdomain.ObjectType.GetMethod("); sb.AppendLine("\"ToString\", 0);");
             sb.AppendLine(@"                m = instance.Type.GetVirtualMethod(m);
                 if (m == null || m is ILMethod)
                 {

@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{177FA8EE-6FC3-8514-F61B-9691559B2B68}</ProjectGuid>
+    <ProjectGuid>{3C05EE60-BDAF-BD40-5F9E-17703ECD8866}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Editors</AssemblyName>
+    <AssemblyName>UnityGameFramework.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -60,21 +60,106 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Editor\_GameMain\LaunchOptionsEditor.cs" />
-    <Compile Include="Assets\Editor\_GameMain\MyEditors.cs" />
-    <Compile Include="Assets\Editor\_GameMain\Test\TestEditors.cs" />
-    <Compile Include="Assets\Editor\_GameMain\Test\TestEditorWindows.cs" />
-    <Compile Include="Assets\Editor\AssetBundle\AssetBundleNameEditor.cs" />
-    <Compile Include="Assets\Editor\AssetBundle\AssetBundlesEditor.cs" />
-    <Compile Include="Assets\Editor\Build\BuildWindow.cs" />
-    <Compile Include="Assets\Editor\CustomEditors.cs" />
-    <Compile Include="Assets\Editor\Helper\Define.cs" />
-    <Compile Include="Assets\Editor\Helper\IOHelper.cs" />
-    <Compile Include="Assets\Editor\Helper\ProcessHelper.cs" />
-    <Compile Include="Assets\Editor\Hotfix\BuildHotfixBytes.cs" />
-    <Compile Include="Assets\Editor\Hotfix\ILRuntimeCLRBinding.cs" />
-    <Compile Include="Assets\Editor\Log\LogRedirect.cs" />
-    <Compile Include="Assets\Editor\ScriptingDefineSymbols\ScriptingDefineSymbolsWindow.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableCodeGenerator.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.BoolProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.ByteProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.CharProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.Color32Processor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.ColorProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.CommentProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.DataProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.DataProcessorUtility.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.DateTimeProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.DecimalProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.DoubleProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.FloatProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.GenericDataProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.IdProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.IntProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.LongProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.QuaternionProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.RectProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.SByteProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.ShortProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.StringProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.UIntProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.ULongProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.UShortProcessor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.Vector2Processor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.Vector3Processor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\DataTableProcessor\DataTableProcessor.Vector4Processor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\BaseComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\ConfigComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\DataNodeComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\DataTableComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\DebuggerComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\DownloadComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\EditorResourceComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\EntityComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\EventComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\FsmComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\GameFrameworkInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\LocalizationComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\NetworkComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\ObjectPoolComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\ProcedureComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\ReferencePoolComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\ResourceComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\SceneComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\SettingComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\SoundComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\UIComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Inspector\WebRequestComponentInspector.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\BuildSettings.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\BuildSettingsConfigPathAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\ConfigPathAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\ContextMenu.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\Help.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\HelperInfo.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\LogRedirection.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\LogScriptingDefineSymbols.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\OpenFolder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\ScriptingDefineSymbols.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\Misc\Type.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\AssetsOrder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\DependencyData.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\ResourceAnalyzer.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\ResourceAnalyzerController.CircularDependencyChecker.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\ResourceAnalyzerController.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\ResourceAnalyzerController.Stamp.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceAnalyzer\ScatteredAssetsOrder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\BuildResources.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\IBuildEventHandler.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\Platform.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderConfigPathAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.AssetData.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.BinaryBuild.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.BuildReport.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.ResourceCode.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.ResourceData.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceBuilder\ResourceBuilderController.VersionListData.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\Asset.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\AssetType.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\LoadType.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\Resource.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\ResourceCollection.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceCollection\ResourceCollectionConfigPathAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\AssetSorterType.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditor.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditor.MenuState.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditor.ResourceFolder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditor.ResourceItem.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditorConfigPathAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\ResourceEditorController.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\SourceAsset.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceEditor\SourceFolder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourcePackBuilder\ResourcePackBuilder.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourcePackBuilder\ResourcePackBuilderController.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceSyncTools\ResourceSyncTools.cs" />
+    <Compile Include="Assets\ThirdParty\UnityGameFramework\Scripts\Editor\ResourceSyncTools\ResourceSyncToolsController.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -686,21 +771,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Model.csproj">
-      <Project>{2EC4903E-4963-EF63-D655-19011D9F16B8}</Project>
-      <Name>Model</Name>
+    <ProjectReference Include="UnityGameFramework.Runtime.csproj">
+      <Project>{057A95F3-FB32-1D7A-1800-93B541CF6D76}</Project>
+      <Name>UnityGameFramework.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Hotfix.csproj">
-      <Project>{838CBC86-4284-9E53-6859-AC02C31AA200}</Project>
-      <Name>Hotfix</Name>
-    </ProjectReference>
-    <ProjectReference Include="Test.csproj">
-      <Project>{A1166123-CDAD-D6D9-14CE-3BA0CBAE2415}</Project>
-      <Name>Test</Name>
-    </ProjectReference>
-    <ProjectReference Include="ILRuntime.csproj">
-      <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
-      <Name>ILRuntime</Name>
+    <ProjectReference Include="GameFramework.csproj">
+      <Project>{129AF199-1189-19B6-55FB-E6FF52055C84}</Project>
+      <Name>GameFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

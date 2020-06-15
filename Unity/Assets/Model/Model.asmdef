@@ -1,8 +1,8 @@
 {
     "name": "Model",
     "references": [
-        "ReferenceCollector",
         "ILRuntime",
+        "ReferenceCollector",
         "ShowLog"
     ],
     "optionalUnityReferences": [],
