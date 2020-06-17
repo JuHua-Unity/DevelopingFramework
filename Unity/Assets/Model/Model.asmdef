@@ -3,7 +3,8 @@
     "references": [
         "ILRuntime",
         "ReferenceCollector",
-        "ShowLog"
+        "UnityGameFramework.Runtime",
+        "GameFramework"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

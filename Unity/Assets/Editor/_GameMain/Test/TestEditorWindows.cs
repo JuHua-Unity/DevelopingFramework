@@ -14,11 +14,9 @@ namespace Editors
 
         private bool fold = false;
         private const string path = "Assets/_GameMain/Res/Configs/LaunchOptions.json";
-        private LaunchOptions launchOptions;
 
         private void Awake()
         {
-            launchOptions = IOHelper.StreamReader<LaunchOptions>(path);
         }
 
         private void OnGUI()
@@ -32,7 +30,6 @@ namespace Editors
 
             if (GUILayout.Button("Save"))
             {
-                IOHelper.StreamWriter(LitJson.JsonMapper.ToJson(launchOptions), path);
             }
         }
     }

@@ -1,7 +1,7 @@
 ﻿using ILRuntime.CLR.Method;
 using ILRuntime.Runtime.Enviorment;
 
-namespace ILRuntime.Hotfix
+namespace Model
 {
     internal class ILStaticMethod : IStaticMethod
     {

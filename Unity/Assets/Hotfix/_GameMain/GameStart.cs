@@ -39,7 +39,7 @@ namespace Hotfix
                 Log.Debug($"num={num}");
             }
 
-            Model.Game.ReStart();
+            //Model.Game.ReStart();
         }
     }
 

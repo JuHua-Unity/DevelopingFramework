@@ -10,7 +10,7 @@ namespace Hotfix
         /// </summary>
         public static void InitILRuntime()
         {
-            var appdomain = Model.Game.Hotfix.AppDomain;
+            //var appdomain = Model.GameEntry..AppDomain;
 
             #region appdomain.DelegateManager.RegisterDelegateConvertor
 

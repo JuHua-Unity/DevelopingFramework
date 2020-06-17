@@ -8,13 +8,13 @@
             ILHelper.InitILRuntime();
 #endif
 
-            Model.Game.Hotfix.Update = Update;
-            Model.Game.Hotfix.LateUpdate = LateUpdate;
-            Model.Game.Hotfix.OnApplicationQuit = OnApplicationQuit;
-            Model.Game.Hotfix.OnApplicationFocus = OnApplicationFocus;
-            Model.Game.Hotfix.OnApplicationPause = OnApplicationPause;
+            Model.GameEntry.Hotfix.LateUpdateAction= Update;
+            Model.GameEntry.Hotfix.LateUpdateAction = LateUpdate;
+            Model.GameEntry.Hotfix.OnApplicationQuitAction = OnApplicationQuit;
+            Model.GameEntry.Hotfix.OnApplicationFocusAction = OnApplicationFocus;
+            Model.GameEntry.Hotfix.OnApplicationPauseAction = OnApplicationPause;
 
-            Model.Game.Hotfix.OnMessage = OnMessage;
+            Model.GameEntry.Hotfix.OnMessage = OnMessage;
 
             Log.Debug("热更启动完成！");
             Game.Start();

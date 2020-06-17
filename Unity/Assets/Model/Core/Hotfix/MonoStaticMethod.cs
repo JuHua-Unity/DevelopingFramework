@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace ILRuntime.Hotfix
+namespace Model
 {
     internal class MonoStaticMethod : IStaticMethod
     {

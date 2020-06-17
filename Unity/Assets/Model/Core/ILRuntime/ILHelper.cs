@@ -7,7 +7,6 @@ using LitJson;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
-#if ILRuntime
 namespace Model
 {
     public static class ILHelper
@@ -48,7 +47,7 @@ namespace Model
 
             #region appdomain.RegisterCrossBindingAdaptor
 
-            var assembly = typeof(Init).Assembly;
+            var assembly = typeof(GameEntry).Assembly;
             foreach (var type in assembly.GetTypes())
             {
                 var attrs = type.GetCustomAttributes(typeof(AdaptorAttribute), false);
@@ -296,4 +295,3 @@ namespace Model
 #endif
     }
 }
-#endif

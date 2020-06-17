@@ -7,12 +7,6 @@ namespace Editors
 {
     public class MyEditors : Editor
     {
-        [MenuItem("菜单栏/启动参数配置")]
-        private static void Func1()
-        {
-            LaunchOptionsEditor.Open();
-        }
-
         [MenuItem("Assets/菜单栏/路径")]
         private static void Func_Test()
         {
