@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FreeFileSync XmlType="GUI" XmlFormat="16">
+    <Compare>
+        <Variant>TimeAndSize</Variant>
+        <Symlinks>Exclude</Symlinks>
+        <IgnoreTimeShift/>
+    </Compare>
+    <Synchronize>
+        <Variant>Mirror</Variant>
+        <DetectMovedFiles>false</DetectMovedFiles>
+        <DeletionPolicy>RecycleBin</DeletionPolicy>
+        <VersioningFolder Style="Replace"/>
+    </Synchronize>
+    <Filter>
+        <Include>
+            <Item>\UnityGameFramework\</Item>
+        </Include>
+        <Exclude>
+            <Item>*\.svn\</Item>
+            <Item>*.meta</Item>
+            <Item>\UnityGameFramework\LICENSE</Item>
+            <Item>\UnityGameFramework\README.md</Item>
+            <Item>\UnityGameFramework\package.json</Item>
+            <Item>\UnityGameFramework\Libraries\GameFramework.dll</Item>
+            <Item>\UnityGameFramework\Prefabs\</Item>
+            <Item>\UnityGameFramework\Scripts\Editor\UnityGameFramework.Editor.asmdef</Item>
+            <Item>\UnityGameFramework\Scripts\Runtime\UnityGameFramework.Runtime.asmdef</Item>
+            <Item>\UnityGameFramework\Scripts\Editor\Misc\Type.cs</Item>
+        </Exclude>
+        <TimeSpan Type="None">0</TimeSpan>
+        <SizeMin Unit="None">0</SizeMin>
+        <SizeMax Unit="None">0</SizeMax>
+    </Filter>
+    <FolderPairs>
+        <Pair>
+            <Left>D:\GitHub\DevelopingFramework\ThirdParty</Left>
+            <Right>D:\GitHub\DevelopingFramework\Unity\Assets\ThirdParty</Right>
+        </Pair>
+    </FolderPairs>
+    <Errors Ignore="false" Retry="0" Delay="5"/>
+    <PostSyncCommand Condition="Completion"/>
+    <LogFolder/>
+    <EmailNotification Condition="Always"/>
+    <Gui>
+        <MiddleGridView>Action</MiddleGridView>
+    </Gui>
+</FreeFileSync>

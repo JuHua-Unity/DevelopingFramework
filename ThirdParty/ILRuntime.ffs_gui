@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FreeFileSync XmlType="GUI" XmlFormat="16">
+    <Compare>
+        <Variant>TimeAndSize</Variant>
+        <Symlinks>Exclude</Symlinks>
+        <IgnoreTimeShift/>
+    </Compare>
+    <Synchronize>
+        <Variant>Mirror</Variant>
+        <DetectMovedFiles>false</DetectMovedFiles>
+        <DeletionPolicy>RecycleBin</DeletionPolicy>
+        <VersioningFolder Style="Replace"/>
+    </Synchronize>
+    <Filter>
+        <Include>
+            <Item>\ILRuntime\</Item>
+        </Include>
+        <Exclude>
+            <Item>*.csproj</Item>
+            <Item>*\.svn\</Item>
+            <Item>\ILRuntime\Debugging\</Item>
+            <Item>\ILRuntime\docs\</Item>
+            <Item>\ILRuntime\Documents\</Item>
+            <Item>\ILRuntime\Mono.Cecil\</Item>
+            <Item>\ILRuntime\packages\</Item>
+            <Item>\ILRuntime\TestCases\</Item>
+            <Item>\ILRuntime\ILRuntimeTest\</Item>
+            <Item>*\Properties\</Item>
+            <Item>\ILRuntime\.gitattributes</Item>
+            <Item>\ILRuntime\.gitignore</Item>
+            <Item>*.meta | *.sln</Item>
+            <Item>\ILRuntime\LICENSE.TXT</Item>
+            <Item>\ILRuntime\ReadMe-EN.md</Item>
+            <Item>\ILRuntime\ReadMe.md</Item>
+            <Item>\ILRuntime\ILRuntime.asmdef</Item>
+            <Item>\ILRuntime\Dependencies\ILRuntim.Mono.Cecil.dll.mdb</Item>
+            <Item>\ILRuntime\Dependencies\ILRuntime.Mono.Cecil.Mdb.dll.mdb</Item>
+            <Item>\ILRuntime\Dependencies\ILRuntime.Mono.Cecil.Pdb.dll.mdb</Item>
+        </Exclude>
+        <TimeSpan Type="None">0</TimeSpan>
+        <SizeMin Unit="None">0</SizeMin>
+        <SizeMax Unit="None">0</SizeMax>
+    </Filter>
+    <FolderPairs>
+        <Pair>
+            <Left>D:\GitHub\DevelopingFramework\ThirdParty</Left>
+            <Right>D:\GitHub\DevelopingFramework\Unity\Assets\ThirdParty</Right>
+        </Pair>
+    </FolderPairs>
+    <Errors Ignore="false" Retry="0" Delay="5"/>
+    <PostSyncCommand Condition="Completion"/>
+    <LogFolder/>
+    <EmailNotification Condition="Always"/>
+    <Gui>
+        <MiddleGridView>Action</MiddleGridView>
+    </Gui>
+</FreeFileSync>

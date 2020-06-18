@@ -2,9 +2,11 @@
     "name": "Editors",
     "references": [
         "Model",
-        "Hotfix",
         "Test",
-        "ILRuntime"
+        "ILRuntime",
+        "GameFramework",
+        "UnityGameFramework.Runtime",
+        "UnityGameFramework.Editor"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

@@ -50,9 +50,6 @@ namespace Hotfix
             //OnceWait(5000, () => { StopRepeat(1); });
             //AAA().Coroutine();
             var myClass = new MyClass() {Filed = 1};
-            SetObject("MyClassKey", myClass);
-            var a = GetObject("MyClassKey", new MyClass() {Filed = 2});
-            Log(a.ToString());
 
             RepeatWait(1, 1000, 3, (obj) =>
             {

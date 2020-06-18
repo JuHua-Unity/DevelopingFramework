@@ -60,23 +60,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Model\_Demo\BuiltinDataComponent.cs" />
-    <Compile Include="Assets\Model\_Demo\GameEntry.Builtin.cs" />
-    <Compile Include="Assets\Model\_Demo\GameEntry.cs" />
-    <Compile Include="Assets\Model\_Demo\GameEntry.Custom.cs" />
-    <Compile Include="Assets\Model\_Demo\HotfixComponent.cs" />
-    <Compile Include="Assets\Model\_Demo\ProcedureLaunch.cs" />
-    <Compile Include="Assets\Model\Core\Helper\Define.cs" />
-    <Compile Include="Assets\Model\Core\Hotfix\IInstanceMethod.cs" />
-    <Compile Include="Assets\Model\Core\Hotfix\ILStaticMethod.cs" />
-    <Compile Include="Assets\Model\Core\Hotfix\MonoStaticMethod.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\_DemoAdaptor.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\AdaptorAttribute.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\IAsyncStateMachineAdaptor.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\ITest.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\Adaptor\ITestAdaptor.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\ILBinding\CLRBindings.cs" />
-    <Compile Include="Assets\Model\Core\ILRuntime\ILHelper.cs" />
+    <Compile Include="Assets\Model\_GameMain\Base\GameEntry.Builtin.cs" />
+    <Compile Include="Assets\Model\_GameMain\Base\GameEntry.cs" />
+    <Compile Include="Assets\Model\_GameMain\Base\GameEntry.Custom.cs" />
+    <Compile Include="Assets\Model\_GameMain\Hotfix\HotfixComponent.cs" />
+    <Compile Include="Assets\Model\_GameMain\LaunchOption\LaunchOptionComponent.cs" />
+    <Compile Include="Assets\Model\_GameMain\Procedure\ProcedureLaunch.cs" />
+    <Compile Include="Assets\Model\Helper\Define.cs" />
+    <Compile Include="Assets\Model\Hotfix\IInstanceMethod.cs" />
+    <Compile Include="Assets\Model\Hotfix\ILStaticMethod.cs" />
+    <Compile Include="Assets\Model\Hotfix\MonoStaticMethod.cs" />
+    <Compile Include="Assets\Model\ILRuntime\Adaptor\_DemoAdaptor.cs" />
+    <Compile Include="Assets\Model\ILRuntime\Adaptor\AdaptorAttribute.cs" />
+    <Compile Include="Assets\Model\ILRuntime\Adaptor\IAsyncStateMachineAdaptor.cs" />
+    <Compile Include="Assets\Model\ILRuntime\Adaptor\ITest.cs" />
+    <Compile Include="Assets\Model\ILRuntime\Adaptor\ITestAdaptor.cs" />
+    <Compile Include="Assets\Model\ILRuntime\ILBinding\CLRBindings.cs" />
+    <Compile Include="Assets\Model\ILRuntime\ILHelper.cs" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>D:/Unity2018.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -691,6 +691,10 @@
     <ProjectReference Include="GameFramework.csproj">
       <Project>{129AF199-1189-19B6-55FB-E6FF52055C84}</Project>
       <Name>GameFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="Protobuf.csproj">
+      <Project>{1EC6A501-047D-C1C9-08A6-0F99736A5ECE}</Project>
+      <Name>Protobuf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

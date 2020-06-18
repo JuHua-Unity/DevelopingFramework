@@ -60,13 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\_GameMain\Build\BuildEventHandler.cs" />
+    <Compile Include="Assets\Editor\_GameMain\Build\GameFrameworkConfigs.cs" />
+    <Compile Include="Assets\Editor\_GameMain\DataTableGenerator\DataTableGenerator.cs" />
+    <Compile Include="Assets\Editor\_GameMain\DataTableGenerator\DataTableGeneratorMenu.cs" />
     <Compile Include="Assets\Editor\_GameMain\MyEditors.cs" />
     <Compile Include="Assets\Editor\_GameMain\Test\TestEditors.cs" />
     <Compile Include="Assets\Editor\_GameMain\Test\TestEditorWindows.cs" />
-    <Compile Include="Assets\Editor\AssetBundle\AssetBundleNameEditor.cs" />
-    <Compile Include="Assets\Editor\AssetBundle\AssetBundlesEditor.cs" />
-    <Compile Include="Assets\Editor\Build\BuildWindow.cs" />
-    <Compile Include="Assets\Editor\CustomEditors.cs" />
     <Compile Include="Assets\Editor\Helper\Define.cs" />
     <Compile Include="Assets\Editor\Helper\IOHelper.cs" />
     <Compile Include="Assets\Editor\Helper\ProcessHelper.cs" />
@@ -688,10 +688,6 @@
       <Project>{2EC4903E-4963-EF63-D655-19011D9F16B8}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="Hotfix.csproj">
-      <Project>{838CBC86-4284-9E53-6859-AC02C31AA200}</Project>
-      <Name>Hotfix</Name>
-    </ProjectReference>
     <ProjectReference Include="Test.csproj">
       <Project>{A1166123-CDAD-D6D9-14CE-3BA0CBAE2415}</Project>
       <Name>Test</Name>
@@ -699,6 +695,18 @@
     <ProjectReference Include="ILRuntime.csproj">
       <Project>{AF29ACDC-CCC1-7732-751C-DD00BD5BD005}</Project>
       <Name>ILRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="GameFramework.csproj">
+      <Project>{129AF199-1189-19B6-55FB-E6FF52055C84}</Project>
+      <Name>GameFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityGameFramework.Runtime.csproj">
+      <Project>{057A95F3-FB32-1D7A-1800-93B541CF6D76}</Project>
+      <Name>UnityGameFramework.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityGameFramework.Editor.csproj">
+      <Project>{3C05EE60-BDAF-BD40-5F9E-17703ECD8866}</Project>
+      <Name>UnityGameFramework.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

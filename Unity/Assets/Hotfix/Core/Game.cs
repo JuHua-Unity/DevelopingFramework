@@ -131,7 +131,7 @@ namespace Hotfix
 
         public static void Start()
         {
-            GameStart.Start();
+            //GameStart.Start();
         }
 
         public static void ReStart()
@@ -148,7 +148,7 @@ namespace Hotfix
                 componentSystem = null;
             }
 
-            GameStart.Start();
+            //GameStart.Start();
         }
     }
 }

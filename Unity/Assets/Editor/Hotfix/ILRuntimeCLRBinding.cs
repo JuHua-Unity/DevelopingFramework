@@ -10,7 +10,7 @@ namespace Editors
 {
     public static class ILRuntimeCLRBinding
     {
-        private static readonly string path = "Assets/Model/Core/ILRuntime/ILBinding";
+        private static readonly string path = "Assets/Model/ILRuntime/ILBinding";
 
         [MenuItem("Tools/ILRuntime/Generate CLR Binding Code by Analysis")]
         public static void GenerateCLRBindingByAnalysis()

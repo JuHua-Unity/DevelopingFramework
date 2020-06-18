@@ -5,7 +5,8 @@
         "ILRuntime",
         "Async",
         "ObjectView",
-        "FairyGUI"
+        "FairyGUI",
+        "UnityGameFramework.Runtime"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

@@ -4,4 +4,7 @@
 /Unity/obj/
 /Unity/.vs/
 /Release/
-/ThirdParty/
+/ThirdParty/ET5.0/
+/ThirdParty/GameFramework/
+/ThirdParty/ILRuntime/
+/ThirdParty/UnityGameFramework/

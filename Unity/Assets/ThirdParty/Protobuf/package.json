@@ -1,0 +1,9 @@
+{
+  "name": "google.protobuf.package",
+  "displayName": "Protobuf",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "category": "",
+  "dependencies": {}
+}

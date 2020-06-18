@@ -4,7 +4,8 @@
         "ILRuntime",
         "ReferenceCollector",
         "UnityGameFramework.Runtime",
-        "GameFramework"
+        "GameFramework",
+        "Protobuf"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

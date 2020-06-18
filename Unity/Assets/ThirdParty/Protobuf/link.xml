@@ -1,0 +1,3 @@
+<linker>
+  <assembly fullname="Protobuf" preserve="all"/>
+</linker>
