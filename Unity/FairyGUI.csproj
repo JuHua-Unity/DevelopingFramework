@@ -64,7 +64,6 @@
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\CaptureCamera.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Container.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\DisplayObject.cs" />
-    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\DisplayOptions.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\GoWrapper.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\HitTest\ColliderHitTest.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\HitTest\HitTestContext.cs" />
@@ -85,11 +84,11 @@
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Mesh\RectMesh.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Mesh\RegularPolygonMesh.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Mesh\RoundedRectMesh.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Mesh\StraightLineMesh.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Mesh\VertexBuffer.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\MovieClip.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\NAudioClip.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\NGraphics.cs" />
-    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\NMaterial.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\NTexture.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\ShaderConfig.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Shape.cs" />
@@ -99,7 +98,6 @@
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Stats.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\BaseFont.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\BitmapFont.cs" />
-    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\CopyPastePatch.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\DynamicFont.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\Emoji.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\Core\Text\FontManager.cs" />
@@ -164,6 +162,7 @@
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GLabel.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GList.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GLoader.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GLoader3D.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GMovieClip.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GObject.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\GObjectPool.cs" />
@@ -179,7 +178,6 @@
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\IUISource.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\Margin.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\PackageItem.cs" />
-    <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\PageOption.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\PopupMenu.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\RelationItem.cs" />
     <Compile Include="Assets\ThirdParty\FairyGUI\Scripts\UI\Relations.cs" />

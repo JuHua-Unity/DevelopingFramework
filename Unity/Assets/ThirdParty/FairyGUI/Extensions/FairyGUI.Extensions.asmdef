@@ -1,0 +1,14 @@
+{
+    "name": "FairyGUI.Extensions",
+    "references": [
+        "FairyGUI"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

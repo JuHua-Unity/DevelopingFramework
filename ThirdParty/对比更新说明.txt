@@ -3,16 +3,22 @@ GameFramework:https://github.com/EllanJiang/GameFramework.git/trunk
 UnityGameFramework:https://github.com/EllanJiang/UnityGameFramework.git/trunk
 ILRuntime:https://github.com/Ourpalm/ILRuntime.git/trunk
 ET5.0:https://github.com/egametang/ET.git/branches/Branch_V5.0
+FairyGUI:https://github.com/fairygui/FairyGUI-unity.git/trunk
 
 
 
 
 在此基础上做的修改(通过文件同步工具更新到unity工程内) 如下：
 UnityGameFramework.ffs_gui
-	\UnityGameFramework\Scripts\Editor\Misc\Type.cs  增加Model到可查询Assembly里面
+	\UnityGameFramework\Scripts\Editor\Misc\Type.cs->增加Model到可查询Assembly里面
 
 GameFramework_ToModel.ffs_gui
-	\GameFramework\GameFramework.asmdef  增加AssemblyDefinition方便使用
+	\GameFramework\GameFramework.asmdef->增加AssemblyDefinition方便使用
 
 Google.Protobuf.ffs_gui
-	\Google.Protobuf\ByteString.cs  去掉MongoDB相关的Attributes
+	\Google.Protobuf\ByteString.cs->去掉MongoDB相关的Attributes
+
+FairyGUI.ffs_gui
+	\Scripts\FairyGUI.asmdef->增加AssemblyDefinition方便使用
+	\Scripts\Editor\FairyGUI.Editor.asmdef->增加AssemblyDefinition方便使用
+	\Extensions\FairyGUI.Extensions.asmdef->增加AssemblyDefinition方便使用

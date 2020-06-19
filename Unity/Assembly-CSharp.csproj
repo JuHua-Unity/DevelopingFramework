@@ -60,34 +60,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\AdaptHelper.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\ByteArray.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\ByteString.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\CodedInputStream.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\CodedOutputStream.ComputeSize.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\CodedOutputStream.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\FieldCodec.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\ICustomDiagnosticMessage.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\IMessage.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\InvalidProtocolBufferException.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\LimitedInputStream.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\MessageExtensions.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\MessageParser.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\PropertyInfoExtensions.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\ProtoPreconditions.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\RepeatedField.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\StreamExtensions.cs" />
-    <Compile Include="Assets\ThirdParty\Protobuf\Google.Protobuf\WireFormat.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Extensions\DragonBones\DragonBonesLoader.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Extensions\Spine\SpineLoader.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Extensions\TextMeshPro\TMPFont.cs" />
+    <Compile Include="Assets\ThirdParty\FairyGUI\Extensions\TextMeshPro\TMPTextFormat.cs" />
     <None Include="Assets\ThirdParty\FairyGUI\Resources\Shaders\AddOn\FairyGUI-BlurFilter.shader" />
     <None Include="Assets\ThirdParty\UnityGameFramework\Libraries\link.xml" />
-    <None Include="Assets\ThirdParty\Protobuf\link.xml" />
     <None Include="Assets\ThirdParty\Async\link.xml" />
     <None Include="Assets\ThirdParty\ObjectView\link.xml" />
     <None Include="Assets\ThirdParty\ReferenceCollector\link.xml" />
-    <None Include="Assets\ThirdParty\FairyGUI\link.xml" />
     <None Include="Assets\ThirdParty\FairyGUI\Resources\Shaders\FairyGUI-Image.shader" />
-    <None Include="Assets\ThirdParty\FairyGUI\ReadMe - 3.5.1.txt" />
     <None Include="Assets\ThirdParty\FairyGUI\Resources\Shaders\FairyGUI-BMFont.shader" />
+    <None Include="Assets\ThirdParty\FairyGUI\Extensions\TextMeshPro\Shaders\FairyGUI-TMP.shader" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\ThirdParty\UnityGameFramework\Libraries\GameFramework.xml" />
     <None Include="Assets\ThirdParty\FairyGUI\Resources\Shaders\FairyGUI-Text.shader" />
@@ -688,6 +672,10 @@
     <ProjectReference Include="Editors.csproj">
       <Project>{177FA8EE-6FC3-8514-F61B-9691559B2B68}</Project>
       <Name>Editors</Name>
+    </ProjectReference>
+    <ProjectReference Include="Protobuf.csproj">
+      <Project>{1EC6A501-047D-C1C9-08A6-0F99736A5ECE}</Project>
+      <Name>Protobuf</Name>
     </ProjectReference>
     <ProjectReference Include="Model.csproj">
       <Project>{2EC4903E-4963-EF63-D655-19011D9F16B8}</Project>

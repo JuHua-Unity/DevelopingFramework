@@ -683,6 +683,10 @@
       <Project>{5C351BF4-1A33-48AF-B348-52FD7A76B064}</Project>
       <Name>FairyGUI</Name>
     </ProjectReference>
+    <ProjectReference Include="FairyGUI.Extensions.csproj">
+      <Project>{3BBE1F92-F82E-29AF-13F3-74202EFC7B16}</Project>
+      <Name>FairyGUI.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -1,7 +1,8 @@
 {
     "name": "FairyGUI.Editor",
     "references": [
-        "FairyGUI"
+        "FairyGUI",
+        "FairyGUI.Extensions"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [
